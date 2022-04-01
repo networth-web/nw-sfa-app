@@ -8,8 +8,7 @@ class Activity < ApplicationRecord
 
   # enum
   enum activity_type: { 行動: 1, 商談: 2, 取引: 3 }, _prefix: true
-  enum meeting_type: { 商談: 1, 面談: 2 }, _prefix: true
-  enum order_type: { 契約: 1, 申込: 2 }, _prefix: true
+  enum meeting_type: { 面談: 1, 初訪: 2, 再訪: 3, 買い増し: 4, 紹介依頼: 5 }, _prefix: true
 
   # バリデーション
   with_options presence: true do
@@ -20,8 +19,8 @@ class Activity < ApplicationRecord
 
   validates :action_name, presence: true, if: Proc.new { |activity| activity.activity_type == "行動" }
   validates :meeting_type, presence: true, if: Proc.new { |activity| activity.activity_type == "商談" }
-  validates :order_type, presence: true, if: Proc.new { |activity| activity.activity_type == "取引" }
   validates :end_date_time, presence: true, if: Proc.new { |activity| activity.activity_type == "商談" }
+  validates :meeting_result, presence: true, if: Proc.new { |activity| activity.activity_type == "商談" }
   validates :property, presence: true, if: Proc.new { |activity| activity.activity_type == "取引" }
 
   # スコープ

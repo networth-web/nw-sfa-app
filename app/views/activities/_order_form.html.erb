@@ -1,7 +1,7 @@
 <% if activity.new_record? %>
-  <h6 class="pb-2 fs-12 text-center">取引を作成</h6>
+  <h6 class="pb-2 fs-12 text-center">契約を作成</h6>
 <% else %>
-  <h6 class="pb-2 fs-12 text-center">取引を編集</h6>
+  <h6 class="pb-2 fs-12 text-center">契約を編集</h6>
 <% end %>
 
 <%= form_with model: [lead, activity], id: "orderForm" do |f| %>
@@ -14,16 +14,7 @@
     <%= f.hidden_field :activity_type, :value => "取引" %>
 
     <div>
-      <%= f.label :order_type, '取引タイプ', class: "form-label font-weight-bold" %><span class="text-danger">【必須】</span>
-      <%= f.collection_radio_buttons :order_type, Activity.order_types, :first , :first do |b| %>
-        <div class="form-check">
-          <%= b.label(class: "form-check-label") { b.radio_button(class: "form-check-input") + b.text } %>
-        </div>
-      <% end %>
-    </div>
-
-    <div>
-      <%= f.label :start_date_time, '取引日時', class: "form-label font-weight-bold" %><span class="text-danger">【必須】</span>
+      <%= f.label :start_date_time, '契約日時', class: "form-label font-weight-bold" %><span class="text-danger">【必須】</span>
       <%= f.datetime_field :start_date_time, include_blank: true, class: "form-control w-auto" %>
     </div>
 

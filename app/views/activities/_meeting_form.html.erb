@@ -38,6 +38,11 @@
     </div>
 
     <div>
+      <%= f.label :meeting_result, '商談結果', class: "form-label font-weight-bold" %><span class="text-danger">【必須】</span>
+      <%= f.text_field :meeting_result, placeholder: "商談結果", class: "form-control" %>
+    </div>
+
+    <div>
       <%= f.label :overview, '概要', class: "form-label font-weight-bold" %><span class="text-danger">【必須】</span>
       <%= f.text_area :overview, placeholder: "概要", class: "form-control mh-300p" %>
     </div>

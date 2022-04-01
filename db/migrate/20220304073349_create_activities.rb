@@ -8,6 +8,7 @@ class CreateActivities < ActiveRecord::Migration[6.0]
       t.text       :overview,        null: false
       t.datetime   :start_date_time, null: false
       t.datetime   :end_date_time
+      t.string     :meeting_result
       t.references :lead,            null: false, foreign_key: true
       t.references :creator,         null: false, foreign_key: { to_table: :users }
       t.references :attender,                     foreign_key: { to_table: :users }

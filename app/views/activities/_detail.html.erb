@@ -10,7 +10,7 @@
       <div class="d-flex justify-content-between align-items-center">
         <!-- 左 -->
         <div>
-          <h6><%= activity.activity_type %></h6>
+          <h6><%= activity.action_name.truncate(20) %></h6>
           <span class="fs-7"><%= activity.creator.name %>さんが活動を記録しました</span>
         </div>
         <!-- 右 -->
@@ -39,13 +39,6 @@
         <!-- ボディー -->
         <div class="pt-2 d-flex flex-column gap-1">
           
-          <div>
-            <span class="font-weight-bold fs-8">行動名</span>
-            <div>
-              <span class="fs-9"><%= activity.action_name %></span>
-            </div>
-          </div>
-
           <div>
             <span class="font-weight-bold fs-8">行動日時</span>
             <div>
@@ -77,7 +70,9 @@
       <div class="d-flex justify-content-between align-items-center">
         <!-- 左 -->
         <div>
-          <h6><%= activity.activity_type %></h6>
+          <div class="d-flex align-items-center">
+            <h6><%= activity.meeting_type %></h6>（結果：<%= activity.meeting_result.truncate(15) %>）
+          </div>
           <span class="fs-7"><%= activity.creator.name %>さんが活動を記録しました</span>
         </div>
         <!-- 右 -->
@@ -105,25 +100,20 @@
       <div data-toggle-content="<%= activity.id %>", style="display: none;">
         <!-- ボディー -->
         <div class="pt-2 d-flex flex-column gap-1">
-          
-          <div>
-            <span class="font-weight-bold fs-8">商談タイプ</span>
-            <div>
-              <span class="fs-9"><%= activity.meeting_type %></span>
-            </div>
-          </div>
 
-          <div>
-            <span class="font-weight-bold fs-8">商談開始日時</span>
-            <div>
-              <span class="fs-9"><%= l activity.start_date_time %></span>
+          <div class="d-flex">
+            <div class="w-50">
+              <span class="font-weight-bold fs-8">商談開始日時</span>
+              <div>
+                <span class="fs-9"><%= l activity.start_date_time %></span>
+              </div>
             </div>
-          </div>
           
-          <div>
-            <span class="font-weight-bold fs-8">商談終了日時</span>
             <div>
-              <span class="fs-9"><%= l activity.end_date_time %></span>
+              <span class="font-weight-bold fs-8">商談終了日時</span>
+              <div>
+                <span class="fs-9"><%= l activity.end_date_time %></span>
+              </div>
             </div>
           </div>
 
@@ -158,7 +148,7 @@
       <div class="d-flex justify-content-between align-items-center">
         <!-- 左 -->
         <div>
-          <h6 class="fs-9"><%= activity.activity_type %></h6>
+          <h6 class="fs-9">契約</h6>
           <span class="fs-7"><%= activity.creator.name %>さんが活動を記録しました</span>
         </div>
         <!-- 右 -->
@@ -186,32 +176,27 @@
       <div data-toggle-content="<%= activity.id %>", style="display: none;">
         <!-- ボディー -->
         <div class="pt-2 d-flex flex-column gap-1">
-          
-          <div>
-            <span class="font-weight-bold fs-8">取引タイプ</span>
-            <div>
-              <span class="fs-9"><%= activity.order_type %></span>
-            </div>
-          </div>
 
           <div>
-            <span class="font-weight-bold fs-8">取引日時</span>
+            <span class="font-weight-bold fs-8">契約日時</span>
             <div>
               <span class="fs-9"><%= l activity.start_date_time %></span>
             </div>
           </div>
 
-          <div>
-            <span class="font-weight-bold fs-8">物件</span>
-            <div>
-              <span class="fs-9"><%= link_to activity.property.name, property_path(activity.property), class: "text-link" %></span>
+          <div class="d-flex">
+            <div class="w-50">
+              <span class="font-weight-bold fs-8">同席者</span>
+              <div>
+                <span class="fs-9"><%= activity.attender&.name %></span>
+              </div>
             </div>
-          </div>
 
-          <div>
-            <span class="font-weight-bold fs-8">同席者</span>
             <div>
-              <span class="fs-9"><%= activity.attender&.name %></span>
+              <span class="font-weight-bold fs-8">物件</span>
+              <div>
+                <span class="fs-9"><%= link_to activity.property.name, property_path(activity.property), class: "text-link" %></span>
+              </div>
             </div>
           </div>
 
