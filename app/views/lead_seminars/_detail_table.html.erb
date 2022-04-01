@@ -1,0 +1,31 @@
+<table class="index-table-2">
+  <tr>
+    <th><span>名前</span></th>
+    <th><span>担当者</span></th>
+    <th><span>トラッキングID</span></th>
+    <th><span>出席</span></th>
+    <th><span>承認</span></th>
+  </tr>
+  <% @lead_seminars.each do |lead_seminar| %>
+    <tr>
+      <td>
+        <%= link_to lead_seminar.lead.name, lead_path(lead_seminar.lead.id) %>
+      </td>
+      <td>
+        <%= lead_seminar.lead.owner&.name %>
+      </td>
+      <td>
+        <%= lead_seminar&.tracking_id %>
+      </td>
+      <td>
+        <%= render partial: 'lead_seminars/attend_form', locals: { lead_seminar: lead_seminar } %>
+      </td>
+      <td>
+        <div data-approval-form-wrap="<%= lead_seminar.id %>">
+          <%= render partial: 'lead_seminars/approval_form', locals: { lead_seminar: lead_seminar } %>
+        </div>
+        <%= link_to "", edit_reason_lead_seminar_path(lead_seminar), data: {approval_link: lead_seminar.id}, remote: true %>
+      </td>
+    </tr>
+  <% end %>
+</table>

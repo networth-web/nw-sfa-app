@@ -1,0 +1,63 @@
+<main>
+  <!-- ナビゲーター -->
+  <div class="position-absolute">
+    <%= link_to all_leads_leads_path, class: "" do %>
+      <i class="fa-solid fa-chevron-left"></i> 戻る
+    <% end %>
+  </div>
+  <div class="content-wrap w-75 mx-auto pt-3 pb-5 px-3 pb-5">
+    <div>
+      <!-- ヘッダー -->
+      <div class="p-3 d-flex justify-content-between">
+        <!-- 左 -->
+        <div class="d-flex flex-column justify-content-between gap-4">
+          <!-- 上段 -->
+          <div class="d-flex align-items-end gap-2">
+            <i class="fa-solid fa-file-import fa-lg text-white rounded-4 d-flex justify-content-center align-items-center" style="width: 45px; height: 45px; background-color: #1E90FF;"></i>
+            <h6 class="font-weight-bold fs-15 pb-2 px-1" style="border-bottom: dashed 1px #d3d6de;">CSVインポート</h6>
+          </div>
+          <!-- 下段 -->
+          <div class="d-flex justify-content-between">
+          </div>
+        </div>
+        <!-- 右 -->
+        <div class="d-flex flex-column justify-content-between">
+          <!-- 上段 -->
+          <div class="d-flex gap-1">
+          </div>
+          <!-- 下段 -->
+          <div class="d-flex justify-content-end gap-2">
+          </div>
+        </div>
+      </div>
+      <!-- ボディー -->
+      <!-- エラー -->
+      <% if @errors.present? %>
+        <div class="pb-3">
+          <div class="error-messsages">
+            <% @errors.each do |error| %>
+              <div class="pb-3">
+                <%= error[:row_num] %>行目にエラーが発生しました。
+              </div>
+              <ul>
+                <% error[:messages].each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+      <!-- フォーム -->
+      <%= form_with url: csv_import_leads_path, local: true, class: "pb-3" do |f| %>
+        <div class="pb-2">
+          <label for="formFileLg" class="form-label">ファイルを選択してください</label>
+          <%= f.file_field :file, accept: '.csv', id: "formFileLg", class: "form-control form-control-lg", required: "required" %>
+        </div>
+        <div class="d-grid pt-2">
+          <%= f.submit "アップロード", class: "btn btn-primary btn-lg" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</main>

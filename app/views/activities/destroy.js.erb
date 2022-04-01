@@ -1,0 +1,31 @@
+<%# 要素を削除 %>
+$(`[data-activity=<%= @activity.id %>]`).fadeOut('fast').queue(function() {
+  $(`[data-activity=<%= @activity.id %>]`).remove();
+});
+
+<%# フォームが開いていてインスタンスが同じならフォームを閉じる %>
+if ($('#actionFormWrap').css('display') == 'block') {
+  let action = $('#actionFormWrap form').attr('action');
+  let path = "<%= lead_activity_path(@lead, @activity) %>";
+  if(action == path) {
+    $(".form-wrap").hide();
+  }
+} else if ($('#meetingFormWrap').css('display') == 'block') {
+  let action = $('#meetingFormWrap form').attr('action');
+  let path = "<%= lead_activity_path(@lead, @activity) %>";
+  if(action == path) {
+    $(".form-wrap").hide();
+  }
+} else if ($('#orderFormWrap').css('display') == 'block') {
+  let action = $('#orderFormWrap form').attr('action');
+  let path = "<%= lead_activity_path(@lead, @activity) %>";
+  if(action == path) {
+    $(".form-wrap").hide();
+  }
+}
+
+<%# noActivityをレンダリング %>
+$("#noActivity").html("<%= j(render partial: 'activities/no_activity', locals: { activities: @activities }) %>");
+
+<%# フラッシュの表示 %>
+$("#flash").html("<%= j(render 'layouts/flash') %>");

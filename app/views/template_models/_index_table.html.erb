@@ -1,0 +1,18 @@
+<table class="index-table-2">
+  <!-- ヘッダー -->
+  <tr>
+    <th>種類</th>
+    <th>テキスト</th>
+  </tr>
+  <!-- ボディー -->
+  <% templates.each do |template| %>
+    <tr>
+      <td>
+        <%= link_to template.template_type, admin_template_model_path(template) %>
+      </td>
+      <td>
+        <%= template.template_text.truncate(30) %>
+      </td>
+    </tr>
+  <% end %>
+</table>

@@ -1,0 +1,32 @@
+<!-- ヘッダー -->
+<div class="d-flex justify-content-between">
+  <div>
+    <h6>営業プロセス</h6>
+  </div>
+  <%= form_with model: lead, url: update_sales_process_lead_path(lead), local: true do |f| %>
+    <%= f.hidden_field :sales_process_id, :value => lead.sales_process_id + 1 %>
+    <%= f.submit "プロセスを更新", id: "salesProcessButton", class: "btn btn-outline-primary btn-rounded", data: { mdb_ripple_color: "dark" } %>
+  <% end %>
+</div>
+<!-- ボディー -->
+<div class="ps-2 d-flex align-items-center flex-wrap" style="gap: 10px 12px;">
+  <% sales_processes.each do |sales_process| %>
+    <!-- active -->
+    <% if sales_process.id == @lead.sales_process.id %>
+      <div class="flow is-current is-active">
+        <span class="fs-8"><%= sales_process.name %></span>
+      </div>
+    <!-- done -->
+    <% elsif sales_process.id <= @lead.sales_process.id %>
+      <div class="flow is-done">
+        <span class="front"><i class="fa-solid fa-circle-check text-white"></i></span>
+        <span class="flipped fs-8"><%= sales_process.name %></span>
+      </div>
+    <!-- normal -->
+    <% else %>
+      <div class="flow">
+        <span class="fs-8"><%= sales_process.name %></span>
+      </div>
+    <% end %>
+  <% end %>
+</div>

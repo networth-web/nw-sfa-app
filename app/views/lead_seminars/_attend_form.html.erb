@@ -1,0 +1,7 @@
+<%= form_with model: lead_seminar, url: update_attend_lead_seminar_path(lead_seminar), html: {data: {attend_form: lead_seminar.id}} do |f| %>
+
+  <%= f.collection_select :attend_id, Attend.all, :id, :name, {}, {class: "attend-select", data: {attend_select: lead_seminar.id}} %>
+
+  <%= f.submit "送信", class: "d-none" %>
+
+<% end %>

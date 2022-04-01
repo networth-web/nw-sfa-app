@@ -1,0 +1,69 @@
+<% if activity.new_record? %>
+  <h6 class="pb-2 fs-12 text-center">商談を作成</h6>
+<% else %>
+  <h6 class="pb-2 fs-12 text-center">商談を編集</h6>
+<% end %>
+
+<%= form_with model: [lead, activity], id: "meetingForm" do |f| %>
+  <div class="py-3 d-flex flex-column gap-3" style="border-top: 1px dashed #d3d6de; border-bottom: 1px dashed #d3d6de;">
+    <%# エラーメッセージ %>
+    <%= render 'layouts/error_messages', model: f.object %>
+
+    <%= f.hidden_field :form_type, :value => "meeting" %>
+
+    <%= f.hidden_field :activity_type, :value => "商談" %>
+
+    <div>
+      <%= f.label :meeting_type, '商談タイプ', class: "form-label font-weight-bold" %><span class="text-danger">【必須】</span>
+      <%= f.collection_radio_buttons :meeting_type, Activity.meeting_types, :first , :first do |b| %>
+        <div class="form-check">
+          <%= b.label(class: "form-check-label") { b.radio_button(class: "form-check-input") + b.text } %>
+        </div>
+      <% end %>
+    </div>
+
+    <div>
+      <%= f.label :start_date_time, '開始日時', class: "form-label font-weight-bold" %><span class="text-danger">【必須】</span>
+      <%= f.datetime_field :start_date_time, include_blank: true, class: "form-control w-auto" %>
+    </div>
+
+    <div>
+      <%= f.label :end_date_time, '終了日時', class: "form-label font-weight-bold" %><span class="text-danger">【必須】</span>
+      <%= f.datetime_field :end_date_time, include_blank: true, class: "form-control w-auto" %>
+    </div>
+
+    <div>
+      <%= f.label :attendee_id, '同席者', class: "form-label font-weight-bold" %>
+      <%= f.collection_select :attender_id, User.all, :id, :name, {include_blank: "---"}, {class: "form-control w-auto"} %>
+    </div>
+
+    <div>
+      <%= f.label :overview, '概要', class: "form-label font-weight-bold" %><span class="text-danger">【必須】</span>
+      <%= f.text_area :overview, placeholder: "概要", class: "form-control mh-300p" %>
+    </div>
+
+    <div>
+      <% if activity.new_record? %>
+        <% templates = TemplateModel.all %>
+        <% templates.each do |template| %>
+          <div>
+            <input type="hidden" value="<%= template.template_text %>">
+            <input type="checkbox" class="checkbox" id="checkbox-<%= template.id %>">
+            <label for="checkbox-<%= template.id %>">テンプレート<%= template.id %>（<%= template.template_type %>）を使用</label>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+
+  </div>
+
+  <div class="pt-3 d-flex justify-content-end gap-2">
+    <button type="button" class="btn btn-light close-form" data-mdb-ripple-color="dark">閉じる</button>
+    <% if activity.new_record? %>
+      <%= f.submit "作成", class: "btn btn-primary" %>
+    <% else %>
+      <%= f.submit "更新", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+
+<% end %>

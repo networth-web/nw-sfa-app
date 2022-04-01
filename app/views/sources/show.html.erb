@@ -1,0 +1,43 @@
+<main class="pt-0">
+  <!-- ナビゲーター -->
+  <div class="position-absolute pt-3">
+    <%= link_to sources_path, class: "" do %>
+      <i class="fa-solid fa-chevron-left"></i> 一覧
+    <% end %>
+  </div>
+  <!-- ヘッダー -->
+  <h4 class="text-center py-4">ソース詳細</h4>
+  <!-- ボディー -->
+  <div class="content-wrap w-60 mx-auto py-4">
+    <div class="w-50 mx-auto d-flex flex-column gap-3">
+    
+      <div>
+        <span class="box-heading pb-2">名前</span>
+        <span><%= @source.name %></span>
+      </div>
+
+      <div>
+        <span class="box-heading pb-2">承認</span>
+        <span><%= @source.approval ? "有り" : "無し" %></span>
+      </div>
+
+      <div>
+        <span class="box-heading pb-2">担当者</span>
+        <span><%= @source.user.name %></span>
+      </div>
+
+      <div>
+        <span class="box-heading pb-2">説明</span>
+        <span><%= safe_join(@source.description.split("\n"),tag(:br)) %></span>
+      </div>
+
+    </div>
+  </div>
+  <!-- ボタン -->
+  <% if admin? %>
+    <div class="pt-4 d-flex justify-content-center gap-3">
+      <%= link_to "編集", edit_source_path(@source), class: "btn btn-primary btn-rounded btn-lg px-5" %>
+      <%= link_to "削除", source_path(@source), method: :delete, class: "btn btn-danger btn-rounded btn-lg px-5", data: { confirm: '削除しますか？' } %>
+    </div>
+  <% end %>
+</main>

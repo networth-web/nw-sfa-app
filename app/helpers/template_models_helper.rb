@@ -1,0 +1,2 @@
+module TemplateModelsHelper
+end

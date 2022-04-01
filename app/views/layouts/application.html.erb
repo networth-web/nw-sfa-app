@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>NwSfaApp</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <%= favicon_link_tag('favicon.png') %>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <!-- GoogleFonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <script src="https://kit.fontawesome.com/029941fddb.js" crossorigin="anonymous"></script>
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.css" rel="stylesheet"/>
+    
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <!-- フラッシュ -->
+    <div id="flash">
+      <%= render partial: 'layouts/flash', locals: {} %>
+    </div>
+    <!-- ヘッダー -->
+    <%= render partial: 'layouts/header', locals: {} %>
+    <div class="d-flex position-relative">
+      <% if user_signed_in? %>
+        <!-- ローディング -->
+        <%= render 'layouts/loading' %>
+      <% end %>
+      <!-- 管理画面 -->
+      <% if request.url.include?('/admin') %>
+        <%= render partial: 'layouts/admin', locals: {} %>
+      <% end %>
+      <%= yield %>
+    </div>
+    
+    <!-- MDB -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.js"></script>
+  </body>
+</html>
+

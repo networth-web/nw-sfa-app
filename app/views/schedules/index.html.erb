@@ -1,0 +1,55 @@
+<main>
+  <div class="content-wrap content-wrap--table content-wrap--height">
+    <div>
+      <!-- ヘッダー -->
+      <div class="p-3 d-flex justify-content-between">
+        <!-- 左 -->
+        <div class="d-flex flex-column justify-content-between gap-4">
+          <!-- 上段 -->
+          <div class="main-heading">
+            <i class="fa-solid fa-calendar-days fa-lg main-heading--box"></i>
+            <h6 class="main-heading--title">カレンダー</h6>
+          </div>
+          <!-- 下段 -->
+          <div class="d-flex justify-content-between">
+          </div>
+        </div>
+        <!-- 右 -->
+        <div class="d-flex flex-column justify-content-between">
+          <!-- 上段 -->
+          <div class="d-flex gap-1">
+          </div>
+          <!-- 下段 -->
+          <div class="d-flex justify-content-end gap-2">
+          </div>
+        </div>
+      </div>
+      <!-- テーブル -->
+      <div class="px-3">
+        <%= month_calendar do |date| %>
+          <%= date.day %>
+          <div class="pt-2 d-flex flex-column gap-1">
+            <!-- セミナー -->
+            <% @seminars = Seminar.where(start_date_time: date.in_time_zone.all_day) %>
+            <% @seminars.each do |seminar| %>
+              <div class="fs-14 text-start rounded-3 p-2" style="background-color: #3A87AD;">
+                <%= link_to seminar_path(seminar), class: "text-link text-white" do %>
+                  セミナー（<%= l seminar.start_date_time, format: :short_time %>〜）
+                <% end %>
+              </div>
+            <% end %>
+            <!-- スケジュール -->
+            <% @schedules = Schedule.where(schedule_date_time: date.in_time_zone.all_day, creator_id: current_user.id).or(Schedule.where(schedule_date_time: date.in_time_zone.all_day, attender_id: current_user.id)) %>
+            <% @schedules.each do |schedule| %>
+              <div class="fs-14 text-start rounded-3 p-2 bg-warning">
+                <%= link_to lead_path(schedule.lead), class: "text-link text-white" do %>
+                  予定（<%= schedule.title %>）
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</main>

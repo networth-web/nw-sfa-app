@@ -1,0 +1,115 @@
+<%= form_with model: lead_seminar, html: { class: "overflow-hidden mh-100 d-flex flex-column" } do |f| %>
+  <!-- フロー -->
+  <% if lead_seminar.new_record? %>
+    <div class="w-100 pt-3 px-5 d-flex" style="gap: 12px;">
+      <div class="form-flow is-current">
+        <span>リード情報の登録</span>
+      </div>
+      <div class="form-flow is-current">
+        <span>セミナー関連情報の登録</span>
+      </div>
+    </div>
+  <% end %>
+  <!-- ヘッダー -->
+  <div class="modal-header justify-content-center">
+    <% if lead_seminar.new_record? %>
+      <h4 class="fs-15">セミナー関連情報の登録</h4>
+    <% else %>
+      <h4 class="fs-15">セミナー関連情報を編集</h4>
+    <% end %>
+    <button type="button" class="btn-close position-absolute end-0 me-3" data-mdb-dismiss="modal" aria-label="Close"></button>
+  </div>
+  <!-- ボディー -->
+  <div class="modal-body" style="padding-bottom: 100px;">
+    <%= render 'layouts/error_messages', model: f.object %>
+
+    <table class="form-table">
+
+      <tr>
+        <td>
+          <%= f.label :seminar_id, 'セミナー', class: "form-label font-weight-bold" %>
+          <% Seminar.exists? ? include_blank_seminar = "---" : include_blank_seminar = "データがありません" %>
+          <%= f.collection_select :seminar_id, Seminar.all, :id, :start_date_time, {include_blank: include_blank_seminar}, {class: "form-control"} %>
+        </td>
+        <td>
+          <%= f.label :experience_investment, '投資経験', class: "form-label font-weight-bold" %>
+          <%= f.text_field :experience_investment, placeholder: "投資経験", class: "form-control" %>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <%= f.label :scheduled_date_time, '予定日時', class: "form-label font-weight-bold" %>
+          <%= f.datetime_field :scheduled_date_time, class: "form-control" %>
+        </td>
+        <td>
+          <%= f.label :experience_investment, '興味のある投資', class: "form-label font-weight-bold" %>
+          <%= f.text_field :experience_investment, placeholder: "興味のある投資", class: "form-control" %>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <%= f.label :first_preferred_date_time, '第１希望日時', class: "form-label font-weight-bold" %>
+          <%= f.datetime_field :first_preferred_date_time, class: "form-control" %>
+        </td>
+        <td>
+          <%= f.label :question, '質問', class: "form-label font-weight-bold" %>
+          <%= f.text_area :question, placeholder: "質問", class: "form-control mh-100p" %>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <%= f.label :second_preferred_date_time, '第２希望日時', class: "form-label font-weight-bold" %>
+          <%= f.datetime_field :second_preferred_date_time, class: "form-control" %>
+        </td>
+        <td>
+          <%= f.label :tracking_id, 'トラッキングID', class: "form-label font-weight-bold" %>
+          <%= f.text_field :tracking_id, placeholder: "トラッキングID", class: "form-control" %>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <%= f.label :third_preferred_date_time, '第３希望日時', class: "form-label font-weight-bold" %>
+          <%= f.datetime_field :third_preferred_date_time, class: "form-control" %>
+        </td>
+        <td>
+          <%= f.label :attend_id, '出席', class: "form-label font-weight-bold" %><span class="text-danger">【必須】</span>
+          <%= f.collection_select :attend_id, Attend.all, :id, :name, {}, {class: "form-control"} %>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <%= f.label :level_id, 'レベル', class: "form-label font-weight-bold" %>
+          <%= f.collection_select :level_id, Level.all, :id, :name, {include_blank: "---"}, {class: "form-control"} %>
+        </td>
+        <td>
+          <%= f.label :approval_id, '承認', class: "form-label font-weight-bold" %><span class="text-danger">【必須】</span>
+          <%= f.collection_select :approval_id, Approval.all, :id, :name, {include_blank: "---"}, {class: "form-control"} %>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <%= f.label :attend_reason, '出席理由', class: "form-label font-weight-bold" %>
+          <%= f.text_area :attend_reason, placeholder: "出席理由", class: "form-control mh-100p" %>
+        </td>
+        <td>
+          <%= f.label :disapproval_reason, '不承認理由', class: "form-label font-weight-bold" %>（不承認の場合必須）
+          <%= f.text_area :disapproval_reason, placeholder: "不承認理由", class: "form-control mh-100p" %>
+        </td>
+      </tr>
+
+    </table>
+  </div>
+
+  <%# フッター %>
+  <div class="modal-footer position-absolute bottom-0 w-100" style="background: rgba(236, 235, 234, 0.9);">
+    <button type="button" class="cancel-form btn btn-light" data-mdb-dismiss="modal" data-mdb-ripple-color="dark">閉じる</button>
+    <%= f.submit "送信", class: "btn btn-primary" %>
+  </div>
+
+<% end %>

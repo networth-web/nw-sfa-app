@@ -1,0 +1,48 @@
+<main>
+  <div class="content-wrap content-wrap--table content-wrap--height">
+    <div>
+      <!-- ヘッダー -->
+      <div class="p-3 d-flex justify-content-between">
+        <!-- 左 -->
+        <div class="d-flex flex-column justify-content-between gap-4">
+          <!-- 上段 -->
+          <div class="main-heading">
+            <i class="fa-solid fa-briefcase fa-lg main-heading--box"></i>
+            <h6 class="main-heading--title">商談</h6>
+          </div>
+          <!-- 下段 -->
+          <div class="d-flex justify-content-between">
+            <div class="tab">
+              <% if request.path.include?('/all_meetings') %>
+                <span class="tab__item is-active">全ての商談</span>
+                <%= link_to "自分の商談", my_meetings_activities_path, class: "tab__item"%>
+              <% elsif request.path.include?('/my_meetings') %>
+                <% unless current_user.role == "一般" %>
+                  <%= link_to "全ての商談", all_meetings_activities_path, class: "tab__item"%>
+                <% end %>
+                <span class="tab__item is-active">自分の商談</span>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <!-- 右 -->
+        <div class="d-flex flex-column justify-content-between">
+          <!-- 上段 -->
+          <div class="d-flex gap-1">
+          </div>
+          <!-- 下段 -->
+          <div class="d-flex justify-content-end gap-2">
+          </div>
+        </div>
+      </div>
+      <!-- テーブル -->
+      <div class="table-wrapper">
+        <%= render partial: 'meeting_index_table', locals: { meetings: @meetings } %>
+      </div>
+    </div>
+    <!-- ページネーション -->
+    <div class="py-5">
+      <%= paginate @meetings %>
+    </div>
+  </div>
+</main>

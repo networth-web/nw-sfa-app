@@ -1,0 +1,125 @@
+<table class="index-table">
+  <tr>
+    <th></th>
+
+    <th>
+      <%= sort_link @q, :name, hide_indicator: true do %>
+        名前
+        <%= sort("name") %>
+      <% end %>
+    </th>
+
+    <th>
+      <%= sort_link @q, :kana, hide_indicator: true do %>
+        かな
+        <%= sort("kana") %>
+      <% end %>
+    </th>
+
+    <th>
+      <%= sort_link @q, :phone, hide_indicator: true do %>
+        電話番号
+        <%= sort("phone") %>
+      <% end %>
+    </th>
+
+    <th>
+      <%= sort_link @q, :email, hide_indicator: true do %>
+        メールアドレス
+        <%= sort("email") %>
+      <% end %>
+    </th>
+
+    <th>
+      <%= sort_link @q, :created_at, hide_indicator: true do %>
+        登録日時
+        <%= sort("created_at") %>
+      <% end %>
+    </th>
+
+    <th>
+      <%= sort_link @q, :owner_id, hide_indicator: true do %>
+        担当者
+        <%= sort("owner_id") %>
+      <% end %>
+    </th>
+
+    <th>
+      <%= sort_link @q, :closer_id, hide_indicator: true do %>
+        クローザー
+        <%= sort("closer_id") %>
+      <% end %>
+    </th>
+
+    <th>
+      <%= sort_link @q, :source_id, hide_indicator: true do %>
+        ソース
+        <%= sort("source_id") %>
+      <% end %>
+    </th>
+
+    <th>
+      <%= sort_link @q, :sales_process_id, hide_indicator: true do %>
+        営業プロセス
+        <%= sort("sales_process_id") %>
+      <% end %>
+    </th>
+
+    <th>
+      <span>進捗率</span>
+    </th>
+  </tr>
+  
+  <% @leads.each do |lead| %>
+      <tr>
+
+        <td>
+          <span style="color: red;"><%= lead.read ? '' : '新規' %></span>
+        </td>
+        
+        <td>
+          <%= link_to lead.name, lead_path(lead) %>
+        </td>
+        
+        <td>
+          <%= lead&.kana %>
+        </td>
+        
+        <td>
+          <%= lead&.phone %>
+        </td>
+        
+        <td>
+          <%= lead&.email %>
+        </td>
+        
+        <td>
+          <%= l lead.created_at %>
+        </td>
+        
+        <td>
+          <%= lead&.owner&.name %>
+        </td>
+        
+        <td>
+          <%= lead&.closer&.name %>
+        </td>
+        
+        <td>
+          <%= lead.source.name %>
+        </td>
+        
+        <td>
+          <%= lead.sales_process.name %>
+        </td>
+        
+        <td>
+          <%= sales_process_progress = ((lead.sales_process.id.to_f / salesprocess_count.to_f) * 100.0).round %>%
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: <%= sales_process_progress %>%;" aria-valuenow="<%= sales_process_progress %>" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </td>
+        
+      </tr>
+  <% end %>
+</table>

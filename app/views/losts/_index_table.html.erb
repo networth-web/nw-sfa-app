@@ -1,0 +1,32 @@
+<table class="index-table-2">
+  <tr>
+    <th>
+      リード名
+    </th>
+    <th>
+      登録日
+    </th>
+    <th>
+      登録者
+    </th>
+    <th>
+      失注理由
+    </th>
+  </tr>
+  <% losts.each do |lost| %>
+    <tr>
+      <td>
+        <%= link_to lost.lead.name, lead_path(lost.lead) %>
+      </td>
+      <td>
+        <%= l lost.created_at %>
+      </td>
+      <td>
+        <%= lost.user.name %>
+      </td>
+      <td>
+        <%= lost.reason.truncate(30) %>
+      </td>
+    </tr>
+  <% end %>
+</table>

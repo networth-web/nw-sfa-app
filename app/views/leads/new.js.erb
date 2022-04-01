@@ -1,0 +1,11 @@
+<%# フォームリセット %>
+$('#leadForm').show();
+$('#leadSeminarForm').hide();
+
+<%# フォームレンダリング %>
+$('#leadForm').html(
+  "<%= j(
+    render 'leads/form',
+    lead: @lead
+  ) %>"
+);

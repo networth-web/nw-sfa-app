@@ -1,0 +1,43 @@
+<% if activity.new_record? %>
+  <h6 class="pb-2 fs-12 text-center">行動を作成</h6>
+<% else %>
+  <h6 class="pb-2 fs-12 text-center">行動を編集</h6>
+<% end %>
+
+<%= form_with model: [lead, activity], id: "actionForm" do |f| %>
+
+  <div class="py-3 d-flex flex-column gap-3" style="border-top: 1px dashed #d3d6de; border-bottom: 1px dashed #d3d6de;">
+    <!-- エラーメッセージ -->
+    <%= render 'layouts/error_messages', model: f.object %>
+
+    <%= f.hidden_field :form_type, :value => "action" %>
+
+    <%= f.hidden_field :activity_type, :value => "行動" %>
+
+    <div>
+      <%= f.label :action_name, '行動名', class: "form-label font-weight-bold" %><span class="text-danger">【必須】</span>
+      <%= f.text_field :action_name, placeholder: "行動名", class: "form-control" %>
+    </div>
+
+    <div>
+      <%= f.label :start_date_time, '行動日時', class: "form-label font-weight-bold" %><span class="text-danger">【必須】</span>
+      <%= f.datetime_field :start_date_time, include_blank: true, class: "form-control w-auto" %>
+    </div>
+
+    <div>
+      <%= f.label :overview, '概要', class: "form-label font-weight-bold" %><span class="text-danger">【必須】</span>
+      <%= f.text_area :overview, placeholder: "概要", class: "form-control mh-100p" %>
+    </div>
+
+  </div>
+  
+  <div class="pt-3 d-flex justify-content-end gap-2">
+    <button type="button" class="btn btn-light close-form" data-mdb-ripple-color="dark">閉じる</button>
+    <% if activity.new_record? %>
+      <%= f.submit "作成", class: "btn btn-primary" %>
+    <% else %>
+      <%= f.submit "更新", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+
+<% end %>

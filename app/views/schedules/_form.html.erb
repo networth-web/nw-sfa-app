@@ -1,0 +1,41 @@
+<% if schedule.new_record? %>
+  <h6 class="pb-2">予定作成</h6>
+<% else %>
+  <h6 class="pb-2">予定編集</h6>
+<% end %>
+
+<%= form_with model: [lead, schedule] do |f| %>
+  <div class="py-3 d-flex flex-column gap-3" style="border-top: 1px dashed #d3d6de; border-bottom: 1px dashed #d3d6de;">
+    <%# エラーメッセージ %>
+    <%= render 'layouts/error_messages', model: f.object %>
+
+    <div>
+      <%= f.label :title, '件名' %><span class="text-danger">*</span>
+      <%= f.text_field :title, class: "form-control" %>
+    </div>
+
+    <div>
+      <%= f.label :schedule_date_time, '予定日時' %><span class="text-danger">*</span>
+      <%= f.datetime_field :schedule_date_time, include_blank: true, class: "form-control w-auto" %>
+    </div>
+
+    <div>
+      <%= f.label :attender_id, '同席者' %>
+      <%= f.collection_select :attender_id, User.all, :id, :name, {include_blank: "---"}, {class: "form-control w-auto"} %>
+    </div>
+
+    <div>
+      <%= f.label :description, '説明' %><span class="text-danger">*</span>
+      <%= f.text_area :description, placeholder: "説明", class: "form-control mh-100p" %>
+    </div>
+
+  </div>
+  <div class="pt-3 d-flex justify-content-end gap-2">
+    <button type="button" class="btn btn-light close-schedule-form" data-mdb-ripple-color="dark">閉じる</button>
+    <% if schedule.new_record? %>
+      <%= f.submit "作成", class: "btn btn-primary" %>
+    <% else %>
+      <%= f.submit "更新", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+<% end %>

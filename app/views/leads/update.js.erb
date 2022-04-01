@@ -1,0 +1,32 @@
+<%# エラーがなければフォームを閉じる %>
+<% if @lead.errors.empty? %>
+  <% if @form_type == "lead" %>
+    $('#leadForm .cancel-form').trigger("click");
+  <% elsif @form_type == "owner" %>
+    $('#ownerForm .cancel-form').trigger("click");
+  <% elsif @form_type == "closer" %>
+    $('#closerForm .cancel-form').trigger("click");
+  <% elsif @form_type == "remark" %>
+    $('#remarkForm .cancel-form').trigger("click");
+  <% end %>
+
+  <%# 詳細をレンダリング %>
+  $("#leadDetail").html("<%= j(render partial: 'leads/show', locals: { lead: @lead }) %>");
+  <%# メモをレンダリング %>
+  $("#leadRemark").html("<%= j(render partial: 'leads/remark', locals: { lead: @lead }) %>");
+
+<%# エラーがあればフォームをレンダリング %>
+<% else %>
+  <% if @form_type == "lead" %>
+    $('#leadForm').html("<%= j(render 'leads/form', lead: @lead) %>")
+  <% elsif @form_type == "owner" %>
+    $('#ownerForm').html("<%= j(render 'leads/owner_form', lead: @lead) %>");
+  <% elsif @form_type == "closer" %>
+    $('#closerForm').html("<%= j(render 'leads/closer_form', lead: @lead) %>");
+  <% elsif @form_type == "remark" %>
+    $('#remarkForm').html("<%= j(render 'leads/remark_form', lead: @lead) %>");
+  <% end %>
+<% end %>
+
+<%# フラッシュの表示 %>
+$("#flash").html("<%= j(render 'layouts/flash') %>");

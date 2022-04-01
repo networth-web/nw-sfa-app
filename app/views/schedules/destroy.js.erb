@@ -1,0 +1,19 @@
+<%# 要素を削除 %>
+$(`[data-schedule=<%= @schedule.id %>]`).fadeOut('fast').queue(function() {
+  $(`[data-schedule=<%= @schedule.id %>]`).remove();
+});
+
+<%# フォームが開いていてインスタンスが同じならフォームを閉じる %>
+if ($('#scheduleFormWrap').css('display') == 'block') {
+  let action = $('#scheduleFormWrap form').attr('action');
+  let path = "<%= lead_schedule_path(@lead, @schedule) %>";
+  if(action == path) {
+    $(".schedule-form-wrap").hide();
+  }
+}
+
+<%# noScheduleをレンダリング %>
+$("#noSchedule").html("<%= j(render partial: 'schedules/no_schedule', locals: { schedules: @schedules }) %>");
+
+<%# フラッシュの表示 %>
+$("#flash").html("<%= j(render 'layouts/flash') %>");

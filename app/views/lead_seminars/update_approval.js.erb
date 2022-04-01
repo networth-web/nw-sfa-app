@@ -1,0 +1,16 @@
+<%# エラーの時 %>
+<% if @lead_seminar.errors.present? %>
+  <%# フォームレンダリング %>
+  $('#reasonFormWrap').html("<%= j(render 'lead_seminars/reason_form', lead_seminar: @lead_seminar) %>");
+
+<%# エラーが無い時 %>
+<% else %>
+  <%# モーダルを閉じる %>
+  $('#reasonFormWrap .cancel-form').trigger("click");
+
+  <%# フォームをレンダリング %>
+  $(`[data-approval-form-wrap=<%= @lead_seminar.id %>]`).html("<%= j(render 'lead_seminars/approval_form', lead_seminar: @lead_seminar) %>");
+<% end %>
+
+<%# フラッシュの表示 %>
+$("#flash").html("<%= j(render 'layouts/flash') %>");

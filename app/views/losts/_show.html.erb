@@ -1,0 +1,43 @@
+<!-- ヘッダー -->
+<div class="d-flex justify-content-between pb-3">
+  <h6>失注</h6>
+  <div class="d-flex flex-column justify-content-end">
+    <% if lost %>
+      <!-- 編集 -->
+      <%= link_to edit_lead_lost_path(lead, lost), data: {mdb_toggle: "modal", mdb_target: "#lostModal"}, remote: true, class: "text-dark fs-8" do %>
+        <i class="fa-solid fa-user-large-slash"></i><span class="font-weight-bold">&ensp;編集</span>
+      <% end %>
+      <!-- 削除 -->
+      <%= link_to lead_lost_path(lead, lost), method: :delete, data: { confirm: '削除しますか？' }, remote: true, class: "text-danger fs-8" do %>
+        <i class="fa-solid fa-trash"></i><span class="font-weight-bold">&ensp;登録解除</span>
+      <% end %>
+    <% else %>
+      <!-- 登録 -->
+      <%= link_to new_lead_lost_path(lead), data: {mdb_toggle: "modal", mdb_target: "#lostModal"}, remote: true, class: "text-dark fs-8" do %>
+        <i class="fa-solid fa-user-large-slash"></i><span class="font-weight-bold">&ensp;登録</span>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+<% if lost %>
+  <div class="fs-8">
+    <div>
+      登録者
+      <%= lost.user.name %>
+    </div>
+    <div>
+      理由
+      <%= safe_join(lost.reason.split("\n"),tag(:br)) %>
+    </div>
+  </div>
+<% end %>
+
+
+
+<!-- 失注モーダル -->
+<div class="modal fade" id="lostModal" tabindex="-1" aria-labelledby="lostModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <!-- フォーム -->
+    <div id="lostFormWrap" class="modal-content"></div>
+  </div>
+</div>

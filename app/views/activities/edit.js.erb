@@ -1,0 +1,32 @@
+<%# フォームを全てリセット %>
+$(".form-wrap").hide();
+
+<%# 編集中を全てリセット %>
+$(".activity-card").removeClass("is-edit");
+
+<%# 編集中を追加 %>
+$('[data-activity="<%= @activity.id %>"]').addClass("is-edit");
+
+<%# フォームの表示とレンダリング %>
+<% if @form_type == "action" %>
+  $("#actionFormWrap").html("<%= j(render partial: 'activities/action_form', locals: { lead: @lead, activity: @activity }) %>");
+  $("#actionFormWrap").slideDown();
+<% elsif @form_type == "meeting" %>
+  $("#meetingFormWrap").html("<%= j(render partial: 'activities/meeting_form', locals: { lead: @lead, activity: @activity }) %>");
+  $("#meetingFormWrap").slideDown();
+<% elsif @form_type == "order" %>
+  $("#orderFormWrap").html("<%= j(render partial: 'activities/order_form', locals: { lead: @lead, activity: @activity }) %>");
+  $("#orderFormWrap").slideDown();
+<% end %>
+
+<%# トグルの開閉状態で分岐 %>
+if($(`[data-toggle-icon=<%= @activity.id %>]`).hasClass("is-open")) {
+  <%# 更新部分をレンダリング %>
+  $(`[data-activity=<%= @activity.id %>]`).html("<%= j(render partial: 'activities/detail', locals: { activity: @activity }) %>");
+  <%# トグルを開く %>
+  $(`[data-toggle-icon=<%= @activity.id %>]`).addClass("is-open");
+  $(`[data-toggle-content=<%= @activity.id %>]`).show();
+} else {
+  <%# 更新部分をレンダリング %>
+  $(`[data-activity=<%= @activity.id %>]`).html("<%= j(render partial: 'activities/detail', locals: { activity: @activity }) %>");
+}

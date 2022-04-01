@@ -1,0 +1,50 @@
+<table class="index-table-2">
+  <tr>
+    <th>
+      リード名
+    </th>
+    <th>
+      商談タイプ
+    </th>
+    <th>
+      開始日時
+    </th>
+    <th>
+      終了日時
+    </th>
+    <th>
+      作成者
+    </th>
+    <th>
+      同席者
+    </th>
+    <th>
+      概要
+    </th>
+  </tr>
+  <% @meetings.each do |meeting| %>
+    <tr>
+      <td>
+        <%= link_to meeting.lead.name, lead_path(meeting.lead) %>
+      </td>
+      <td>
+        <%= meeting.meeting_type %>
+      </td>
+      <td>
+        <%= l meeting.start_date_time %>
+      </td>
+      <td>
+        <%= l meeting.end_date_time %>
+      </td>
+      <td>
+        <%= meeting.creator.name %>
+      </td>
+      <td>
+        <%= meeting.attender&.name %>
+      </td>
+      <td>
+        <%= meeting.overview.truncate(20) %>
+      </td>
+    </tr>
+  <% end %>
+</table>

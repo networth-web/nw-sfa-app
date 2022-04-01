@@ -1,0 +1,17 @@
+<!-- 作成ボタン -->
+<div class="p-2">
+  <%= link_to "新規作成", new_lead_schedule_path(lead), remote: true, class: "btn btn-primary" %>
+</div>
+<div class="p-2 d-flex flex-column gap-4">
+  <!-- フォーム -->
+  <div id="scheduleFormWrap" class="schedule-form-wrap p-3 border rounded-3" style="display: none;">
+  </div>
+  <div id="schedules" class="d-flex flex-column gap-1">
+    <% schedules.each do |schedule|%>
+      <%= render partial: 'schedules/show', locals: { schedule: schedule } %>
+    <% end %>
+    <div id="noSchedule" class="py-5 text-center">
+      <%= render partial: 'schedules/no_schedule', locals: { schedules: schedules } %>
+    </div>
+  </div>
+</div>

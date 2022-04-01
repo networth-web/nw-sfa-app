@@ -1,0 +1,42 @@
+<table class="index-table-2">
+  <!-- ヘッダー -->
+  <tr>
+    <th>タイトル</th>
+    <th>開催日時</th>
+    <th>終了日時</th>
+    <th>形式</th>
+    <th>講師</th>
+    <th>説明</th>
+    <th>ZoomURL</th>
+    <th>参加人数</th>
+  </tr>
+  <!-- ボディー -->
+  <% seminars.each do |seminar| %>
+    <tr>
+      <td>
+        <%= link_to seminar.title, seminar_path(seminar) %>
+      </td>
+      <td>
+        <%= l seminar.start_date_time %>
+      </td>
+      <td>
+        <%= l seminar.end_date_time %>
+      </td>
+      <td>
+        <%= seminar.format %>
+      </td>
+      <td>
+        <%= seminar.instructor %>
+      </td>
+      <td>
+        <%= seminar.description.truncate(30) %>
+      </td>
+      <td>
+        <%= link_to seminar&.url&.truncate(30), seminar&.url, target: :_blank, class: "text-primary font-weight-normal" %>
+      </td>
+      <td>
+        <%= seminar.lead_seminars.count %>名
+      </td>
+    </tr>
+  <% end %>
+</table>

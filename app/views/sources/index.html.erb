@@ -1,0 +1,36 @@
+<main>
+  <div class="content-wrap content-wrap--table content-wrap--height">
+    <div>
+      <!-- ヘッダー -->
+      <div class="p-3 d-flex justify-content-between">
+        <!-- 左 -->
+        <div class="d-flex flex-column justify-content-between gap-4">
+          <!-- 上段 -->
+          <div class="main-heading">
+            <i class="fa-solid fa-door-open fa-lg main-heading--box"></i>
+            <h6 class="main-heading--title">ソース</h6>
+          </div>
+          <!-- 下段 -->
+          <div class="d-flex justify-content-between">
+          </div>
+        </div>
+        <!-- 右 -->
+        <div class="d-flex flex-column justify-content-between">
+          <!-- 上段 -->
+          <div class="d-flex gap-1">
+            <% if admin? %>
+              <%= link_to "新規作成", new_source_path, class: "btn btn-primary btn-rounded" %>
+            <% end %>
+          </div>
+          <!-- 下段 -->
+          <div class="d-flex justify-content-end gap-2">
+          </div>
+        </div>
+      </div>
+      <!-- テーブル -->
+      <div class="table-wrapper">
+        <%= render partial: 'index_table', locals: { sources: @sources } %>
+      </div>
+    </div>
+  </div>
+</main>

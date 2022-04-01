@@ -1,0 +1,17 @@
+<%# フォームを全てリセット %>
+$(".form-wrap").hide();
+
+<%# 編集中を全てリセット %>
+$(".activity-card").removeClass("is-edit");
+
+<%# フォームのレンダリングと表示 %>
+<% if @form_type == "action" %>
+  $("#actionFormWrap").html("<%= j(render partial: 'activities/action_form', locals: { lead: @lead, activity: @activity }) %>");
+  $("#actionFormWrap").slideDown();
+<% elsif @form_type == "meeting" %>
+  $("#meetingFormWrap").html("<%= j(render partial: 'activities/meeting_form', locals: { lead: @lead, activity: @activity }) %>");
+  $("#meetingFormWrap").slideDown();
+<% elsif @form_type == "order" %>
+  $("#orderFormWrap").html("<%= j(render partial: 'activities/order_form', locals: { lead: @lead, activity: @activity }) %>");
+  $("#orderFormWrap").slideDown();
+<% end %>

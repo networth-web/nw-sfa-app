@@ -1,0 +1,60 @@
+<main class="pt-0">
+  <!-- ナビゲーター -->
+  <div class="position-absolute pt-3">
+    <%= link_to admin_users_path, class: "" do %>
+      <i class="fa-solid fa-chevron-left"></i> 戻る
+    <% end %>
+  </div>
+  <!-- ヘッダー -->
+  <h4 class="text-center py-4">ユーザーを作成</h4>
+  <!-- フォーム -->
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <div class="content-wrap w-60 mx-auto">
+      <div class="w-50 mx-auto py-5">
+        <div class="d-flex flex-column gap-4">
+          <!-- エラーメッセージ -->
+          <%= render "devise/shared/error_messages", resource: resource %>
+
+          <div>
+            <%= f.label :name, class: "form-label font-weight-bold" %><span class="text-danger">【必須】</span>
+            <%= f.text_field :name, placeholder: "名前", class: "form-control" %>
+          </div>
+
+          <div>
+            <%= f.label :email, class: "form-label font-weight-bold" %><span class="text-danger">【必須】</span>
+            <%= f.email_field :email, placeholder: "メールアドレス", autocomplete: "email", class: "form-control" %>
+          </div>
+
+          <% if current_user.role == "システム管理者" %>
+            <% role_hash = {'運用管理者': '運用管理者', 'マネージャー': 'マネージャー', '一般': '一般'} %>
+          <% elsif current_user.role == "運用管理者" %>
+            <% role_hash = {'マネージャー': 'マネージャー', '一般': '一般'} %>
+          <% end %>
+
+          <div>
+            <%= f.label :role, class: "form-label font-weight-bold" %><span class="text-danger">【必須】</span>
+            <%= f.select :role, role_hash, { include_blank: '---'}, { class: 'form-control w-auto' } %>
+          </div>
+
+          <div>
+            <%= f.label :password, class: "form-label font-weight-bold" %><span class="text-danger">【必須】</span>
+            <% if @minimum_password_length %>
+            （<%= @minimum_password_length %>文字以上）
+            <% end %>
+            <%= f.password_field :password, placeholder: "パスワード", autocomplete: "new-password", class: "form-control" %>
+          </div>
+
+          <div>
+            <%= f.label :password_confirmation, class: "form-label font-weight-bold" %><span class="text-danger">【必須】</span>
+            <%= f.password_field :password_confirmation, placeholder: "パスワード（確認用）", autocomplete: "new-password", class: "form-control" %>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <!-- ボタン -->
+    <div class="text-center pt-4">
+      <%= f.submit "作成", class: "btn btn-primary btn-rounded btn-lg px-5" %>
+    </div>
+  <% end %>
+</main>

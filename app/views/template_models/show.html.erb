@@ -1,0 +1,33 @@
+<main class="pt-0">
+  <!-- ナビゲーター -->
+  <div class="position-absolute pt-3">
+    <%= link_to admin_template_models_path, class: "" do %>
+      <i class="fa-solid fa-chevron-left"></i> 一覧
+    <% end %>
+  </div>
+  <!-- ヘッダー -->
+  <h4 class="text-center py-4">テンプレート詳細</h4>
+  <!-- ボディー -->
+  <div class="content-wrap w-60 mx-auto py-4">
+    <div class="w-50 mx-auto d-flex flex-column gap-3">
+    
+      <div>
+        <span class="box-heading pb-2">種類</span>
+        <span><%= @template.template_type %></span>
+      </div>
+
+      <div>
+        <span class="box-heading pb-2">テキスト</span>
+        <span><%= safe_join(@template.template_text.split("\n"),tag(:br)) %></span>
+      </div>
+
+    </div>
+  </div>
+  <!-- ボタン -->
+  <% if admin? %>
+    <div class="pt-4 d-flex justify-content-center gap-3">
+      <%= link_to "編集", edit_admin_template_model_path(@template), class: "btn btn-primary btn-rounded btn-lg px-5" %>
+      <%= link_to "削除", admin_template_model_path(@template), method: :delete, class: "btn btn-danger btn-rounded btn-lg px-5", data: { confirm: '削除しますか？' } %>
+    </div>
+  <% end %>
+</main>

@@ -1,0 +1,18 @@
+<table class="index-table-2">
+  <!-- ヘッダー -->
+  <tr>
+    <th>名前</th>
+    <th>説明</th>
+  </tr>
+  <!-- ボディー -->
+  <% sales_processes.each do |sales_process| %>
+    <tr>
+      <td>
+        <%= link_to sales_process.name, sales_process_path(sales_process) %>
+      </td>
+      <td>
+        <%= sales_process.description.truncate(30) %>
+      </td>
+    </tr>
+  <% end %>
+</table>

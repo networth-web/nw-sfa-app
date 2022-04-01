@@ -1,0 +1,26 @@
+<%= form_with model: [lead, lost] do |f| %>
+  <!-- ヘッダー -->
+  <div class="modal-header">
+    <% if lost.new_record? %>
+      <h5>失注登録</h5>
+    <% else %>
+      <h5>失注編集</h5>
+    <% end %>
+    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+  </div>
+  <!-- ボディー -->
+  <div class="modal-body pt-3 pb-5">
+    <%= render 'layouts/error_messages', model: f.object %>
+
+    <div>
+      <%= f.label :reason, '理由', class: "form-label font-weight-bold" %><span class="text-danger">【必須】</span>
+      <%= f.text_area :reason, class: "form-control mh-100p" %>
+    </div>
+
+  </div>
+  <!-- フッター -->
+  <div class="modal-footer">
+    <button type="button" class="cancel-form btn btn-light" data-mdb-dismiss="modal" data-mdb-ripple-color="dark">閉じる</button>
+    <%= f.submit "変更を保存", class: "btn btn-primary" %>
+  </div>
+<% end %>

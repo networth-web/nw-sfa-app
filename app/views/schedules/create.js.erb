@@ -1,0 +1,27 @@
+<%# エラーがあったときの処理 %>
+<% if @schedule.errors.present? %>
+  <%# フォームのレンダリング %>
+  $("#scheduleFormWrap").html("<%= j(render partial: 'schedules/form', locals: { lead: @lead, schedule: @schedule }) %>");
+
+<%# エラーが無いときの処理 %>
+<% else %>
+  <%# フォームを非表示 %>
+  $(".schedule-form-wrap").hide();
+
+  <%# 要素を追加 %>
+  $("#schedules").prepend("<%= j(render partial: 'schedules/show', locals: { schedule: @schedule }) %>");
+
+  <%# アクティブを追加 %>
+  $('[data-schedule="<%= @schedule.id %>"]').addClass("is-active");
+
+  <%# アクティブを削除 %>
+  setTimeout(function() {
+    $('[data-schedule="<%= @schedule.id %>"]').removeClass("is-active");
+  }, 5000);
+
+  <%# noScheduleをレンダリング %>
+  $("#noSchedule").html("<%= j(render partial: 'schedules/no_schedule', locals: { schedules: @schedules }) %>");
+<% end %>
+
+<%# フラッシュの表示 %>
+$("#flash").html("<%= j(render 'layouts/flash') %>");

@@ -1,0 +1,12 @@
+<main class="pt-0">
+  <!-- ナビゲーター -->
+  <div class="position-absolute pt-3">
+    <%= link_to property_path(@property), class: "" do %>
+      <i class="fa-solid fa-chevron-left"></i> 戻る
+    <% end %>
+  </div>
+  <!-- ヘッダー -->
+  <h4 class="text-center py-4">物件を編集</h4>
+  <!-- フォーム -->
+  <%= render partial: 'form', locals: { property: @property } %>
+</main>

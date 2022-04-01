@@ -1,0 +1,18 @@
+<table class="index-table-2">
+  <!-- ヘッダー -->
+  <tr>
+    <th>名前</th>
+    <th>価格</th>
+  </tr>
+  <!-- ボディー -->
+  <% properties.each do |property| %>
+    <tr>
+      <td>
+        <%= link_to property.name, property_path(property) %>
+      </td>
+      <td>
+        <%= property.price.to_s(:delimited) %>万円
+      </td>
+    </tr>
+  <% end %>
+</table>

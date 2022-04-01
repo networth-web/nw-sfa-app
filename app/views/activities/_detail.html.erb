@@ -1,0 +1,229 @@
+<!-- 行動 -->
+<% if activity.activity_type == "行動" %>
+  <div class="d-flex">
+    <!-- トグルアイコン -->
+    <div class="ps-2 pe-3">
+      <i class="fa-solid fa-chevron-right toggle-icon cursor-pointer text-dark" data-toggle-icon="<%= activity.id %>"></i>
+    </div>
+    <div class="w-100">
+      <!-- ヘッダー -->
+      <div class="d-flex justify-content-between align-items-center">
+        <!-- 左 -->
+        <div>
+          <h6><%= activity.activity_type %></h6>
+          <span class="fs-7"><%= activity.creator.name %>さんが活動を記録しました</span>
+        </div>
+        <!-- 右 -->
+        <div class="d-flex gap-3">
+          <div>
+            <span class="fs-7"><%= l activity.created_at %></span>
+          </div>
+          <!-- ボタン -->
+          <div class="dropdown d-flex justify-content-end">
+            <button class="bg-transparent border-0" type="button" id="dropdownMenuButton" data-mdb-toggle="dropdown" aria-expanded="false">
+              <i class="fa-solid fa-ellipsis-vertical"></i>
+            </button>
+            <ul class="dropdown-menu border" aria-labelledby="dropdownMenuButton">
+              <li>
+                <%= link_to "編集", edit_lead_activity_path(activity.lead, activity, form_type: "action"), remote: true, class: "dropdown-item" %>
+              </li>
+              <li>
+                <%= link_to "削除", lead_activity_path(activity.lead, activity), method: :delete, remote: true, class: "dropdown-item", data: { confirm: '削除しますか？' } %>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- トグルコンテンツ -->
+      <div data-toggle-content="<%= activity.id %>", style="display: none;">
+        <!-- ボディー -->
+        <div class="pt-2 d-flex flex-column gap-1">
+          
+          <div>
+            <span class="font-weight-bold fs-8">行動名</span>
+            <div>
+              <span class="fs-9"><%= activity.action_name %></span>
+            </div>
+          </div>
+
+          <div>
+            <span class="font-weight-bold fs-8">行動日時</span>
+            <div>
+              <span class="fs-9"><%= l activity.start_date_time %></span>
+            </div>
+          </div>
+
+          <div>
+            <span class="font-weight-bold fs-8">概要</span>
+            <div class="border rounded-3 p-1">
+              <span class="fs-8"><%= safe_join(activity.overview.split("\n"),tag(:br)) %></span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- 商談 -->
+<% elsif activity.activity_type == "商談" %>
+  <div class="d-flex">
+    <!-- トグルアイコン -->
+    <div class="ps-2 pe-3">
+      <i class="fa-solid fa-chevron-right toggle-icon cursor-pointer text-dark" data-toggle-icon="<%= activity.id %>"></i>
+    </div>
+    <div class="w-100">
+      <!-- ヘッダー -->
+      <div class="d-flex justify-content-between align-items-center">
+        <!-- 左 -->
+        <div>
+          <h6><%= activity.activity_type %></h6>
+          <span class="fs-7"><%= activity.creator.name %>さんが活動を記録しました</span>
+        </div>
+        <!-- 右 -->
+        <div class="d-flex gap-3">
+          <div>
+            <span class="fs-7"><%= l activity.created_at %></span>
+          </div>
+          <!-- ボタン -->
+          <div class="dropdown d-flex justify-content-end">
+            <button class="bg-transparent border-0" type="button" id="dropdownMenuButton" data-mdb-toggle="dropdown" aria-expanded="false">
+              <i class="fa-solid fa-ellipsis-vertical"></i>
+            </button>
+            <ul class="dropdown-menu border" aria-labelledby="dropdownMenuButton">
+              <li>
+                <%= link_to "編集", edit_lead_activity_path(activity.lead, activity, form_type: "meeting"), remote: true, class: "dropdown-item" %>
+              </li>
+              <li>
+                <%= link_to "削除", lead_activity_path(activity.lead, activity), method: :delete, remote: true, class: "dropdown-item", data: { confirm: '削除しますか？' } %>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- トグルコンテンツ -->
+      <div data-toggle-content="<%= activity.id %>", style="display: none;">
+        <!-- ボディー -->
+        <div class="pt-2 d-flex flex-column gap-1">
+          
+          <div>
+            <span class="font-weight-bold fs-8">商談タイプ</span>
+            <div>
+              <span class="fs-9"><%= activity.meeting_type %></span>
+            </div>
+          </div>
+
+          <div>
+            <span class="font-weight-bold fs-8">商談開始日時</span>
+            <div>
+              <span class="fs-9"><%= l activity.start_date_time %></span>
+            </div>
+          </div>
+          
+          <div>
+            <span class="font-weight-bold fs-8">商談終了日時</span>
+            <div>
+              <span class="fs-9"><%= l activity.end_date_time %></span>
+            </div>
+          </div>
+
+          <div>
+            <span class="font-weight-bold fs-8">同席者</span>
+            <div>
+              <span class="fs-9"><%= activity.attender&.name %></span>
+            </div>
+          </div>
+
+          <div>
+            <span class="font-weight-bold fs-8">概要</span>
+            <div class="border rounded-3 p-1">
+              <span class="fs-8"><%= safe_join(activity.overview.split("\n"),tag(:br)) %></span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- 取引 -->
+<% elsif activity.activity_type == "取引" %>
+  <div class="d-flex">
+    <!-- トグルアイコン -->
+    <div class="ps-2 pe-3">
+      <i class="fa-solid fa-chevron-right toggle-icon cursor-pointer text-dark" data-toggle-icon="<%= activity.id %>"></i>
+    </div>
+    <div class="w-100">
+      <!-- ヘッダー -->
+      <div class="d-flex justify-content-between align-items-center">
+        <!-- 左 -->
+        <div>
+          <h6 class="fs-9"><%= activity.activity_type %></h6>
+          <span class="fs-7"><%= activity.creator.name %>さんが活動を記録しました</span>
+        </div>
+        <!-- 右 -->
+        <div class="d-flex gap-3">
+          <div>
+            <span class="fs-7"><%= l activity.created_at %></span>
+          </div>
+          <!-- ボタン -->
+          <div class="dropdown d-flex justify-content-end">
+            <button class="bg-transparent border-0" type="button" id="dropdownMenuButton" data-mdb-toggle="dropdown" aria-expanded="false">
+              <i class="fa-solid fa-ellipsis-vertical"></i>
+            </button>
+            <ul class="dropdown-menu border" aria-labelledby="dropdownMenuButton">
+              <li>
+                <%= link_to "編集", edit_lead_activity_path(activity.lead, activity, form_type: "order"), remote: true, class: "dropdown-item" %>
+              </li>
+              <li>
+                <%= link_to "削除", lead_activity_path(activity.lead, activity), method: :delete, remote: true, class: "dropdown-item", data: { confirm: '削除しますか？' } %>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- トグルコンテンツ -->
+      <div data-toggle-content="<%= activity.id %>", style="display: none;">
+        <!-- ボディー -->
+        <div class="pt-2 d-flex flex-column gap-1">
+          
+          <div>
+            <span class="font-weight-bold fs-8">取引タイプ</span>
+            <div>
+              <span class="fs-9"><%= activity.order_type %></span>
+            </div>
+          </div>
+
+          <div>
+            <span class="font-weight-bold fs-8">取引日時</span>
+            <div>
+              <span class="fs-9"><%= l activity.start_date_time %></span>
+            </div>
+          </div>
+
+          <div>
+            <span class="font-weight-bold fs-8">物件</span>
+            <div>
+              <span class="fs-9"><%= link_to activity.property.name, property_path(activity.property), class: "text-link" %></span>
+            </div>
+          </div>
+
+          <div>
+            <span class="font-weight-bold fs-8">同席者</span>
+            <div>
+              <span class="fs-9"><%= activity.attender&.name %></span>
+            </div>
+          </div>
+
+          <div>
+            <span class="font-weight-bold fs-8">概要</span>
+            <div class="border rounded-3 p-1">
+              <span class="fs-8"><%= safe_join(activity.overview.split("\n"),tag(:br)) %></span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,49 @@
+<%# フォームレンダリング %>
+$('[data-schedule-form="' + <%= @schedule.id %> + '"]').empty();
+$('[data-schedule-form="' + <%= @schedule.id %> + '"]').append(
+  "<%= j(
+    render 'schedules/form',
+    lead: @lead,
+    schedule: @schedule
+  ) %>"
+);
+
+<%# エラーがあったときの処理 %>
+<% if @schedule.errors.present? %>
+  <%# フォームのレンダリング %>
+  $("#scheduleFormWrap").html("<%= j(render partial: 'schedules/form', locals: { lead: @lead, schedule: @schedule }) %>");
+
+<%# エラーが無いときの処理 %>
+<% else %>
+  <%# フォームを非表示 %>
+  $(".schedule-form-wrap").hide();
+
+  <%# 編集中を全てリセット %>
+  $(".schedule-card").removeClass("is-edit");
+
+  <%# アクティブを追加 %>
+  $('[data-schedule="<%= @schedule.id %>"]').addClass("is-active");
+
+  <%# アクティブを削除 %>
+  setTimeout(function() {
+    $('[data-schedule="<%= @schedule.id %>"]').removeClass("is-active");
+  }, 5000);
+
+  <%# noScheduleをレンダリング %>
+  $("#noSchedule").html("<%= j(render partial: 'schedules/no_schedule', locals: { schedules: @schedules }) %>");
+
+  <%# トグルの開閉状態で分岐 %>
+  if($(`[data-schedule-toggle-icon=<%= @schedule.id %>]`).hasClass("is-open")) {
+    <%# 更新部分をレンダリング %>
+    $(`[data-schedule=<%= @schedule.id %>]`).html("<%= j(render partial: 'schedules/detail', locals: { schedule: @schedule }) %>");
+    <%# トグルを開く %>
+    $(`[data-schedule-toggle-icon=<%= @schedule.id %>]`).addClass("is-open");
+    $(`[data-schedule-toggle-content=<%= @schedule.id %>]`).show();
+  } else {
+    <%# 更新部分をレンダリング %>
+    $(`[data-schedule=<%= @schedule.id %>]`).html("<%= j(render partial: 'schedules/detail', locals: { schedule: @schedule }) %>");
+  }
+<% end %>
+
+<%# フラッシュの表示 %>
+$("#flash").html("<%= j(render 'layouts/flash') %>");

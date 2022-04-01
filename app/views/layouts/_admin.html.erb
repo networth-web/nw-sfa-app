@@ -1,0 +1,21 @@
+<!-- サイドメニュー -->
+<ul class="side-menu">
+  <li>
+    <%= link_to admin_users_path, id: "usersMenu" do %>
+      <i class="fa-solid fa-user-tie"></i>
+      <span>ユーザー</span>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to admin_template_models_path, id: "templateModelsMenu" do %>
+      <i class="fa-solid fa-file-lines"></i>
+      <span>テンプレート</span>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to admin_hides_path, id: "hidesMenu" do %>
+      <i class="fa-solid fa-ban"></i>
+      <span>非表示</span>
+    <% end %>
+  </li>
+</ul>

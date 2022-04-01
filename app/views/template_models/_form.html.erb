@@ -1,0 +1,36 @@
+<% url = template.new_record? ? admin_template_models_path : admin_template_model_path(template) %>
+
+<%= form_with model: template, url: url, local: true do |f| %>
+  <div class="content-wrap w-60 mx-auto">
+    <div class="w-50 mx-auto py-5">
+      <div class="d-flex flex-column gap-4">
+        <!-- エラーメッセージ -->
+        <%= render 'layouts/error_messages', model: f.object %>
+
+        <div>
+          <%= f.label :template_type, "種類", class: "form-label font-weight-bold" %><span class="text-danger">【必須】</span>
+          <%= f.collection_radio_buttons :template_type, TemplateModel.template_types, :first , :first do |b| %>
+            <div class="form-check">
+              <%= b.label(class: "form-check-label") { b.radio_button(class: "form-check-input") + b.text } %>
+            </div>
+          <% end %>
+        </div>
+
+        <div>
+          <%= f.label :template_text, "テキスト", class: "form-label font-weight-bold" %><span class="text-danger">【必須】</span>
+          <%= f.text_area :template_text, placeholder: "テキスト", class: "form-control mh-200p" %>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  <!-- ボタン -->
+  <div class="text-center pt-4">
+    <% if template.new_record? %>
+      <%= f.submit "作成", class: "btn btn-primary btn-rounded btn-lg px-5" %>
+    <% else %>
+      <%= f.submit "更新", class: "btn btn-primary btn-rounded btn-lg px-5" %>
+    <% end %>
+  </div>
+<% end %>
+

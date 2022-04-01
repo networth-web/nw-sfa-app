@@ -1,0 +1,34 @@
+<main>
+  <div class="content-wrap content-wrap--table content-wrap--height">
+    <div>
+      <!-- ヘッダー -->
+      <div class="p-3 d-flex justify-content-between">
+        <!-- 左 -->
+        <div class="d-flex flex-column justify-content-between gap-4">
+          <!-- 上段 -->
+          <div class="main-heading">
+            <i class="fa-solid fa-user-tie fa-lg main-heading--box"></i>
+            <h6 class="main-heading--title">ユーザー</h6>
+          </div>
+          <!-- 下段 -->
+          <div class="d-flex justify-content-between">
+          </div>
+        </div>
+        <!-- 右 -->
+        <div class="d-flex flex-column justify-content-between">
+          <!-- 上段 -->
+          <div class="d-flex gap-1">
+            <%= link_to "新規作成", new_user_admin_registration_path, class: "btn btn-primary btn-rounded" %>
+          </div>
+          <!-- 下段 -->
+          <div class="d-flex justify-content-end gap-2">
+          </div>
+        </div>
+      </div>
+      <!-- テーブル -->
+      <div class="table-wrapper">
+        <%= render partial: 'index_table', locals: { users: @users } %>
+      </div>
+    </div>
+  </div>
+</main>

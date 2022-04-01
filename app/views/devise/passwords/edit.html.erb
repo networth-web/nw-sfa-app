@@ -1,0 +1,45 @@
+<main class="min-vh-100">
+  <div class="w-30 mx-auto">
+    <!-- タイトル -->
+    <div class="py-5 d-flex justify-content-center gap-2">
+      <%= image_tag "logo.png", size: "50x50" %>
+      <span class="fs-2 font-weight-bold d-flex align-items-center">NetWorthSFA</span>
+    </div>
+    <div class="bg-white py-2 px-3 border rounded-3">
+      <!-- ヘッダー -->
+      <div class="text-center py-4">
+        <h5>パスワード再設定</h5>
+      </div>
+      <div class="pb-2">
+        <!-- フォーム -->
+        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+
+          <div class="d-flex flex-column gap-3">
+            <%= render "devise/shared/error_messages", resource: resource %>
+            <%= f.hidden_field :reset_password_token %>
+
+            <div class="field">
+              <%= f.label :password, "新しいパスワード" %><br />
+              <% if @minimum_password_length %>
+                <em>(<%= @minimum_password_length %> 文字以上に設定してください)</em><br />
+              <% end %>
+              <%= f.password_field :password, autofocus: true, autocomplete: "new-password", class: "form-control" %>
+            </div>
+
+            <div class="field">
+              <%= f.label :password_confirmation, "新しいパスワードの確認" %><br />
+              <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+            </div>
+
+            <div class="actions">
+              <%= f.submit "パスワード変更", class:"btn btn-outline-primary" %>
+            </div>
+          </div>
+        <% end %>
+
+      </div>
+
+      <%= render "devise/shared/links" %>
+    </div>
+  </div>
+</main>

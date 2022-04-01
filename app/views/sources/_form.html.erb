@@ -1,0 +1,47 @@
+<%= form_with model: source, local: true do |f| %>
+  <div class="content-wrap w-60 mx-auto">
+    <div class="w-50 mx-auto py-5">
+      <div class="d-flex flex-column gap-4">
+        <!-- エラーメッセージ -->
+        <%= render 'layouts/error_messages', model: f.object %>
+
+        <div>
+          <%= f.label :name, "名前", class: "form-label font-weight-bold" %><span class="text-danger">【必須】</span>
+          <%= f.text_field :name, placeholder: "名前", class: "form-control" %>
+        </div>
+
+        <div>
+          <%= f.label :approval, "承認", class: "form-label font-weight-bold" %><span class="text-danger">【必須】</span>
+          <div class="form-check">
+            <%= f.radio_button :approval, true, class: "form-check-input" %>
+            <%= f.label :approval, '有り', value: true, class: "form-check-label" %>
+          </div>
+          <div class="form-check">
+            <%= f.radio_button :approval, false, class: "form-check-input" %>
+            <%= f.label :approval, '無し', value: false, class: "form-check-label" %>
+          </div>
+        </div>
+
+        <div>
+          <%= f.label :user_id, '担当者', class: "form-label font-weight-bold" %><span class="text-danger">【必須】</span>
+          <%= f.collection_select :user_id, User.all, :id, :name, {include_blank: "---"}, { class: "form-control", id: "source_user" } %>
+        </div>
+
+        <div>
+          <%= f.label :description, "説明", class: "form-label font-weight-bold" %><span class="text-danger">【必須】</span>
+          <%= f.text_area :description, placeholder: "説明", class: "form-control mh-100p" %>
+        </div> 
+
+      </div>
+    </div>
+  </div>
+  <!-- ボタン -->
+  <div class="text-center pt-4">
+    <% if source.new_record? %>
+      <%= f.submit "作成", class: "btn btn-primary btn-rounded btn-lg px-5" %>
+    <% else %>
+      <%= f.submit "更新", class: "btn btn-primary btn-rounded btn-lg px-5" %>
+    <% end %>
+  </div>
+<% end %>
+

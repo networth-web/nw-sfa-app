@@ -1,0 +1,11 @@
+<% flash.each do |key, value| %>
+  <%# keyがnotice、alertの場合 %>
+  <% if key == "notice" || key == "alert" %>
+    <p class="flash flash--<%= key %>" style="display: none;">
+      <span><%= value %></span>
+      <i class="fa-solid fa-xmark fa-lg closeFlash d-flex align-items-center cursor-pointer"></i>
+    </p>
+  <% else %>
+    <span class="<%= key %>"></span>
+  <% end %>
+<% end %>

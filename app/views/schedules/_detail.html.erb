@@ -1,0 +1,71 @@
+<div class="d-flex">
+  <!-- トグルアイコン -->
+  <div class="ps-2 pe-3">
+    <i class="fa-solid fa-chevron-right schedule-toggle-icon cursor-pointer text-dark" data-schedule-toggle-icon="<%= schedule.id %>"></i>
+  </div>
+  <div class="w-100">
+    <!-- ヘッダー -->
+    <div class="d-flex justify-content-between align-items-center">
+      <!-- 左 -->
+      <div>
+        <h6>予定</h6>
+        <span class="fs-7"><%= schedule.creator.name %>さんが予定を作成しました</span>
+      </div>
+      <!-- 右 -->
+      <div class="d-flex gap-3">
+        <div>
+          <span class="fs-7"><%= l schedule.created_at %></span>
+        </div>
+        <!-- ボタン -->
+        <div class="dropdown d-flex justify-content-end">
+          <button class="bg-transparent border-0" type="button" id="dropdownMenuButton" data-mdb-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-ellipsis-vertical"></i>
+          </button>
+          <ul class="dropdown-menu border" aria-labelledby="dropdownMenuButton">
+            <li>
+              <%= link_to "編集", edit_lead_schedule_path(schedule.lead, schedule), remote: true, class: "dropdown-item" %>
+            </li>
+            <li>
+              <%= link_to "削除", lead_schedule_path(schedule.lead, schedule), method: :delete, remote: true, class: "dropdown-item", data: { confirm: '削除しますか？' } %>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <%# トグルコンテンツ %>
+    <div data-schedule-toggle-content="<%= schedule.id %>", style="display: none;">
+      <!-- ボディー -->
+      <div class="pt-2 d-flex flex-column gap-1">
+        
+        <div>
+          <span class="font-weight-bold fs-8">件名</span>
+          <div>
+            <span class="fs-9"><%= schedule.title %></span>
+          </div>
+        </div>
+
+        <div>
+          <span class="font-weight-bold fs-8">予定日時</span>
+          <div>
+            <span class="fs-9"><%= l schedule.schedule_date_time %></span>
+          </div>
+        </div>
+
+        <div>
+          <span class="font-weight-bold fs-8">同席者</span>
+          <div>
+            <span class="fs-9"><%= schedule.attender&.name %></span>
+          </div>
+        </div>
+
+        <div>
+          <span class="font-weight-bold fs-8">説明</span>
+          <div class="border rounded-3 p-1">
+            <span class="fs-8"><%= safe_join(schedule.description.split("\n"),tag(:br)) %></span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+<main class="min-vh-100">
+  <div class="w-30 mx-auto">
+    <!-- タイトル -->
+    <div class="py-5 d-flex justify-content-center gap-2">
+      <%= image_tag "logo.png", size: "50x50" %>
+      <span class="fs-2 font-weight-bold d-flex align-items-center">NetWorthSFA</span>
+    </div>
+    <div class="bg-white py-2 px-3 border rounded-3">
+      <!-- ヘッダー -->
+      <div class="text-center py-4">
+        <h5>パスワードをお忘れですか？</h5>
+      </div>
+      <div class="pb-2">
+      <!-- フォーム -->
+        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+
+          <div class="d-flex flex-column gap-3">
+            <%= render "devise/shared/error_messages", resource: resource %>
+
+            <div class="field">
+              <%= f.label :email %><br />
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+            </div>
+
+            <div class="actions">
+              <%= f.submit "パスワードのリセット手順を送信します", class: "btn btn-primary" %>
+            </div>
+          </div>
+
+        <% end %>
+      </div>
+
+      <%= render "devise/shared/links" %>
+    </div>
+  </div>
+</main>

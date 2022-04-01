@@ -1,0 +1,45 @@
+<%# エラーがあったときの処理 %>
+<% if @activity.errors.present? %>
+  <%# フォームのレンダリング %>
+  <% if @form_type == "action" %>
+    $("#actionFormWrap").html("<%= j(render partial: 'activities/action_form', locals: { lead: @lead, activity: @activity }) %>");
+  <% elsif @form_type == "meeting" %>
+    $("#meetingFormWrap").html("<%= j(render partial: 'activities/meeting_form', locals: { lead: @lead, activity: @activity }) %>");
+  <% elsif @form_type == "order" %>
+    $("#orderFormWrap").html("<%= j(render partial: 'activities/order_form', locals: { lead: @lead, activity: @activity }) %>");
+  <% end %>
+
+<%# エラーが無いときの処理 %>
+<% else %>
+  <%# フォームを非表示 %>
+  $(".form-wrap").hide();
+
+  <%# 編集中を全てリセット %>
+  $(".activity-card").removeClass("is-edit");
+
+  <%# アクティブを追加 %>
+  $('[data-activity="<%= @activity.id %>"]').addClass("is-active");
+
+  <%# アクティブを削除 %>
+  setTimeout(function() {
+    $('[data-activity="<%= @activity.id %>"]').removeClass("is-active");
+  }, 5000);
+
+  <%# noActivityをレンダリング %>
+  $("#noActivity").html("<%= j(render partial: 'activities/no_activity', locals: { activities: @activities }) %>");
+
+  <%# トグルの開閉状態で分岐 %>
+  if($(`[data-toggle-icon=<%= @activity.id %>]`).hasClass("is-open")) {
+    <%# 更新部分をレンダリング %>
+    $(`[data-activity=<%= @activity.id %>]`).html("<%= j(render partial: 'activities/detail', locals: { activity: @activity }) %>");
+    <%# トグルを開く %>
+    $(`[data-toggle-icon=<%= @activity.id %>]`).addClass("is-open");
+    $(`[data-toggle-content=<%= @activity.id %>]`).show();
+  } else {
+    <%# 更新部分をレンダリング %>
+    $(`[data-activity=<%= @activity.id %>]`).html("<%= j(render partial: 'activities/detail', locals: { activity: @activity }) %>");
+  }
+<% end %>
+
+<%# フラッシュの表示 %>
+$("#flash").html("<%= j(render 'layouts/flash') %>");

@@ -1,0 +1,14 @@
+<%# エラーがなければフォームを閉じる %>
+<% if @lost.errors.empty? %>
+  $('#lostFormWrap .cancel-form').trigger("click");
+
+  <%# 詳細をレンダリング %>
+  $("#Lost").html("<%= j(render partial: 'losts/show', locals: { lead: @lead, lost: @lost }) %>");
+
+<%# エラーがあればフォームをレンダリング %>
+<% else %>
+  $('#Lost').html("<%= j(render 'losts/form', lead: @lead, lost: @lost) %>")
+<% end %>
+
+<%# フラッシュの表示 %>
+$("#flash").html("<%= j(render 'layouts/flash') %>");

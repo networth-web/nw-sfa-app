@@ -1,0 +1,6 @@
+<%# フォームを全てリセット %>
+$(".schedule-form-wrap").hide();
+
+<%# フォームのレンダリングと表示 %>
+$("#scheduleFormWrap").html("<%= j(render partial: 'schedules/form', locals: { lead: @lead, schedule: @schedule }) %>");
+$("#scheduleFormWrap").slideDown();

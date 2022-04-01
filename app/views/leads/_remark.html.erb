@@ -1,0 +1,22 @@
+<!-- ヘッダー -->
+<div class="d-flex justify-content-between pb-3">
+  <h6>メモ</h6>
+  <div class="d-flex justify-content-end">
+    <%= link_to edit_lead_path(lead, form_type: "remark"), data: {mdb_toggle: "modal", mdb_target: "#remarkModal"}, remote: true, class: "text-dark fs-8" do %>
+      <i class="fa-solid fa-pen"></i><span class="font-weight-bold">&ensp;編集</span>
+    <% end %>
+  </div>
+</div>
+<div class="fs-8">
+  <%= lead.remark %>
+</div>
+
+
+
+<!-- メモモーダル -->
+<div class="modal fade" id="remarkModal" tabindex="-1" aria-labelledby="remarkModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <!-- フォーム -->
+    <div id="remarkForm" class="modal-content"></div>
+  </div>
+</div>

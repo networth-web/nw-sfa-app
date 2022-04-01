@@ -1,0 +1,173 @@
+<%= form_with model: lead, html: { class: "overflow-hidden mh-100 d-flex flex-column" } do |f| %>
+  <!-- フロー -->
+  <% if lead.new_record? %>
+    <div class="w-100 pt-3 px-5 d-flex" style="gap: 12px;">
+      <div class="form-flow is-current">
+        <span>リード情報の登録</span>
+      </div>
+      <div class="form-flow">
+        <span>セミナー関連情報の登録</span>
+      </div>
+    </div>
+  <% end %>
+  <!-- ヘッダー -->
+  <div class="modal-header justify-content-center">
+    <% if lead.new_record? %>
+      <h4 class="fs-15">リード情報の登録</h4>
+    <% else %>
+      <h4 class="fs-15">リードを編集</h4>
+    <% end %>
+    <button type="button" class="btn-close position-absolute end-0 me-3" data-mdb-dismiss="modal" aria-label="Close"></button>
+  </div>
+  <!-- ボディー -->
+  <div class="modal-body" style="padding-bottom: 100px;">
+    <%= render 'layouts/error_messages', model: f.object %>
+    
+    <%= f.hidden_field :form_type, :value => "lead" %>
+
+    <table class="form-table">
+      <tr>
+        <td>
+          <%= f.label :name, '名前', class: "form-label font-weight-bold" %><span class="text-danger">【必須】</span>
+          <%= f.text_field :name, placeholder: "東京 太郎", class: "form-control" %>
+        </td>
+        <td>
+          <%= f.label :address, '住所', class: "form-label font-weight-bold" %>
+          <%= f.text_field :address, placeholder: "東京都○○区○○×丁目×番××号", class: "form-control" %>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <%= f.label :kana, 'かな', class: "form-label font-weight-bold" %>
+          <%= f.text_field :kana, placeholder: "とうきょう たろう", class: "form-control" %>
+        </td>
+        <td>
+          <span class="form-label font-weight-bold">世帯</span>
+          <div class="form-check">
+            <%= f.radio_button :household_id, 1, class: "form-check-input" %>
+            <%= f.label :household_id, '有り', value: 1, class: "form-check-label fs-9" %>
+          </div>
+          <div class="form-check">
+            <%= f.radio_button :household_id, 2, class: "form-check-input" %>
+            <%= f.label :household_id, '無し', value: 2, class: "form-check-label fs-9" %>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <%= f.label :phone, '電話番号', class: "form-label font-weight-bold" %>
+          <%= f.telephone_field :phone, placeholder: "080-1234-5678", class: "form-control" %>
+        </td>
+        <td>
+          <%= f.label :occupation_id, '職業', class: "form-label font-weight-bold" %>
+          <%= f.collection_select :occupation_id, Occupation.all, :id, :name, {include_blank: "---"}, { class: "form-control" } %>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <%= f.label :email, 'メールアドレス', class: "form-label font-weight-bold" %>
+          <%= f.text_field :email, placeholder: "example@mail.com", class: "form-control" %>
+        </td>
+        <td>
+          <%= f.label :company, '勤務先', class: "form-label font-weight-bold" %>
+          <%= f.text_field :company, placeholder: "株式会社〇〇コーポーレーション", class: "form-control" %>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <%= f.label :contact_id, '連絡方法', class: "form-label font-weight-bold" %><span class="text-danger">【必須】</span>
+          <%= f.collection_select :contact_id, Contact.all, :id, :name, {selected: 1}, { class: "form-control" } %>
+        </td>
+        <td>
+          <%= f.label :annual_income_range_id, '年収帯', class: "form-label font-weight-bold" %>（万円）
+          <%= f.collection_select :annual_income_range_id, AnnualIncomeRange.all, :id, :name, {include_blank: "---"}, { class: "form-control" } %>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <span class="form-label font-weight-bold">性別</span>
+          <div class="form-check">
+            <%= f.radio_button :gender_id, 1, class: "form-check-input" %>
+            <%= f.label :gender_id, '男性', value: 1, class: "form-check-label" %>
+          </div>
+          <div class="form-check">
+            <%= f.radio_button :gender_id, 2, class: "form-check-input" %>
+            <%= f.label :gender_id, '女性', value: 2, class: "form-check-label" %>
+          </div>
+        </td>
+        <td>
+          <%= f.label :annual_income, '年収', class: "form-label font-weight-bold" %>（万円）
+          <%= f.number_field :annual_income, placeholder: "500", class: "form-control" %>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <%= f.label :birth, '生年月日', class: "form-label font-weight-bold" %>
+          <div class="d-flex align-items-end gap-2">
+            <%= raw sprintf(
+                      f.date_select(
+                        :birth,
+                        {prompt:"--",
+                        use_month_numbers: true,
+                        start_year: 1900,
+                        date_separator: '%s'}, { class: "form-control w-auto" }),
+                      '年 ', '月 ') + '日' %>
+          </div>
+        </td>
+        <td>
+          <%= f.label :source_id, 'ソース', class: "form-label font-weight-bold" %><span class="text-danger">【必須】</span>
+          <%= f.collection_select :source_id, Source.all, :id, :name, {include_blank: "---"}, { class: "form-control" } %>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <%= f.label :age, '年齢', class: "form-label font-weight-bold" %>（歳）
+          <%= f.number_field :age, placeholder: "30", class: "form-control" %>
+        </td>
+        <td>
+          <%= f.label :sales_process_id, '営業プロセス', class: "form-label font-weight-bold" %><span class="text-danger">【必須】</span>
+          <%= f.collection_select :sales_process_id, SalesProcess.all, :id, :name, {}, { class: "form-control" } %>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <%= f.label :postal_code, '郵便番号', class: "form-label font-weight-bold" %>（数字のみ、ハイフン(-)無し）
+          <%= f.number_field :postal_code, placeholder: "1010001", class: "form-control" %>
+        </td>
+        <td>
+          <%= f.label :owner_id, '担当者', class: "form-label font-weight-bold" %>
+          <%= f.collection_select :owner_id, User.all, :id, :name, {include_blank: "---"}, { class: "form-control" } %>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <%= f.label :prefecture_id, '都道府県', class: "form-label font-weight-bold" %>
+          <%= f.collection_select :prefecture_id, Prefecture.all, :id, :name, {include_blank: "---"}, { class: "form-control" } %>
+        </td>
+        <td>
+          <%= f.label :closer_id, 'クローザー', class: "form-label font-weight-bold" %>
+          <%= f.collection_select :closer_id, User.all, :id, :name, {include_blank: "---"}, { class: "form-control" } %>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <!-- フッター -->
+  <div class="modal-footer position-absolute bottom-0 w-100" style="background: rgba(236, 235, 234, 0.9);">
+    <button type="button" class="cancel-form btn btn-light" data-mdb-dismiss="modal" data-mdb-ripple-color="dark">閉じる</button>
+    <% if lead.new_record? %>
+      <%= f.submit "次へ", class: "btn btn-primary" %>
+    <% else %>
+      <%= f.submit "変更を保存", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+
+<% end %>

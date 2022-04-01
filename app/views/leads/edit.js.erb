@@ -1,0 +1,10 @@
+<%# フォームをレンダリング %>
+<% if @form_type == "lead" %>
+  $('#leadForm').html("<%= j(render 'leads/form', lead: @lead) %>");
+<% elsif @form_type == "owner" %>
+  $('#ownerForm').html("<%= j(render 'leads/owner_form', lead: @lead) %>");
+<% elsif @form_type == "closer" %>
+  $('#closerForm').html("<%= j(render 'leads/closer_form', lead: @lead) %>");
+<% elsif @form_type == "remark" %>
+  $('#remarkForm').html("<%= j(render 'leads/remark_form', lead: @lead) %>");
+<% end %>

@@ -1,0 +1,33 @@
+<main class="pt-0">
+  <!-- ナビゲーター -->
+  <div class="position-absolute pt-3">
+    <%= link_to admin_hides_path, class: "" do %>
+      <i class="fa-solid fa-chevron-left"></i> 一覧
+    <% end %>
+  </div>
+  <!-- ヘッダー -->
+  <h4 class="text-center py-4">非表示詳細</h4>
+  <!-- ボディー -->
+  <div class="content-wrap w-60 mx-auto py-4">
+    <div class="w-50 mx-auto d-flex flex-column gap-3">
+    
+      <div>
+        <span class="box-heading pb-2">リード</span>
+        <span><%= @hide.lead.name %></span>
+      </div>
+
+      <div>
+        <span class="box-heading pb-2">理由</span>
+        <span><%= safe_join(@hide.reason.split("\n"),tag(:br)) %></span>
+      </div>
+
+    </div>
+  </div>
+  <!-- ボタン -->
+  <% if admin? %>
+    <div class="pt-4 d-flex justify-content-center gap-3">
+      <%= link_to "編集", edit_admin_hide_path(@hide), class: "btn btn-primary btn-rounded btn-lg px-5" %>
+      <%= link_to "登録解除", admin_hide_path(@hide), method: :delete, class: "btn btn-danger btn-rounded btn-lg px-5", data: { confirm: '削除しますか？' } %>
+    </div>
+  <% end %>
+</main>

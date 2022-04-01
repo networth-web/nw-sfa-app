@@ -1,0 +1,31 @@
+<% url = hide.new_record? ? admin_hides_path : admin_hide_path(hide) %>
+
+<%= form_with model: hide, url: url, local: true do |f| %>
+  <div class="content-wrap w-60 mx-auto">
+    <div class="w-50 mx-auto py-5">
+      <div class="d-flex flex-column gap-4">
+        <!-- エラーメッセージ -->
+        <%= render 'layouts/error_messages', model: f.object %>
+
+        <div>
+          <%= f.label :lead_id, "リード", class: "form-label font-weight-bold" %><span class="text-danger">【必須】</span>
+          <%= f.collection_select :lead_id, Lead.all, :id, :name, {}, {class: "form-control"} %>
+        </div>
+
+        <div>
+          <%= f.label :reason, "理由", class: "form-label font-weight-bold" %><span class="text-danger">【必須】</span>
+          <%= f.text_area :reason, placeholder: "理由", class: "form-control mh-100p" %>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- ボタン -->
+  <div class="text-center pt-4">
+    <% if hide.new_record? %>
+      <%= f.submit "作成", class: "btn btn-primary btn-rounded btn-lg px-5" %>
+    <% else %>
+      <%= f.submit "更新", class: "btn btn-primary btn-rounded btn-lg px-5" %>
+    <% end %>
+  </div>
+<% end %>

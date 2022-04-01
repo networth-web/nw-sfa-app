@@ -1,0 +1,9 @@
+<% path = request.path == all_leads_leads_path ? all_leads_leads_path : my_leads_leads_path %>
+<%= search_form_for q, url: path, html: {class: "form-outline"} do |f| %>
+
+  <%= f.text_field :name_or_kana_or_email_or_address_or_company_cont_any, class: "form-control" %>
+  <%= f.label :name_or_kana_or_email_or_address_or_company_cont_any, 'リードを検索', class: "form-label font-weight-normal fs-9" %>
+    
+  <%= f.submit '検索', type: "hidden" %>
+  
+<% end %>

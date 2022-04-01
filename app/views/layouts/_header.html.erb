@@ -1,0 +1,130 @@
+<% if user_signed_in? %>
+  <!-- １段目 -->
+  <div class="bg-white pt-2 pb-1 px-3 d-flex justify-content-between align-items-center">
+    <!-- 左 -->
+    <div>
+      <!-- ロゴ -->
+      <%= link_to root_path, class: "d-flex gap-1" do %>
+        <%= image_tag "logo.png", size: "35x35" %>
+        <span class="fs-12 font-weight-bold d-flex align-items-center text-dark">NetWorthSFA</span>
+      <% end %>
+    </div>
+    <!-- 右 -->
+    <ul class="header-menu">
+      <!-- 通知アイコン -->
+      <li>
+        <%= link_to notifications_path, class: "position-relative" do %>
+          <i class="fa-solid fa-bell"></i>
+          <% if Notification.where(visited_id: current_user.id, checked: false).count != 0 %>
+            <span class="badge rounded-pill badge-notification bg-danger">
+              <%= Notification.where(visited_id: current_user.id, checked: false).count %>
+            </span>
+          <% end %>
+          <span>お知らせ</span>
+        <% end %>
+      </li>
+      <!-- 管理メニュー -->
+      <li>
+        <% if admin? %>
+          <%= link_to admin_users_path do %>
+            <i class="fa-solid fa-gear"></i>
+            <span>管理者メニュー</span>
+          <% end %>
+        <% end %>
+      </li>
+      <!-- ユーザーアイコン -->
+      <li class="dropdown">
+        <a class="dropdown-toggle flex-row h-auto" href="#" id="dropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+          <i class="fa-solid fa-circle-user"></i>
+        </a>
+        <div class="dropdown-menu p-3 border" aria-labelledby="dropdownMenuLink">
+          <div class="d-flex">
+            <div>
+              <i class="fa-solid fa-circle-user fa-3x"></i>
+            </div>
+            <div class="ps-3 pe-4">
+              <span class="font-weight-bold"><%= current_user.name %></span>
+              <span><%= current_user.email %></span>
+              <%= link_to "編集", edit_user_registration_path, class: "h-auto p-0 flex-row" %>
+            </div>
+          </div>
+        </div>
+      </li>
+      <!-- ログアウト -->
+      <li>
+        <%= link_to destroy_user_session_path, method: :delete do %>
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+          <span>ログアウト</span>
+        <% end %>
+      </li>
+    </ul>
+
+  </div>
+  <!-- ２段目 -->
+  <ul class="globalnav px-3">
+    <li>
+      <%= link_to root_path, id: "rootMenu" do %>
+        <i class="fa-solid fa-house fs-12"></i>
+         <span>ホーム</span>
+      <% end %>
+    </li>
+    <li>
+      <% path = current_user.role == "一般" ? my_leads_leads_path : all_leads_leads_path %>
+      <%= link_to path, id: "leadsMenu" do %>
+        <i class="fa-solid fa-users fs-12"></i>
+        <span>リード</span>
+      <% end %>
+    </li>
+    <li>
+      <% path = current_user.role == "一般" ? my_meetings_activities_path : all_meetings_activities_path %>
+      <%= link_to path, id: "meetingsMenu" do %>
+        <i class="fa-solid fa-briefcase fs-12"></i>
+        <span>商談</span>
+      <% end %>
+    </li>
+    <li>
+      <% path = current_user.role == "一般" ? my_orders_activities_path : all_orders_activities_path %>
+      <%= link_to path, id: "ordersMenu" do %>
+        <i class="fa-solid fa-handshake fs-12"></i>
+        <span>取引</span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to schedules_path, id: "schedulesMenu" do %>
+        <i class="fa-solid fa-calendar-days fs-12"></i>
+        <span>カレンダー</span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to seminars_path, id: "seminarsMenu" do %>
+        <i class="fa-solid fa-school fs-12"></i>
+        <span>セミナー</span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to sources_path, id: "sourcesMenu" do %>
+        <i class="fa-solid fa-door-open fs-12"></i>
+        <span>ソース</span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to sales_processes_path, id: "salesProcessesMenu" do %>
+        <i class="fa-solid fa-bars-progress fs-12"></i>
+        <span>営業プロセス</span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to properties_path, id: "propertiesMenu" do %>
+        <i class="fa-solid fa-building fs-12"></i>
+        <span>物件</span>
+      <% end %>
+    </li>
+    <li>
+      <% path = current_user.role == "一般" ? my_losts_losts_path : all_losts_losts_path %>
+      <%= link_to path, id: "lostsMenu" do %>
+        <i class="fa-solid fa-users-slash fs-12"></i>
+        <span>失注</span>
+      <% end %>
+    </li>
+  </ul>
+<% end %>

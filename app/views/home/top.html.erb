@@ -1,0 +1,97 @@
+<main>
+  <div class="d-flex gap-3">
+    <!-- 左 -->
+    <div class="d-flex flex-column gap-3" style="width: calc(70% - 8px);">
+      <!-- １列目 -->
+      <div class="d-flex gap-3">
+        <!-- 新規リード -->
+        <div style="width: calc(50% - 8px);">
+          <div class="bg-white rounded-5 p-3">
+            <h5>月別リード数</h5>
+            <div class="pt-3">
+              <%= @lead_chart ? high_chart("lead_chart", @lead_chart) : "データがありません" %>
+            </div>
+          </div>
+        </div>
+        <!-- ソース -->
+        <div style="width: calc(50% - 8px);">
+          <div class="bg-white rounded-5 p-3">
+            <h5>ソース別リード数</h5>
+            <div class="pt-3">
+              <%= @source_chart ? high_chart("source_chart", @source_chart) : "データがありません" %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ２列目 -->
+      <%# 商談 %>
+      <div class="bg-white rounded-5 p-3">
+        <h5>商談数</h5>
+        <div class="pt-3">
+          <%= @meeting_chart ? high_chart("meeting_chart", @meeting_chart) : "データがありません" %>
+        </div>
+      </div>
+      <!-- ３列目 -->
+      <%# 契約 %>
+      <div class="bg-white rounded-5 p-3">
+        <h5>契約数</h5>
+        <div class="pt-3">
+          <%= @order_chart ? high_chart("order_chart", @order_chart) : "データがありません" %>
+        </div>
+      </div>
+    </div>
+    <!-- 右 -->
+    <div style="width: calc(30% - 8px);">
+      <div class="bg-white rounded-5 p-3">
+        <% 
+          now = Date.today
+          week = ["日", "月", "火", "水", "木", "金", "土"]
+        %>
+        <h4 class="text-center fs-15"><%= "#{now.month}/#{now.day}（#{week[now.wday]}）" %></h4>
+        <div class="pt-3 d-flex flex-column gap-3">
+          <!-- 新規 -->
+          <div class="p-3 border rounded-3">
+            <h5> 新規リード</h5>
+            <div class="pt-2 px-2">
+              <span class="fs-15"><%= @today_leads.count %></span>名
+            </div>
+          </div>
+          <!-- 割当 -->
+          <div class="p-3 border rounded-3">
+            <h5>割当てされたリード</h5>
+            <div class="pt-2">
+              <% if @my_leads.any? %>
+                <% @my_leads.each do |lead| %>
+                  <div>
+                    <%= link_to lead.name, lead_path(lead), class: "text-link fs-9" %>
+                  </div>
+                <% end %>
+              <% else %>
+                <span class="fs-8">割当てされたリードはいません</span>
+              <% end %>
+            </div>
+          </div>
+          <!-- セミナー -->
+          <div class="p-3 border rounded-3">
+            <h5>開催されるセミナー</h5>
+            <div class="pt-2">
+              <% if @today_seminars.any? %>
+                <% @today_seminars.each do |seminar| %>
+                  <div>
+                    <%= link_to seminar_path(seminar), class: "text-link fs-9" do %>
+                      <%= seminar.title %>
+                      （<%= l seminar.start_date_time, format: :short_time %>〜）
+                    <% end %>
+                  </div>
+                <% end %>
+              <% else %>
+                <span class="fs-8">本日開催のセミナーはありません</span>
+              <% end %>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

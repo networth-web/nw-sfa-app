@@ -1,0 +1,96 @@
+<main>
+  <div class="d-flex flex-column gap-3">
+    <!-- 進捗 -->
+    <div class="bg-white p-3 rounded-5 d-flex flex-column gap-2">
+      <%= render partial: 'sales_process', locals: { lead: @lead, sales_processes: @sales_processes } %>
+    </div>
+    <div class="d-flex gap-3">
+      <!-- リード詳細 -->
+      <div id="leadDetail" class="bg-white rounded-5" style="width: calc(25% - 8px)">
+        <%= render partial: 'show', locals: { lead: @lead } %>
+      </div>
+      <!-- メインコンテンツ -->
+      <div class="bg-white rounded-5" style="width: calc(50% - 16px);">
+        <!-- タブナビゲーション -->
+        <ul class="nav nav-tabs nav-fill p-2" id="ex1" role="tablist">
+          <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="ex1-tab-1" data-mdb-toggle="tab" href="#ex1-tabs-1" role="tab" aria-controls="ex1-tabs-1" aria-selected="true">
+              活動
+            </a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" id="ex1-tab-2" data-mdb-toggle="tab" href="#ex1-tabs-2" role="tab" aria-controls="ex1-tabs-2" aria-selected="false">
+              予定
+            </a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" id="ex1-tab-6" data-mdb-toggle="tab" href="#ex1-tabs-6" role="tab" aria-controls="ex1-tabs-6" aria-selected="false">
+              セミナー
+            </a>
+          </li>
+        </ul>
+        <!-- タブコンテンツ -->
+        <div class="tab-content" id="ex1-content">
+          <div class="tab-pane fade show active" id="ex1-tabs-1" role="tabpanel" aria-labelledby="ex1-tab-1">
+            <%= render partial: 'activities/tab', locals: { lead: @lead, activities: @activities } %>
+          </div>
+          <div class="tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
+            <%= render partial: 'schedules/tab', locals: { lead: @lead, schedules: @schedules,  } %>
+          </div>
+          <div class="tab-pane fade" id="ex1-tabs-6" role="tabpanel" aria-labelledby="ex1-tab-6">
+            <%= render partial: 'lead_seminars/show', locals: { lead: @lead, lead_seminar: @lead_seminar } %>
+          </div>
+        </div>
+      </div>
+      <!-- サイドコンテンツ -->
+      <div class="d-flex flex-column gap-3" style="width: calc(25% - 8px);">
+        <!-- 重複 -->
+        <div class="bg-white rounded-5 p-3">
+          <h6>重複</h6>
+          <div class="pt-2">
+            <% @duplicate_leads.each do |lead| %>
+              <% if lead.hide.blank? && lead.lost.blank? && lead.id != @lead.id %>
+                <div class="fs-9">
+                  <%= link_to lead.name, lead_path(lead), class: "text-link" %>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+        <!-- 画像 -->
+        <div class="bg-white rounded-5 p-3">
+          <!-- ヘッダー -->
+          <div class="d-flex justify-content-between pb-3">
+            <h6>ファイル</h6>
+            <div>
+              <%= form_with model: [@lead, @image], html: { name: "imageForm" }, local: true, class: "d-flex justify-content-end" do |f| %>
+                <label class="text-dark fs-8 cursor-pointer" for="image_image">
+                  <i class="fa-solid fa-plus"></i><span class="font-weight-bold">&ensp;追加</span>
+                </label>
+                <%= f.file_field :image, class: "d-none" %>
+                <%= f.submit '送信', class: "d-none" %>
+              <% end %>
+            </div>
+          </div>
+          <!-- ボディー -->
+          <% @images.each do |image| %>
+            <div class="d-flex justify-content-between">
+              <%= link_to image.image.filename, rails_blob_path(image.image), target: :_blank, class: "fs-8"  %>
+              <%= link_to lead_image_path(@lead, image), method: :delete, data: { confirm: '削除しますか？' }, class: "text-danger fs-8" do %>
+                <i class="fa-solid fa-trash"></i><span class="font-weight-bold">&ensp;削除</span>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+        <!-- 失注 -->
+        <div id="Lost" class="bg-white rounded-5 p-3">
+          <%= render partial: 'losts/show', locals: { lead: @lead, lost: @lost } %>
+        </div>
+        <!-- メモ -->
+        <div id="leadRemark" class="bg-white rounded-5 p-3">
+          <%= render partial: 'remark', locals: { lead: @lead } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

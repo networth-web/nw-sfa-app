@@ -1,0 +1,24 @@
+<%# フォームを全てリセット %>
+$(".schedule-form-wrap").hide();
+
+<%# 編集中を全てリセット %>
+$(".schedule-card").removeClass("is-edit");
+
+<%# 編集中を追加 %>
+$('[data-schedule="<%= @schedule.id %>"]').addClass("is-edit");
+
+<%# フォームの表示とレンダリング %>
+$("#scheduleFormWrap").html("<%= j(render partial: 'schedules/form', locals: { lead: @lead, schedule: @schedule }) %>");
+$("#scheduleFormWrap").slideDown();
+
+<%# トグルの開閉状態で分岐 %>
+if($(`[data-toggle-icon=<%= @schedule.id %>]`).hasClass("is-open")) {
+  <%# 更新部分をレンダリング %>
+  $(`[data-schedule=<%= @schedule.id %>]`).html("<%= j(render partial: 'schedules/detail', locals: { schedule: @schedule }) %>");
+  <%# トグルを開く %>
+  $(`[data-toggle-icon=<%= @schedule.id %>]`).addClass("is-open");
+  $(`[data-toggle-content=<%= @schedule.id %>]`).show();
+} else {
+  <%# 更新部分をレンダリング %>
+  $(`[data-schedule=<%= @schedule.id %>]`).html("<%= j(render partial: 'schedules/detail', locals: { schedule: @schedule }) %>");
+}

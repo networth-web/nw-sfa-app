@@ -1,0 +1,12 @@
+<main class="pt-0">
+  <!-- ナビゲーター -->
+  <div class="position-absolute pt-3">
+    <%= link_to seminar_path(@seminar), class: "" do %>
+      <i class="fa-solid fa-chevron-left"></i> 戻る
+    <% end %>
+  </div>
+  <!-- ヘッダー -->
+  <h4 class="text-center py-4">セミナーを編集</h4>
+  <!-- フォーム -->
+  <%= render partial: 'form', locals: { seminar: @seminar } %>
+</main>

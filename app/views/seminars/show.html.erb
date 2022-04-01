@@ -1,0 +1,94 @@
+<main class="pt-0">
+  <!-- ナビゲーター -->
+  <div class="position-absolute pt-3">
+    <%= link_to seminars_path, class: "" do %>
+      <i class="fa-solid fa-chevron-left"></i> 一覧
+    <% end %>
+  </div>
+  <!-- ヘッダー -->
+  <h4 class="text-center py-4">セミナー詳細</h4>
+  <!-- ボディー -->
+  <div class="content-wrap w-60 mx-auto py-4">
+    <div class="w-50 mx-auto d-flex flex-column gap-3">
+
+      <div>
+        <span class="box-heading pb-2">タイトル</span>
+        <span><%= @seminar.title %></span>
+      </div>
+
+      <div>
+        <span class="box-heading pb-2">開催日時</span>
+        <span><%= l @seminar.start_date_time %></span>
+      </div>
+
+      <div>
+        <span class="box-heading pb-2">終了日時</span>
+        <span><%= l @seminar.end_date_time %></span>
+      </div>
+
+      <div>
+        <span class="box-heading pb-2">形式</span>
+        <span><%= @seminar.format %></span>
+      </div>
+
+      <div>
+        <span class="box-heading pb-2">講師</span>
+        <span><%= @seminar.instructor %></span>
+      </div>
+
+      <div>
+        <span class="box-heading pb-2">説明</span>
+        <span><%= safe_join(@seminar.description.split("\n"),tag(:br)) %></span>
+      </div>
+
+      <div>
+        <span class="box-heading pb-2">ZoomURL</span>
+        <span><%= link_to @seminar&.url, @seminar&.url, target: :_blank %></span>
+      </div>
+      
+    </div>
+  </div>
+  <!-- ボタン -->
+  <% if admin? %>
+    <div class="pt-4 d-flex justify-content-center gap-3">
+      <%= link_to "編集", edit_seminar_path(@seminar), class: "btn btn-primary btn-rounded btn-lg px-5" %>
+      <%= link_to "削除", seminar_path(@seminar), method: :delete, class: "btn btn-danger btn-rounded btn-lg px-5", data: { confirm: '削除しますか？' } %>
+    </div>
+  <% end %>
+
+  <hr class="mt-5">
+
+  <!-- 参加者 -->
+  <!-- ヘッダー -->
+  <h4 class="text-center py-4">セミナー参加者</h4>
+  <div class="content-wrap content-wrap--table pb-5">
+    <!-- ヘッダー -->
+    <div class="p-3 d-flex justify-content-between">
+      <!-- 左 -->
+      <div class="d-flex flex-column justify-content-between gap-4">
+        <!-- 上段 -->
+        <div class="main-heading">
+          <h6 class="main-heading--title fs-12">参加者<%= @seminar.lead_seminars.count %>名</h6>
+        </div>
+      </div>
+    </div>
+    <!-- テーブル -->
+    <div class="table-wrapper">
+      <%= render partial: 'lead_seminars/detail_table', locals: { lead_seminars: @lead_seminars } %>
+    </div>
+  </div>
+</div>
+
+
+
+<button type="button" class="d-none" data-mdb-toggle="modal" data-mdb-target="#reasonModal">
+</button>
+
+<!-- モーダル -->
+<div class="modal fade" id="reasonModal" data-mdb-backdrop="static" data-mdb-keyboard="false" tabindex="-1" aria-labelledby="reasonModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg">
+    <!-- フォーム -->
+    <div id="reasonFormWrap" class="modal-content">
+    </div>
+  </div>
+</div>

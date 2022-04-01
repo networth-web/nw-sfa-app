@@ -1,0 +1,145 @@
+/*---------- テーブルwrapper ----------*/
+.table-wrapper {
+  overflow-x: scroll;
+  /* IE, Edge 対応 */
+  -ms-overflow-style: none;
+  /* Firefox 対応 */
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/*---------- 一覧テーブル ----------*/
+.index-table {
+  width: 100%;
+  white-space: nowrap;
+  & tr {
+    border-top: 1px solid #e0e0e0;
+    &:last-child {
+      border-bottom: 1px solid #e0e0e0;
+    }
+  }
+  & th {
+    font-size: 0.9em;
+    background-color: #F3F3F3;
+    border-right: 1px solid #e0e0e0;
+    &:first-child {
+      border-right: none;
+    }
+    &:last-child {
+      border-right: none;
+    }
+    & a {
+      width: 100%;
+      padding: 5px 10px;
+      color: inherit;
+      display: flex;
+      justify-content: space-between;
+      &:hover {
+        background-color: #fafafa;
+      }
+      & i {
+        display: flex;
+        align-items: center;
+      }
+    }
+    & span {
+      padding: 5px 10px;
+    }
+  }
+  & td {
+    padding: 5px 10px;
+    font-size: 0.8em;
+    & a {
+      color: #5588BB;
+      font-weight: bold;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    &:first-child {
+      font-size: 0.6em;
+      padding-left: 20px;
+      text-align: right;
+    }
+    &:last-child {
+      padding-right: 20px;
+    }
+  }
+}
+
+/*---------- 一覧テーブル２ ----------*/
+.index-table-2 {
+  width: 100%;
+  white-space: nowrap;
+  & tr {
+    border-top: 1px solid #e0e0e0;
+    &:last-child {
+      border-bottom: 1px solid #e0e0e0;
+    }
+  }
+  & th {
+    padding: 5px 10px;
+    font-size: 0.9em;
+    background-color: #F3F3F3;
+    border-right: 1px solid #e0e0e0;
+    &:first-child {
+      padding-left: 20px;
+    }
+    &:last-child {
+      border-right: none;
+    }
+  }
+  & td {
+    padding: 5px 10px;
+    font-size: 0.8em;
+    & a {
+      color: #5588BB;
+      font-weight: bold;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    &:first-child {
+      padding-left: 20px;
+    }
+    &:last-child {
+      padding-right: 20px;
+    }
+  }
+}
+
+/*---------- 詳細テーブル ----------*/
+.detail-table {
+  & th {
+    font-weight: 400;
+    font-size: 0.9em;
+    padding: 6px 4px;
+    padding-right: 30px;
+    text-align: left;
+    vertical-align: top;
+    white-space: nowrap;
+  }
+  & td {
+    width: 100%;
+    vertical-align: top;
+    padding: 6px 7px;
+    font-weight: bold;
+    font-size: 0.9em;
+    border-bottom: 1px solid #ccc;
+  }
+}
+
+/*---------- フォームテーブル ----------*/
+.form-table {
+  width: 100%;
+  & th {
+    vertical-align: top;
+  }
+  & td {
+    width: 50%;
+    padding: 8px 10px;
+    vertical-align: top;
+  }
+}

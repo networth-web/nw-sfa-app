@@ -1,0 +1,26 @@
+<table class="index-table-2">
+  <!-- ヘッダー -->
+  <tr>
+    <th>名前</th>
+    <th>承認</th>
+    <th>担当者</th>
+    <th>説明</th>
+  </tr>
+  <!-- ボディー -->
+  <% sources.each do |source| %>
+    <tr>
+      <td>
+        <%= link_to source.name, source_path(source) %>
+      </td>
+      <td>
+        <%= source.approval ? "有り" : "無し" %>
+      </td>
+      <td>
+        <%= source.user.name %>
+      </td>
+      <td>
+        <%= source.description.truncate(30) %>
+      </td>
+    </tr>
+  <% end %>
+</table>

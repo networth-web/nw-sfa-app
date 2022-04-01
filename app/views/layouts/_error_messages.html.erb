@@ -1,0 +1,9 @@
+<% if model.errors.any? %>
+  <div class="error-messsages">
+    <ul>
+      <% model.errors.full_messages.each do |message| %>
+        <li class="fs-8 font-weight-bold"><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

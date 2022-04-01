@@ -1,0 +1,177 @@
+<!-- 上部 -->
+<div class="p-3 border-bottom d-flex gap-3">
+  <!-- 左 -->
+  <div class="profile-icon-wrap">
+    <div class="profile-icon">
+      <i class="fa-solid fa-user fa-2x text-white"></i>
+    </div>
+  </div>
+  <!-- 右 -->
+  <div class="w-100 d-flex flex-column justify-content-center">
+    <div class="d-flex justify-content-between">
+      <h6><%= lead.name %></h6>
+      <%= link_to edit_lead_path(lead, form_type: "lead"), data: {mdb_toggle: "modal", mdb_target: "#leadModal"}, remote: true do %>
+        <i class="fa-solid fa-user-pen text-dark"></i>
+      <% end %>
+    </div>
+    <span class="fs-8" style="font-size: 0.8em;"><%= lead&.kana %></span>
+  </div>
+</div>
+<!-- 下部 -->
+<div class="p-3 d-flex flex-column gap-3">
+
+  <!-- 担当者 -->
+  <div class="d-flex flex-column">
+    <span class="fs-8 font-weight-bold">担当者</span>
+    <div class="d-flex justify-content-between">
+      <span class="text-dark fs-9">
+        <%= lead.owner&.name ? lead.owner&.name : "未指定" %>
+      </span>
+      <%= link_to edit_lead_path(lead, form_type: "owner"), data: {mdb_toggle: "modal", mdb_target: "#ownerModal"}, remote: true do %>
+        <i class="fa-solid fa-user-pen text-dark"></i>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- クローザー -->
+  <div class="d-flex flex-column">
+    <span class="fs-8 font-weight-bold">クローザー</span>
+    <div class="d-flex justify-content-between">
+      <span class="text-dark fs-9">
+        <%= lead.closer&.name ? lead.closer&.name : "未指定" %>
+      </span>
+      <%= link_to edit_lead_path(lead, form_type: "closer"), data: {mdb_toggle: "modal", mdb_target: "#closerModal"}, remote: true do %>
+        <i class="fa-solid fa-user-pen text-dark"></i>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="d-flex flex-column">
+    <span class="fs-8 font-weight-bold">電話番号</span>
+    <span class="text-dark fs-9">
+      <%= lead&.phone %>
+    </span>
+  </div>
+
+  <div class="d-flex flex-column">
+    <span class="fs-8 font-weight-bold">メールアドレス</span>
+    <span class="text-dark fs-9">
+      <%= mail_to lead&.email, lead&.email, class: "text-link" %>
+    </span>
+  </div>
+
+  <div class="d-flex flex-column">
+    <span class="fs-8 font-weight-bold">連絡方法</span>
+    <span class="text-dark fs-9">
+      <%= lead.contact.name %>
+    </span>
+  </div>
+
+  <div class="d-flex flex-column">
+    <span class="fs-8 font-weight-bold">ソース</span>
+    <span class="text-dark fs-9">
+      <%= lead.source.name %>
+    </span>
+  </div>
+
+  <div class="d-flex flex-column">
+    <span class="fs-8 font-weight-bold">性別</span>
+    <span class="text-dark fs-9">
+      <%= lead.gender&.name %>
+    </span>
+  </div>
+
+  <div class="d-flex flex-column">
+    <span class="fs-8 font-weight-bold">生年月日</span>
+    <span class="text-dark fs-9">
+      <%= l lead.birth if lead.birth.present? %>
+    </span>
+  </div>
+
+  <div class="d-flex flex-column">
+    <span class="fs-8 font-weight-bold">年齢</span>
+    <span class="text-dark fs-9">
+      <%= lead&.age %>歳
+    </span>
+  </div>
+
+  <div class="d-flex flex-column">
+    <span class="fs-8 font-weight-bold">郵便番号</span>
+    <span class="text-dark fs-9">
+      〒<%= lead&.postal_code %>
+    </span>
+  </div>
+
+  <div class="d-flex flex-column">
+    <span class="fs-8 font-weight-bold">都道府県</span>
+    <span class="text-dark fs-9">
+      <%= lead.prefecture&.name %>
+    </span>
+  </div>
+
+  <div class="d-flex flex-column">
+    <span class="fs-8 font-weight-bold">住所</span>
+    <span class="text-dark fs-9">
+      <%= lead&.address %>
+    </span>
+  </div>
+  <div class="d-flex flex-column">
+    <span class="fs-8 font-weight-bold">世帯</span>
+    <span class="text-dark fs-9">
+      <%= lead.household&.name %>
+    </span>
+  </div>
+
+  <div class="d-flex flex-column">
+    <span class="fs-8 font-weight-bold">職業</span>
+    <span class="text-dark fs-9">
+      <%= lead&.occupation&.name %>
+    </span>
+  </div>
+
+  <div class="d-flex flex-column">
+    <span class="fs-8 font-weight-bold">勤務先</span>
+    <span class="text-dark fs-9">
+      <%= lead&.company %>
+    </span>
+  </div>
+  <div class="d-flex flex-column">
+    <span class="fs-8 font-weight-bold">年収帯</span>
+    <span class="text-dark fs-9">
+      <%= lead&.annual_income_range&.name %>
+    </span>
+  </div>
+
+  <div class="d-flex flex-column">
+    <span class="fs-8 font-weight-bold">年収</span>
+    <span class="text-dark fs-9">
+      <%= lead&.annual_income %>万円
+    </span>
+  </div>
+</div>
+
+
+
+<!-- リードモーダル -->
+<div class="modal fade" id="leadModal" tabindex="-1" aria-labelledby="leadModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg">
+    <!-- フォーム -->
+    <div id="leadForm" class="modal-content"></div>
+  </div>
+</div>
+
+<!-- 担当者モーダル -->
+<div class="modal fade" id="ownerModal" tabindex="-1" aria-labelledby="ownerModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <!-- フォーム -->
+    <div id="ownerForm" class="modal-content"></div>
+  </div>
+</div>
+
+<!-- クローザーモーダル -->
+<div class="modal fade" id="closerModal" tabindex="-1" aria-labelledby="closerModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <!-- フォーム -->
+    <div id="closerForm" class="modal-content"></div>
+  </div>
+</div>

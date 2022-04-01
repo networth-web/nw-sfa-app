@@ -1,0 +1,7 @@
+<%= form_with model: lead_seminar, url: update_approval_lead_seminar_path(lead_seminar), html: {data: {approval_form: lead_seminar.id}} do |f| %>
+
+  <%= f.collection_select :approval_id, Approval.all, :id, :name, {}, {class: "approval-select", data: {approval_select: lead_seminar.id}} %>
+
+  <%= f.submit "送信", class: "d-none" %>
+
+<% end %>

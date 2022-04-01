@@ -1,0 +1,37 @@
+<main class="pt-0">
+  <!-- ナビゲーター -->
+  <div class="position-absolute pt-3">
+    <%= link_to admin_users_path, class: "" do %>
+      <i class="fa-solid fa-chevron-left"></i> 一覧
+    <% end %>
+  </div>
+  <!-- ヘッダー -->
+  <h4 class="text-center py-4">ユーザー詳細</h4>
+  <!-- ボディー -->
+  <div class="content-wrap w-60 mx-auto py-4">
+    <div class="w-50 mx-auto d-flex flex-column gap-3">
+    
+      <div>
+        <span class="box-heading pb-2">名前</span>
+        <span><%= @user.name %></span>
+      </div>
+
+      <div>
+        <span class="box-heading pb-2">メールアドレス</span>
+        <span><%= @user.email %></span>
+      </div>
+
+      <div>
+        <span class="box-heading pb-2">権限</span>
+        <span><%= @user.role %></span>
+      </div>
+
+    </div>
+  </div>
+  <!-- ボタン -->
+  <% if admin? %>
+    <div class="pt-4 d-flex justify-content-center gap-3">
+      <%= link_to "編集", edit_other_user_registration_path(@user), class: "btn btn-primary btn-rounded btn-lg px-5" %>
+    </div>
+  <% end %>
+</main>

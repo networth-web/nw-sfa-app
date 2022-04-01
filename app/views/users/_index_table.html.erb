@@ -1,0 +1,22 @@
+<table class="index-table-2">
+  <!-- ヘッダー -->
+  <tr>
+    <th>名前</th>
+    <th>メールアドレス</th>
+    <th>権限</th>
+  </tr>
+  <!-- ボディー -->
+  <% users.each do |user| %>
+    <tr>
+      <td>
+        <%= link_to user.name, admin_user_path(user) %>
+      </td>
+      <td>
+        <%= user.email %>
+      </td>
+      <td>
+        <%= user.role %>
+      </td>
+    </tr>
+  <% end %>
+</table>

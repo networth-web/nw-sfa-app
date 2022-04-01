@@ -1,0 +1,97 @@
+<div class="p-2">
+  <div class="p-3 border rounded-3">
+    <div class="pb-4 d-flex justify-content-between">
+      <h6 class="fs-11" style="border-bottom: dashed 1px #d3d6de;">セミナー関連情報</h6>
+      <%= link_to edit_lead_seminar_path(lead_seminar), class: "text-body font-weight-bold", data: {mdb_toggle: "modal", mdb_target: "#leadSeminarModal"}, remote: true do %>
+        <i class="fa-solid fa-pen"></i>&ensp;編集
+      <% end %>
+    </div>
+    <!-- ボディー -->
+    <div class="d-flex flex-column gap-3">
+      
+      <div>
+        <span class="box-heading pb-2">セミナー</span>
+        <span>
+          <%= lead_seminar.seminar&.title %>
+          <%= l lead_seminar.seminar.start_date_time if lead_seminar.seminar&.start_date_time %>
+        </span>
+      </div>
+
+      <div>
+        <span class="box-heading pb-2">参加予定日</span>
+        <span><%= l lead_seminar&.scheduled_date_time if lead_seminar.scheduled_date_time %></span>
+      </div>
+
+      <div>
+        <span class="box-heading pb-2">参加希望日（第1希望）</span>
+        <span><%= l lead_seminar&.first_preferred_date_time if lead_seminar.first_preferred_date_time %></span>
+      </div>
+
+      <div>
+        <span class="box-heading pb-2">参加希望日（第2希望）</span>
+        <span><%= l lead_seminar&.second_preferred_date_time if lead_seminar.second_preferred_date_time %></span>
+      </div>
+
+      <div>
+        <span class="box-heading pb-2">参加希望日（第3希望）</span>
+        <span><%= l lead_seminar&.third_preferred_date_time if lead_seminar.third_preferred_date_time %></span>
+      </div>
+
+      <div>
+        <span class="box-heading pb-2">レベル</span>
+        <span><%= lead_seminar&.level&.name %></span>
+      </div>
+
+      <div>
+        <span class="box-heading pb-2">参加理由</span>
+        <span><%= safe_join(lead_seminar.attend_reason.split("\n"),tag(:br)) if lead_seminar.attend_reason %></span>
+      </div>
+
+      <div>
+        <span class="box-heading pb-2">投資経験</span>
+        <span><%= lead_seminar&.experience_investment %></span>
+      </div>
+
+      <div>
+        <span class="box-heading pb-2">興味のある投資</span>
+        <span><%= lead_seminar&.interest_investment %></span>
+      </div>
+
+      <div>
+        <span class="box-heading pb-2">質問</span>
+        <span><%= safe_join(lead_seminar.question.split("\n"),tag(:br)) if lead_seminar.question %></span>
+      </div>
+
+      <div>
+        <span class="box-heading pb-2">トラッキングID</span>
+        <span><%= lead_seminar&.tracking_id %></span>
+      </div>
+
+      <div>
+        <span class="box-heading pb-2">出席</span>
+        <span><%= lead_seminar.attend.name %></span>
+      </div>
+
+      <div>
+        <span class="box-heading pb-2">承認</span>
+        <span><%= lead_seminar.approval.name %></span>
+      </div>
+
+      <div>
+        <span class="box-heading pb-2">不承認理由</span>
+        <span><%= safe_join(lead_seminar.disapproval_reason.split("\n"),tag(:br)) if lead_seminar.disapproval_reason %></span>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+<!-- モーダル -->
+<div class="modal fade" id="leadSeminarModal" tabindex="-1" aria-labelledby="leadSeminarModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg">
+    <!-- フォーム -->
+    <div id="leadSeminarForm" class="modal-content"></div>
+  </div>
+</div>

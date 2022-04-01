@@ -1,0 +1,14 @@
+<%# エラーがあった場合 %>
+<% if @lead.errors.any? %>
+  <%# フォームレンダリング %>
+  $("#leadForm").html("<%= j(render partial: 'leads/form', locals: { lead: @lead }) %>");
+
+<%# エラーがない場合 %>
+<% else %>
+  <%# フォームリセット %>
+  $('#leadForm').hide();
+  $('#leadSeminarForm').show();
+
+  <%# フォームレンダリング %>
+  $("#leadSeminarForm").html("<%= j(render partial: 'lead_seminars/form', locals: { lead: @lead, lead_seminar: @lead_seminar }) %>");
+<% end %>

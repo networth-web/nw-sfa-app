@@ -1,0 +1,5 @@
+<%# フォームレンダリング %>
+$('#reasonFormWrap').html("<%= j(render 'lead_seminars/reason_form', lead_seminar: @lead_seminar) %>");
+
+<%# モーダルを開くボタンをクリック %>
+$(`[data-mdb-target="#reasonModal"]`).click();

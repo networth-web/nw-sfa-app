@@ -1,0 +1,169 @@
+ja:
+  date:
+    formats:
+      default: "%Y/%m/%d"
+  time:
+    formats:
+      default: "%Y/%m/%d %H:%M"
+      short_date: "%Y/%m/%d"
+      short_time: "%H:%M"
+  views:
+    pagination:
+      first: "最初へ"
+      last: "最後へ"
+      previous: "前へ"
+      next: "次へ"
+      truncate: "..."
+  activerecord:
+    attributes:
+      lead:
+        name: 名前
+        kana: かな
+        phone: 電話番号
+        email: メールアドレス
+        contact_id: 連絡方法
+        gender: 性別
+        birth: 生年月日
+        age: 年齢
+        postal_code: 郵便番号
+        region_id: 都道府県
+        address: 住所
+        household: 世帯
+        occupation_id: 職業
+        company: 勤務先
+        annual_income_range_id: 年収帯
+        annual_income: 年収
+        source: ソース
+        sales_process: 営業プロセス
+        owner: 担当者
+        closer: クローザー
+        remark: メモ
+      seminar:
+        start_date_time: 開始日時
+        end_date_time: 終了日時
+        format: 形式
+        title: タイトル
+        instructor: 講師
+        description: 説明
+        url: ZoomURL
+      lead_seminar:
+        scheduled_date_time: 予定日時
+        first_preferred_date_time: 第１希望日時
+        second_preferred_date_time: 第２希望日時
+        third_preferred_date_time: 第３希望日時
+        level_id: レベル
+        attend_reason: 出席理由
+        experience_investment: 投資経験
+        interest_investment: 興味のある投資
+        question: 質問
+        tracking_id: トラッキングID
+        attend_id: 出席
+        approval_id: 承認
+        disapproval_reason: 不承認理由
+        lead: リード
+        seminar: セミナー
+      source:
+        name: 名前
+        description: 説明
+        approval: 承認
+        user: 担当者
+      sales_process:
+        name: 名前
+        description: 説明
+      activity:
+        activity_type: 活動種類
+        action_name: 行動名
+        meeting_type: 商談タイプ
+        order_type: 取引タイプ
+        overview: 概要
+        start_date_time: 開始日時
+        end_date_time: 終了日時
+        lead: リード
+        creator: 作成者
+        attender: 同席者
+        property: 物件
+      action_model:
+        name: アクション名
+        action_date_time: アクション日時
+        description: 説明
+        lead: リード
+        user: 実施者
+      meeting:
+        meeting_type: タイプ
+        meeting_count: 回数
+        start_date_time: 開始日時
+        end_date_time: 終了日時
+        content: 内容
+        lead: リード
+        creator: 作成者
+        attendee: 同席者
+      template_model:
+        template_type: タイプ
+        template_text: テキスト
+      property:
+        name: 物件名
+        price: 価格
+      order:
+        order_type: 種類
+        order_date_time: 取引日時
+        content: 内容
+        lead: リード
+        property: 物件
+        creator: 作成者
+        attendee: 同席者
+      lost:
+        reason: 失注理由
+        lead: リード
+        user: ユーザー
+      hide:
+        reason: 理由
+        lead: リード
+      schedule:
+        title: 件名
+        description: 説明
+        schedule_date_time: 期日
+        lead: リード
+        creator: 作成者
+        attender: 同席者
+  activemodel:
+    attributes:
+      lead_form:
+        # Lead
+        name: 名前
+        kana: かな
+        email_address: メールアドレス
+        telephone_number: 電話番号
+        contact_method_id: 連絡方法
+        gender_id: 性別
+        birth_date: 生年月日
+        age: 年齢
+        postal_code: 郵便番号
+        prefecture_id: 都道府県
+        address: 住所
+        household: 世帯
+        job_id: 職業
+        workplace: 勤務先
+        annual_income_band_id: 年収帯
+        annual_income: 年収
+        memo: メモ
+        execution_date: 登録日時
+        sales_process: プロセス
+        source: ソース
+        user: 担当者
+        closer: クローザー
+        # LeadSeminar
+        scheduled_date: 参加予定日
+        first_preferred_date: 第1希望(参加希望日)
+        second_preferred_date: 第2希望(参加希望日)
+        third_preferred_date: 第3希望(参加希望日)
+        level_id: レベル
+        participation_reason: 参加理由
+        investment_experience: 投資経験
+        investment_interest: 興味のある投資
+        question: 質問
+        lead_source_id: リードソースID
+        participation_id: 参加
+        achievement_approval_id: 成果承認
+        achievement_disapproval_reason: 成果不承認理由
+        lead: リード
+        seminar: セミナー

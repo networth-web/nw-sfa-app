@@ -1,0 +1,56 @@
+<% if activity.new_record? %>
+  <h6 class="pb-2 fs-12 text-center">取引を作成</h6>
+<% else %>
+  <h6 class="pb-2 fs-12 text-center">取引を編集</h6>
+<% end %>
+
+<%= form_with model: [lead, activity], id: "orderForm" do |f| %>
+  <div class="py-3 d-flex flex-column gap-3" style="border-top: 1px dashed #d3d6de; border-bottom: 1px dashed #d3d6de;">
+    <!-- エラーメッセージ -->
+    <%= render 'layouts/error_messages', model: f.object %>
+
+    <%= f.hidden_field :form_type, :value => "order" %>
+
+    <%= f.hidden_field :activity_type, :value => "取引" %>
+
+    <div>
+      <%= f.label :order_type, '取引タイプ', class: "form-label font-weight-bold" %><span class="text-danger">【必須】</span>
+      <%= f.collection_radio_buttons :order_type, Activity.order_types, :first , :first do |b| %>
+        <div class="form-check">
+          <%= b.label(class: "form-check-label") { b.radio_button(class: "form-check-input") + b.text } %>
+        </div>
+      <% end %>
+    </div>
+
+    <div>
+      <%= f.label :start_date_time, '取引日時', class: "form-label font-weight-bold" %><span class="text-danger">【必須】</span>
+      <%= f.datetime_field :start_date_time, include_blank: true, class: "form-control w-auto" %>
+    </div>
+
+    <div>
+      <%= f.label :property_id, '物件', class: "form-label font-weight-bold" %><span class="text-danger">【必須】</span>
+      <%= f.collection_select :property_id, Property.all, :id, :name, {include_blank: "---"}, {class: "form-control w-auto"} %>
+    </div>
+
+    <div>
+      <%= f.label :attendee_id, '同席者', class: "form-label font-weight-bold" %>
+      <%= f.collection_select :attender_id, User.all, :id, :name, {include_blank: "---"}, {class: "form-control w-auto"} %>
+    </div>
+
+    <div>
+      <%= f.label :overview, '概要', class: "form-label font-weight-bold" %><span class="text-danger">【必須】</span>
+      <%= f.text_area :overview, placeholder: "概要", class: "form-control mh-200p" %>
+    </div>
+
+  </div>
+
+  <div class="pt-3 d-flex justify-content-end gap-2">
+    <button type="button" class="btn btn-light close-form" data-mdb-ripple-color="dark">閉じる</button>
+    <% if activity.new_record? %>
+      <%= f.submit "作成", class: "btn btn-primary" %>
+    <% else %>
+      <%= f.submit "更新", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+
+<% end %>

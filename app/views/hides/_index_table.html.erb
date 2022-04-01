@@ -1,0 +1,18 @@
+<table class="index-table-2">
+  <!-- ヘッダー -->
+  <tr>
+    <th>リード</th>
+    <th>理由</th>
+  </tr>
+  <!-- ボディー -->
+  <% hides.each do |hide| %>
+    <tr>
+      <td>
+        <%= link_to hide.lead.name, admin_hide_path(hide) %>
+      </td>
+      <td>
+        <%= hide.reason.truncate(30) %>
+      </td>
+    </tr>
+  <% end %>
+</table>

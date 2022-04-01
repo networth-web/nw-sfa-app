@@ -1,0 +1,28 @@
+<!-- 作成ボタン -->
+<div class="p-2">
+  <div class="btn-group" role="group">
+    <%= link_to "新規行動", new_lead_activity_path(lead, form_type: "action"), remote: true, class: "btn btn-primary" %>
+    <%= link_to "新規商談", new_lead_activity_path(lead, form_type: "meeting"), remote: true, class: "btn btn-primary" %>
+    <%= link_to "新規取引", new_lead_activity_path(lead, form_type: "order"), remote: true, class: "btn btn-primary" %>
+  </div>
+</div>
+
+<div class="p-2 d-flex flex-column gap-4">
+  <!-- 行動フォーム -->
+  <div id="actionFormWrap" class="form-wrap p-3 border rounded-3" style="display: none;">
+  </div>
+  <!-- 商談フォーム -->
+  <div id="meetingFormWrap" class="form-wrap p-3 border rounded-3" style="display: none;">
+  </div>
+  <!-- 取引フォーム -->
+  <div id="orderFormWrap" class="form-wrap p-3 border rounded-3" style="display: none;">
+  </div>
+  <div id="activities" class="d-flex flex-column gap-1">
+    <% activities.each do |activity|%>
+      <%= render partial: 'activities/show', locals: { activity: activity } %>
+    <% end %>
+    <div id="noActivity" class="py-5 text-center">
+      <%= render partial: 'activities/no_activity', locals: { activities: activities } %>
+    </div>
+  </div>
+</div>
