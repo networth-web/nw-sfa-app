@@ -8,8 +8,6 @@ class HomeController < ApplicationController
     @meeting_chart = MeetingChart.chart
     # 各ユーザーの契約数
     @order_chart = OrderChart.chart
-    # 各ユーザーの契約数
-    @first_flag_chart = MeetingChart.chart
     today = Date.today.beginning_of_day..Date.today.end_of_day
     # 今日追加されたリードの数
     @today_leads = Lead.where(created_at: today)
