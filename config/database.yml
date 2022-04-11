@@ -53,6 +53,6 @@ production:
   database: <%= ENV['DB_NAME'] %>
   # username: root
   username: <%= ENV['DB_USERNAME'] %>
-  password: <%= ENV['DATABASE_PASSWORD'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
   # socket: /var/lib/mysql/mysql.sock
   host: <%= ENV['DB_HOSTNAME'] %>
