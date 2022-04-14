@@ -61,8 +61,8 @@ $(function() {
 // });
 
 jQuery(function ($) {
-  $('.pref').select2({
+  $('.select-hide').select2({
     dropdownAutoWidth: true,
-    width: 'auto'
+    // width: 'auto'
   })
 })

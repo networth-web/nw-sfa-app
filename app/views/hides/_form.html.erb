@@ -9,7 +9,9 @@
 
         <div>
           <%= f.label :lead_id, "リード", class: "form-label font-weight-bold" %><span class="text-danger">【必須】</span>
-          <%= f.collection_select :lead_id, Lead.all, :id, :name, {}, {class: "pref form-control"} %>
+          <div class="d-flex">
+          <%= f.collection_select :lead_id, Lead.all, :id, :name, { prompt: "---" }, {class: "select-hide form-control w-100"} %>
+          </div>
         </div>
 
         <div>
