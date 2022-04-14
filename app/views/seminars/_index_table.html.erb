@@ -32,7 +32,7 @@
         <%= seminar.description.truncate(30) %>
       </td>
       <td>
-        <%= link_to seminar&.url&.truncate(30), seminar&.url, target: :_blank, class: "text-primary font-weight-normal" %>
+        <%= link_to seminar&.url&.truncate(30), seminar&.url, target: :_blank %>
       </td>
       <td>
         <%= seminar.lead_seminars.count %>名

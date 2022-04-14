@@ -34,7 +34,7 @@
         <%= l order.start_date_time %>
       </td>
       <td>
-        <%= link_to order.property.name, property_path(order.property) %>
+        <%= link_to order.room.property.name + ' (' + order.room.number.to_s + '号室)', property_path(order.room.property) %>
       </td>
       <td>
         <%= order.creator.name %>

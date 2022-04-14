@@ -1,12 +1,8 @@
 class Property < ApplicationRecord
 
   # アソシエーション
-  has_many :orders
-  has_many :activities
+  has_many :rooms
 
   # バリデーション
-  with_options presence: true do
-    validates :name
-    validates :price
-  end
+  validates :name, presence: true
 end

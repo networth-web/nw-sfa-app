@@ -19,8 +19,8 @@
     </div>
 
     <div>
-      <%= f.label :property_id, '物件', class: "form-label font-weight-bold" %><span class="text-danger">【必須】</span>
-      <%= f.collection_select :property_id, Property.all, :id, :name, {include_blank: "---"}, {class: "form-control w-auto"} %>
+      <%= f.label :room_id, '物件', class: "form-label font-weight-bold" %><span class="text-danger">【必須】</span>
+      <%= f.collection_select :room_id, Room.all, :id, :view_name_and_number, {include_blank: "---"}, {class: "form-control w-auto"} %>
     </div>
 
     <div>

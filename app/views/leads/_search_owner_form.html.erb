@@ -1,10 +1,15 @@
 <% path = request.path == all_leads_leads_path ? all_leads_leads_path : my_leads_leads_path %>
-<%= search_form_for q, url: path, html: {class: "form-outline d-flex"} do |f| %>
+<%= search_form_for q, url: path, html: {class: "d-flex"} do |f| %>
 
-  <%= f.text_field :name_or_kana_or_email_or_address_or_company_cont_any, class: "form-control" %>
-  <%= f.label :name_or_kana_or_email_or_address_or_company_cont_any, 'リードを検索...', class: "form-label font-weight-normal fs-9" %>
-    
+  <%= f.collection_select :owner_id_eq, User.all, :id, :name, { include_blank: "担当者で絞る" }, { id: "searchOwner", class: "form-control fs-9 pe-1" } %>
+
   <div class="d-none">
+    <div class="border rounded p-2">
+      <%= f.label :name_or_kana_or_email_or_address_or_company_cont_any, '名前、メールアドレス、住所、勤務先（スペースでAND検索ができます。）', class: "form-label" %>
+      <span class="fs-7 text-grey"></span>
+      <%= f.text_field :name_or_kana_or_email_or_address_or_company_cont_any, placeholder: '名前、メールアドレス、住所、勤務先', class: "form-control" %>
+    </div>
+
     <div class="border rounded p-2">
       <span class="form-label">性別</span>
       <div class="form-check">
@@ -56,7 +61,7 @@
     </div>
 
     <div class="border rounded p-2">
-      <%= f.label :age, '年齢' %>
+      <%= f.label :age, '年齢', class: "form-label" %>
       <div class="pb-1 d-flex align-items-end gap-1">
         <%= f.number_field :age_gteq, placeholder: '0', class: "form-control w-auto" %>
         〜
@@ -69,12 +74,12 @@
     </div>
 
     <div class="border rounded p-2">
-      <%= f.label :prefecture_id_eq, '都道府県' %>
+      <%= f.label :prefecture_id_eq, '都道府県', class: "form-label" %>
       <%= f.collection_select :prefecture_id_eq, Prefecture.all, :id, :name, { include_blank: "---" }, { class: "form-control" } %>
     </div>
 
     <div class="border rounded p-2">
-      <span>世帯</span>
+      <span class="form-label">世帯</span>
       <div class="form-check">
         <%= f.radio_button :household_id_eq, 1, class: "form-check-input" %>
         <%= f.label :household_id_eq, '有り', value: 1, class: "form-check-label" %>
@@ -86,17 +91,17 @@
     </div>
 
     <div class="border rounded p-2">
-      <%= f.label :occupation_id_eq, '職業' %>
+      <%= f.label :occupation_id_eq, '職業', class: "form-label" %>
       <%= f.collection_select :occupation_id_eq, Occupation.all, :id, :name, { include_blank: "---" }, { class: "form-control" } %>
     </div>
 
     <div class="border rounded p-2">
-      <%= f.label :annual_income_range_id_eq, '年収帯' %>
+      <%= f.label :annual_income_range_id_eq, '年収帯', class: "form-label" %>
       <%= f.collection_select :annual_income_range_id_eq, AnnualIncomeRange.all, :id, :name, { include_blank: "---" }, { class: "form-control" } %>
     </div>
 
     <div class="border rounded p-2">
-      <%= f.label :annual_income_gteq, '年収' %>
+      <%= f.label :annual_income_gteq, '年収', class: "form-label" %>
       <div class="pb-1 d-flex align-items-end gap-1">
         <%= f.number_field :annual_income_gteq, placeholder: '0', class: "form-control w-auto" %>
         〜
@@ -109,7 +114,7 @@
     </div>
     
     <div class="border rounded p-2">
-      <%= f.label :created_at_lteq, '登録日時' %>
+      <%= f.label :created_at_lteq, '登録日時', class: "form-label" %>
       <div class="pb-1 d-flex align-items-end gap-1">
         <%= f.datetime_field :created_at_gteq, class: "form-control w-auto" %>
         〜
@@ -121,41 +126,36 @@
     </div>
 
     <div class="border rounded p-2">
-      <%= f.label :source_id_eq, 'ソース' %>
+      <%= f.label :source_id_eq, 'ソース', class: "form-label" %>
       <%= f.collection_select :source_id_eq, Source.all, :id, :name, { include_blank: "---" }, { class: "form-control" } %>
     </div>
 
     <div class="border rounded p-2">
-      <%= f.label :sales_process_id_eq, 'プロセス' %>
+      <%= f.label :sales_process_id_eq, 'プロセス', class: "form-label" %>
       <%= f.collection_select :sales_process_id_eq, SalesProcess.all, :id, :name, { include_blank: "---" }, { class: "form-control" } %>
     </div>
 
     <div class="border rounded p-2">
-      <%= f.label :owner_id_eq, '担当者' %>
-      <%= f.collection_select :owner_id_eq, User.all, :id, :name, { include_blank: "---" }, { class: "form-control" } %>
-    </div>
-
-    <div class="border rounded p-2">
-      <%= f.label :closer_id_eq, 'クローザー' %>
+      <%= f.label :closer_id_eq, 'クローザー', class: "form-label" %>
       <%= f.collection_select :closer_id_eq, User.all, :id, :name, { include_blank: "---" }, { class: "form-control" } %>
     </div>
 
     <div class="border rounded p-2">
-      <%= f.label :lead_seminar_seminar_id_eq, 'セミナー参加日' %>
+      <%= f.label :lead_seminar_seminar_id_eq, 'セミナー参加日', class: "form-label" %>
       <%= f.collection_select :lead_seminar_seminar_id_eq, Seminar.all, :id, :start_date_time, { include_blank: "---" }, { class: "form-control" } %>
     </div>
 
     <div class="border rounded p-2">
-      <%= f.label :lead_seminar_level_id_in, 'セミナーレベル' %>
+      <%= f.label :lead_seminar_level_id_in, 'セミナーレベル', class: "form-label" %>
       <%= f.collection_select :lead_seminar_level_id_in, Level.all, :id, :name, { include_blank: "---" }, { class: "form-control" } %>
     </div>
 
     <div class="border rounded p-2">
-      <%= f.label :lead_seminar_attend_id_in, '参加' %>
+      <%= f.label :lead_seminar_attend_id_in, '参加', class: "form-label" %>
       <%= f.collection_select :lead_seminar_attend_id_in, Attend.all, :id, :name, { include_blank: "---" }, { class: "form-control" } %>
     </div>
   </div>
-
-  <%= f.submit '検索', type: "submit", class: "bg-primary text-white rounded-end px-2 border fs-8" %>
+    
+  <%= f.submit '検索', type: "submit", class: "d-none", id: "searchOwnerSubmit" %>
   
 <% end %>

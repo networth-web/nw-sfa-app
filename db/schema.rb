@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_04_073349) do
+ActiveRecord::Schema.define(version: 2022_04_12_053518) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -55,13 +55,13 @@ ActiveRecord::Schema.define(version: 2022_03_04_073349) do
     t.bigint "lead_id", null: false
     t.bigint "creator_id", null: false
     t.bigint "attender_id"
-    t.bigint "property_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "room_id"
     t.index ["attender_id"], name: "index_activities_on_attender_id"
     t.index ["creator_id"], name: "index_activities_on_creator_id"
     t.index ["lead_id"], name: "index_activities_on_lead_id"
-    t.index ["property_id"], name: "index_activities_on_property_id"
+    t.index ["room_id"], name: "index_activities_on_room_id"
   end
 
   create_table "hides", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -158,7 +158,6 @@ ActiveRecord::Schema.define(version: 2022_03_04_073349) do
 
   create_table "properties", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
-    t.integer "price", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -170,6 +169,16 @@ ActiveRecord::Schema.define(version: 2022_03_04_073349) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["lead_id"], name: "index_reads_on_lead_id"
     t.index ["user_id"], name: "index_reads_on_user_id"
+  end
+
+  create_table "rooms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "number", null: false
+    t.integer "price", null: false
+    t.bigint "property_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["number", "property_id"], name: "index_rooms_on_number_and_property_id", unique: true
+    t.index ["property_id"], name: "index_rooms_on_property_id"
   end
 
   create_table "sales_processes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -238,7 +247,7 @@ ActiveRecord::Schema.define(version: 2022_03_04_073349) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "activities", "leads"
-  add_foreign_key "activities", "properties"
+  add_foreign_key "activities", "rooms"
   add_foreign_key "activities", "users", column: "attender_id"
   add_foreign_key "activities", "users", column: "creator_id"
   add_foreign_key "hides", "leads"
@@ -257,6 +266,7 @@ ActiveRecord::Schema.define(version: 2022_03_04_073349) do
   add_foreign_key "notifications", "users", column: "visitor_id"
   add_foreign_key "reads", "leads"
   add_foreign_key "reads", "users"
+  add_foreign_key "rooms", "properties"
   add_foreign_key "schedules", "leads"
   add_foreign_key "schedules", "users", column: "attender_id"
   add_foreign_key "schedules", "users", column: "creator_id"

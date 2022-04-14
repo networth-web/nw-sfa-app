@@ -12,13 +12,28 @@
     <div class="w-50 mx-auto d-flex flex-column gap-3">
     
       <div>
-        <span class="box-heading pb-2">名前</span>
+        <span class="box-heading pb-2">物件名</span>
         <span><%= @property.name %></span>
       </div>
 
       <div>
-        <span class="box-heading pb-2">価格</span>
-        <span><%= @property.price.to_s(:delimited) %>万円</span>
+        <span class="box-heading pb-2">部屋一覧</span>
+        <% @property.rooms.each do |room| %>
+          <div class="d-flex justify-content-between">
+            <div>
+              <%= room.number %>号室
+              <%= room.price.to_s(:delimited) %>万円
+            </div>
+            <div>
+              <%= link_to "編集", edit_property_room_path(@property, room) %>
+              <%= link_to "削除", property_room_path(@property, room), method: :delete %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <div>
+        <%= link_to "部屋を追加", new_property_room_path(@property) %>
       </div>
 
     </div>

@@ -10,7 +10,6 @@ $(function() {
       // ボタンを定義
       const submitButton = form.find('input[name="commit"]');
       submitButton.click();
-      $()
     });
   })();
 });

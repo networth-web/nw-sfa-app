@@ -4,7 +4,7 @@ class Activity < ApplicationRecord
   belongs_to :lead
   belongs_to :creator, class_name: 'User'
   belongs_to :attender, class_name: 'User', optional: true
-  belongs_to :property, optional: true
+  belongs_to :room, optional: true
 
   # enum
   enum activity_type: { 行動: 1, 商談: 2, 取引: 3 }, _prefix: true
@@ -21,7 +21,7 @@ class Activity < ApplicationRecord
   validates :meeting_type, presence: true, if: Proc.new { |activity| activity.activity_type == "商談" }
   validates :end_date_time, presence: true, if: Proc.new { |activity| activity.activity_type == "商談" }
   validates :meeting_result, presence: true, if: Proc.new { |activity| activity.activity_type == "商談" }
-  validates :property, presence: true, if: Proc.new { |activity| activity.activity_type == "取引" }
+  validates :room, presence: true, if: Proc.new { |activity| activity.activity_type == "取引" }
 
   # スコープ
   scope :not_lost,  -> { left_joins(lead: :lost).where(losts: { lead_id: nil }) }

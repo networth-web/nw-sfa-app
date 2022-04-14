@@ -31,6 +31,7 @@ require("../select")
 require("../slide")
 require("../template")
 require("../toggle")
+require("../search_owner")
 
 // require("../action_name")
 // require("../mdn")

@@ -1,0 +1,29 @@
+<%= form_with model: [property, room], local: true do |f| %>
+  <div class="content-wrap w-60 mx-auto">
+    <div class="w-50 mx-auto py-5">
+      <div class="d-flex flex-column gap-4">
+        <!-- エラーメッセージ -->
+        <%= render 'layouts/error_messages', model: f.object %>
+
+        <div>
+          <%= f.label :number, "部屋番号", class: "form-label font-weight-bold" %><span class="text-danger">【必須】</span>
+          <%= f.number_field :number, placeholder: "部屋番号", class: "form-control" %>
+        </div>
+
+        <div>
+          <%= f.label :price, "価格（万円）", class: "form-label font-weight-bold" %><span class="text-danger">【必須】</span>
+          <%= f.number_field :price, placeholder: "価格（万円）", class: "form-control" %>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- ボタン -->
+  <div class="text-center pt-4">
+    <% if room.new_record? %>
+      <%= f.submit "作成", class: "btn btn-primary btn-rounded btn-lg px-5" %>
+    <% else %>
+      <%= f.submit "更新", class: "btn btn-primary btn-rounded btn-lg px-5" %>
+    <% end %>
+  </div>
+<% end %>

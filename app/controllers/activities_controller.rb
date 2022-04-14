@@ -106,7 +106,7 @@ class ActivitiesController < ApplicationController
       :end_date_time,
       :meeting_result,
       :attender_id,
-      :property_id
+      :room_id
     ).merge(creator_id: current_user.id)
   end
 end

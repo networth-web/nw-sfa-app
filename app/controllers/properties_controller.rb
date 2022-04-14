@@ -37,7 +37,7 @@ class PropertiesController < ApplicationController
   
   def destroy
     # レコードに紐づくレコードがなければ削除
-    if @property.orders.empty?
+    if @property.rooms.empty?
       if @property.destroy
         redirect_to properties_path, notice: "物件が削除されました"
       else
@@ -56,8 +56,7 @@ class PropertiesController < ApplicationController
 
   def property_params
     params.require(:property).permit(
-      :name,
-      :price
+      :name
     )
   end
 end

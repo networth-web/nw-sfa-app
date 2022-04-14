@@ -12,7 +12,6 @@ class CreateActivities < ActiveRecord::Migration[6.0]
       t.references :lead,            null: false, foreign_key: true
       t.references :creator,         null: false, foreign_key: { to_table: :users }
       t.references :attender,                     foreign_key: { to_table: :users }
-      t.references :property,                     foreign_key: true
       t.timestamps
     end
   end

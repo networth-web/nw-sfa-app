@@ -52,14 +52,11 @@
 .fs-20 {
   font-size: 2.0em !important;
 }
-
 .cursor-pointer {
   cursor: pointer;
 }
-
 .text-link {
   color: #5588BB;
-  font-weight: bold;
   &:hover {
     color: #5588BB;
     text-decoration: underline;
@@ -226,6 +223,17 @@ main {
   background-color: #1E90FF;
   width: 10px;
   height: 10px;
+  }
+}
+
+.open-slide {
+  border: 1px solid #e0e0e0!important;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  &:hover {
+    background-color: rgb(242, 240, 240);
   }
 }
 

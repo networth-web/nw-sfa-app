@@ -1,15 +1,17 @@
 <!-- 上部 -->
 <div class="p-3 border-bottom d-flex gap-3">
   <!-- 左 -->
-  <div class="profile-icon-wrap">
-    <div class="profile-icon">
-      <i class="fa-solid fa-user fa-2x text-white"></i>
+  <div>
+    <div class="profile-icon-wrap">
+      <div class="profile-icon">
+        <i class="fa-solid fa-user fa-2x text-white"></i>
+      </div>
     </div>
   </div>
   <!-- 右 -->
   <div class="w-100 d-flex flex-column justify-content-center">
     <div class="d-flex justify-content-between">
-      <h6><%= lead.name %></h6>
+      <h6 class="text-break"><%= lead.name %></h6>
       <%= link_to edit_lead_path(lead, form_type: "lead"), data: {mdb_toggle: "modal", mdb_target: "#leadModal"}, remote: true do %>
         <i class="fa-solid fa-user-pen text-dark"></i>
       <% end %>
@@ -18,7 +20,7 @@
   </div>
 </div>
 <!-- 下部 -->
-<div class="p-3 d-flex flex-column gap-3">
+<div class="p-3 d-flex flex-column gap-3 text-break">
 
   <!-- 担当者 -->
   <div class="d-flex flex-column">
@@ -37,7 +39,7 @@
   <div class="d-flex flex-column">
     <span class="fs-8 font-weight-bold">クローザー</span>
     <div class="d-flex justify-content-between">
-      <span class="text-dark fs-9">
+      <span class="text-dark fs-9 text-break">
         <%= lead.closer&.name ? lead.closer&.name : "未指定" %>
       </span>
       <%= link_to edit_lead_path(lead, form_type: "closer"), data: {mdb_toggle: "modal", mdb_target: "#closerModal"}, remote: true do %>
@@ -138,7 +140,7 @@
   <div class="d-flex flex-column">
     <span class="fs-8 font-weight-bold">年収帯</span>
     <span class="text-dark fs-9">
-      <%= lead&.annual_income_range&.name %>
+      <%= lead&.annual_income_range&.name %>万円
     </span>
   </div>
 

@@ -82,7 +82,7 @@ ja:
         lead: リード
         creator: 作成者
         attender: 同席者
-        property: 物件
+        room: 物件
       action_model:
         name: アクション名
         action_date_time: アクション日時
@@ -103,7 +103,10 @@ ja:
         template_text: テキスト
       property:
         name: 物件名
+      room:
+        number: 部屋番号
         price: 価格
+        property: 物件
       order:
         order_type: 種類
         order_date_time: 取引日時

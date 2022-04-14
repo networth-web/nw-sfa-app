@@ -195,7 +195,7 @@
             <div>
               <span class="font-weight-bold fs-8">物件</span>
               <div>
-                <span class="fs-9"><%= link_to activity.property.name, property_path(activity.property), class: "text-link" %></span>
+                <span class="fs-9"><%= link_to activity.room.property.name + ' (' + activity.room.number.to_s + '号室)', property_path(activity.room.property), class: "text-link" %></span>
               </div>
             </div>
           </div>

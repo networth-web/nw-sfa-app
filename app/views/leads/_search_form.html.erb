@@ -9,17 +9,17 @@
   </div>
   <!-- ボディー -->
   <div class="slide-form__body">
-    <h6 class="pb-3">フィルター条件を指定</h6>
-    <div class="d-flex flex-column gap-2 fs-9">
+    <h6 class="pb-1 border-bottom">フィルター条件を指定</h6>
+    <div class="d-flex flex-column gap-2 fs-9 pt-2">
 
-      <div class="d-flex flex-column">
-        <%= f.label :name_or_kana_or_email_or_address_or_company_cont_any, '名前、メールアドレス、住所、勤務先' %>
-        <span class="fs-7 text-grey">（スペースでAND検索ができます。）</span>
-        <%= f.text_field :name_or_kana_or_email_or_address_or_company_cont_any, placeholder: '名前、電話番号、メールアドレス、住所、勤務先', class: "form-control" %>
+      <div class="border rounded p-3">
+        <%= f.label :name_or_kana_or_email_or_address_or_company_cont_any, '名前、メールアドレス、住所、勤務先（スペースでAND検索ができます。）', class: "form-label" %>
+        <span class="fs-7 text-grey"></span>
+        <%= f.text_field :name_or_kana_or_email_or_address_or_company_cont_any, placeholder: '名前、メールアドレス、住所、勤務先', class: "form-control" %>
       </div>
 
-      <div>
-        <span>性別</span>
+      <div class="border rounded p-3">
+        <span class="form-label">性別</span>
         <div class="form-check">
           <%= f.radio_button :gender_id_eq, 1, class: "form-check-input" %>
           <%= f.label :gender_id_eq, '男性', value: 1, class: "form-check-label" %>
@@ -30,26 +30,9 @@
         </div>
       </div>
 
-      <div>
-        <%= f.label :birth, '生年月日' %>
+      <div class="border rounded p-3">
+        <%= f.label :birth, '生年月日', class: "form-label" %>
         <div class="pb-1 d-flex align-items-end gap-1">
-          <%= raw sprintf(
-            f.date_select(
-              :birth_lteq, {
-                prompt:"--",
-                use_month_numbers: true,
-                start_year: 1900,
-                end_year: (Time.now.year - 22),
-                default: Date.new(1990, 01, 01),
-                date_separator: '%s'
-              }, {
-                class: "form-control w-auto"
-              }
-            ),'年&ensp;', '月&ensp;'
-          ) + '日' %>
-          以前
-        </div>
-        <div class="d-flex align-items-end gap-1">
           <%= raw sprintf(
             f.date_select(
               :birth_gteq, {
@@ -64,29 +47,47 @@
               }
             ),'年&ensp;', '月&ensp;'
           ) + '日' %>
-          以降
-        </div>
-      </div>
-
-      <div>
-        <%= f.label :age, '年齢' %>
-        <div class="pb-1 d-flex align-items-end gap-1">
-          <%= f.number_field :age_gteq, placeholder: '0', class: "form-control w-auto" %>
-          歳以上
+          〜
         </div>
         <div class="d-flex align-items-end gap-1">
-          <%= f.number_field :age_lteq, placeholder: '0', class: "form-control w-auto" %>
-          歳以下
+          〜
+          <%= raw sprintf(
+            f.date_select(
+              :birth_lteq, {
+                prompt:"--",
+                use_month_numbers: true,
+                start_year: 1900,
+                end_year: (Time.now.year - 22),
+                default: Date.new(1990, 01, 01),
+                date_separator: '%s'
+              }, {
+                class: "form-control w-auto"
+              }
+            ),'年&ensp;', '月&ensp;'
+          ) + '日' %>
         </div>
       </div>
 
-      <div>
-        <%= f.label :prefecture_id_eq, '都道府県' %>
+      <div class="border rounded p-3">
+        <%= f.label :age, '年齢', class: "form-label" %>
+        <div class="pb-1 d-flex align-items-end gap-1">
+          <%= f.number_field :age_gteq, placeholder: '0', class: "form-control w-auto" %>
+          〜
+        </div>
+        <div class="d-flex align-items-end gap-1">
+          〜
+          <%= f.number_field :age_lteq, placeholder: '0', class: "form-control w-auto" %>
+          歳
+        </div>
+      </div>
+
+      <div class="border rounded p-3">
+        <%= f.label :prefecture_id_eq, '都道府県', class: "form-label" %>
         <%= f.collection_select :prefecture_id_eq, Prefecture.all, :id, :name, { include_blank: "---" }, { class: "form-control" } %>
       </div>
 
-      <div>
-        <span>世帯</span>
+      <div class="border rounded p-3">
+        <span class="form-label">世帯</span>
         <div class="form-check">
           <%= f.radio_button :household_id_eq, 1, class: "form-check-input" %>
           <%= f.label :household_id_eq, '有り', value: 1, class: "form-check-label" %>
@@ -97,72 +98,73 @@
         </div>
       </div>
 
-      <div>
-        <%= f.label :occupation_id_eq, '職業' %>
+      <div class="border rounded p-3">
+        <%= f.label :occupation_id_eq, '職業', class: "form-label" %>
         <%= f.collection_select :occupation_id_eq, Occupation.all, :id, :name, { include_blank: "---" }, { class: "form-control" } %>
       </div>
 
-      <div>
-        <%= f.label :annual_income_range_id_eq, '年収帯' %>
+      <div class="border rounded p-3">
+        <%= f.label :annual_income_range_id_eq, '年収帯', class: "form-label" %>
         <%= f.collection_select :annual_income_range_id_eq, AnnualIncomeRange.all, :id, :name, { include_blank: "---" }, { class: "form-control" } %>
       </div>
 
-      <div>
-        <%= f.label :annual_income_gteq, '年収' %>
+      <div class="border rounded p-3">
+        <%= f.label :annual_income_gteq, '年収', class: "form-label" %>
         <div class="pb-1 d-flex align-items-end gap-1">
           <%= f.number_field :annual_income_gteq, placeholder: '0', class: "form-control w-auto" %>
-          万円以上
+          〜
         </div>
         <div class="d-flex align-items-end gap-1">
+          〜
           <%= f.number_field :annual_income_lteq, placeholder: '0', class: "form-control w-auto" %>
-          万円以下
+          万円
         </div>
       </div>
       
-      <div>
-        <%= f.label :created_at_lteq, '登録日時' %>
+      <div class="border rounded p-3">
+        <%= f.label :created_at_lteq, '登録日時', class: "form-label" %>
         <div class="pb-1 d-flex align-items-end gap-1">
-          <%= f.datetime_field :created_at_lteq, class: "form-control w-auto" %>
-          以前
+          <%= f.datetime_field :created_at_gteq, class: "form-control w-auto" %>
+          〜
         </div>
         <div class="d-flex align-items-end gap-1">
+          〜
           <%= f.datetime_field :created_at_lteq, class: "form-control w-auto" %>
-          以降
         </div>
       </div>
 
-      <div>
-        <%= f.label :source_id_eq, 'ソース' %>
+      <div class="border rounded p-3">
+        <%= f.label :source_id_eq, 'ソース', class: "form-label" %>
         <%= f.collection_select :source_id_eq, Source.all, :id, :name, { include_blank: "---" }, { class: "form-control" } %>
       </div>
 
-      <div>
-        <%= f.label :sales_process_id_eq, 'プロセス' %>
+      <div class="border rounded p-3">
+        <%= f.label :sales_process_id_eq, 'プロセス', class: "form-label" %>
         <%= f.collection_select :sales_process_id_eq, SalesProcess.all, :id, :name, { include_blank: "---" }, { class: "form-control" } %>
       </div>
 
-      <div>
-        <%= f.label :owner_id_eq, '担当者' %>
+      <div class="border rounded p-3">
+        <%= f.label :owner_id_eq, '担当者', class: "form-label" %>
         <%= f.collection_select :owner_id_eq, User.all, :id, :name, { include_blank: "---" }, { class: "form-control" } %>
       </div>
 
-      <div>
-        <%= f.label :closer_id_eq, 'クローザー' %>
+      <div class="border rounded p-3">
+        <%= f.label :closer_id_eq, 'クローザー', class: "form-label" %>
         <%= f.collection_select :closer_id_eq, User.all, :id, :name, { include_blank: "---" }, { class: "form-control" } %>
       </div>
 
-      <div>
-        <%= f.label :lead_seminar_seminar_id_eq, 'セミナー参加日' %>
+      <div class="border rounded p-3">
+        <%= f.label :lead_seminar_seminar_id_eq, 'セミナー参加日', class: "form-label" %>
         <%= f.collection_select :lead_seminar_seminar_id_eq, Seminar.all, :id, :start_date_time, { include_blank: "---" }, { class: "form-control" } %>
       </div>
 
-      <div>
-        <%= f.label :lead_seminar_level_id_in, 'セミナーレベル' %>
+      <div class="border rounded p-3">
+        <%= f.label :lead_seminar_level_id_in, 'セミナーレベル', class: "form-label" %>
         <%= f.collection_select :lead_seminar_level_id_in, Level.all, :id, :name, { include_blank: "---" }, { class: "form-control" } %>
       </div>
 
-      <div>
-        <%= f.label :lead_seminar_attend_id_in, '参加' %>
+      <div class="border rounded p-3">
+        <%= f.label :lead_seminar_attend_id_in, '参加', class: "form-label" %>
         <%= f.collection_select :lead_seminar_attend_id_in, Attend.all, :id, :name, { include_blank: "---" }, { class: "form-control" } %>
       </div>
     </div>

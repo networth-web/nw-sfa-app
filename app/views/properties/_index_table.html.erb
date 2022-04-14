@@ -1,8 +1,8 @@
 <table class="index-table-2">
   <!-- ヘッダー -->
   <tr>
-    <th>名前</th>
-    <th>価格</th>
+    <th>物件名</th>
+    <th>部屋</th>
   </tr>
   <!-- ボディー -->
   <% properties.each do |property| %>
@@ -11,7 +11,10 @@
         <%= link_to property.name, property_path(property) %>
       </td>
       <td>
-        <%= property.price.to_s(:delimited) %>万円
+        <% property.rooms.each do |room| %>
+        <%= room.number %>号室
+        <br>
+        <% end %>
       </td>
     </tr>
   <% end %>

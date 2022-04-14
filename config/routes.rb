@@ -62,7 +62,9 @@ Rails.application.routes.draw do
   resources :seminars
   resources :sources
   resources :sales_processes
-  resources :properties
+  resources :properties do
+    resources :rooms
+  end
   resources :losts, only: [:index]
   resources :notifications, only: [:index]
   

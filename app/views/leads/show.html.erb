@@ -75,7 +75,7 @@
           <!-- ボディー -->
           <% @images.each do |image| %>
             <div class="d-flex justify-content-between">
-              <%= link_to image.image.filename, rails_blob_path(image.image), target: :_blank, class: "fs-8"  %>
+              <%= link_to image.image.filename, rails_blob_path(image.image), target: :_blank, class: "fs-8 text-link"  %>
               <%= link_to lead_image_path(@lead, image), method: :delete, data: { confirm: '削除しますか？' }, class: "text-danger fs-8" do %>
                 <i class="fa-solid fa-trash"></i><span class="font-weight-bold">&ensp;削除</span>
               <% end %>
