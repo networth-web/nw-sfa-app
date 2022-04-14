@@ -4,7 +4,7 @@
       <!-- ヘッダー -->
       <div class="p-3 d-flex justify-content-between">
         <!-- 左 -->
-        <div class="d-flex flex-column justify-content-between gap-4">
+        <div class="d-flex flex-column justify-content-between">
           <!-- 上段 -->
           <div class="main-heading">
             <i class="fa-solid fa-calendar-days fa-lg main-heading--box"></i>
@@ -27,25 +27,29 @@
       <!-- テーブル -->
       <div class="px-3">
         <%= month_calendar do |date| %>
-          <%= date.day %>
+          <div class="text-center text-body font-weight-bold fs-8">
+            <%= date.day %>
+          </div>
           <div class="pt-2 d-flex flex-column gap-1">
             <!-- セミナー -->
             <% @seminars = Seminar.where(start_date_time: date.in_time_zone.all_day) %>
             <% @seminars.each do |seminar| %>
-              <div class="fs-14 text-start rounded-3 p-2" style="background-color: #3A87AD;">
-                <%= link_to seminar_path(seminar), class: "text-link text-white" do %>
-                  セミナー（<%= l seminar.start_date_time, format: :short_time %>〜）
-                <% end %>
-              </div>
+              <%= link_to seminar_path(seminar), class: "text-hover ps-1 rounded-3" do %>
+                <i class="fa-solid fa-circle text-warning fs-7 pe-1"></i>
+                <span class="text-body fs-9">
+                  <%= l seminar.start_date_time, format: :short_time %> セミナー
+                </span>
+              <% end %>
             <% end %>
             <!-- スケジュール -->
             <% @schedules = Schedule.where(schedule_date_time: date.in_time_zone.all_day, creator_id: current_user.id).or(Schedule.where(schedule_date_time: date.in_time_zone.all_day, attender_id: current_user.id)) %>
             <% @schedules.each do |schedule| %>
-              <div class="fs-14 text-start rounded-3 p-2 bg-warning">
-                <%= link_to lead_path(schedule.lead), class: "text-link text-white" do %>
-                  予定（<%= schedule.title %>）
-                <% end %>
-              </div>
+              <%= link_to lead_path(schedule.lead), class: "text-hover ps-1 rounded-3" do %>
+                <i class="fa-solid fa-circle text-success fs-7 pe-1"></i>
+                <span class="text-body fs-9">
+                  <%= l schedule.schedule_date_time, format: :short_time %> <%= schedule.title.truncate(13) %>
+                </span>
+              <% end %>
             <% end %>
           </div>
         <% end %>

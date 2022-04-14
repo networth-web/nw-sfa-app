@@ -40,15 +40,15 @@
               <%= link_to "新規登録", new_lead_path, data: {mdb_toggle: "modal", mdb_target: "#leadModal"}, class: "btn btn-primary btn-rounded", remote: true %>
             </div>
             <div class="btn-group shadow-0" role="group" aria-label="Basic example">
-              <%= link_to "CSVインポート", csv_leads_path, class: "btn btn-outline-primary", data: {mdb_color: 'dark'} %>
-              <%= link_to "CSVダウンロード", csv_path, class: "btn btn-outline-primary", data: {mdb_color: 'dark'} %>
+              <%= link_to "CSVインポート", csv_leads_path, class: "btn btn-outline-primary text-hover", data: {mdb_color: 'dark'} %>
+              <%= link_to "CSVダウンロード", csv_path, class: "btn btn-outline-primary text-hover", data: {mdb_color: 'dark'} %>
             </div>
           </div>
           <!-- 下段 -->
           <div class="d-flex justify-content-end gap-2">
             <%= render partial: 'search_owner_form', locals: { q: @q } %>
             <%= render partial: 'search_name_form', locals: { q: @q } %>
-            <div id="openSlideForm" class="open-slide">
+            <div id="openSlideForm" class="open-slide text-hover">
               <i class="fa-solid fa-filter d-flex align-items-center"></i>
             </div>
             

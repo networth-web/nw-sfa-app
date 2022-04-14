@@ -64,6 +64,11 @@
     text-decoration: underline;
   }
 }
+.text-hover {
+  &:hover {
+    background-color: rgb(244, 244, 244);
+  }
+}
 
 /*---------- メイン ----------*/
 main {
@@ -234,9 +239,6 @@ main {
   border-radius: 5px;
   cursor: pointer;
   display: flex;
-  &:hover {
-    background-color: rgb(242, 240, 240);
-  }
 }
 
 /*---------- サイドメニュー ----------*/
@@ -448,15 +450,22 @@ main {
 .simple-calendar {
   & th {
     text-align: center !important;
+    color: grey;
   }
-  & td {
-    font-size: 0.6em;
-    text-align: right;
+  // 高さ
+  & .day {
+    height: 100px !important;
   }
 }
-.calendar-heading {
-  padding-bottom: 5px;
+// 前月
+.prev-month {
+  background-color: inherit !important;
 }
+// 先月
+.next-month {
+  background-color: inherit !important;
+}
+// 前月ボタン
 .calender-left {
   display: inline-block;
   border: 1px solid #d3d6de;
@@ -465,6 +474,7 @@ main {
   font-size: 1em;
   border-radius: 5px 0px 0px 5px;
 }
+// 次月ボタン
 .calender-right {
   display: inline-block;
   border: 1px solid #d3d6de;
@@ -472,13 +482,6 @@ main {
   color: black;
   font-size: 1em;
   border-radius: 0px 5px 5px 0px;
-}
-// 土日のカラー変更
-.wday-0 {
-  color: red !important;
-}
-.wday-6 {
-   color: blue !important;
 }
 
 /*---------- 逐次検索 ----------*/
