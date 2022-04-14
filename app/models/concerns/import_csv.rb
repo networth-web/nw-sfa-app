@@ -19,7 +19,7 @@ module ImportCsv
       "世帯ID" => 'household_id',
       "職業ID" => 'occupation_id',
       "勤務先" => 'company',
-      "年収帯ID" => 'annual_income_range_id',
+      "年収帯" => 'annual_income_range',
       "年収" => 'annual_income',
       "メモ" => 'remark',
       "登録日時" => 'created_at',

@@ -83,8 +83,8 @@
           <%= f.collection_select :contact_id, Contact.all, :id, :name, {selected: 1}, { class: "form-control" } %>
         </td>
         <td>
-          <%= f.label :annual_income_range_id, '年収帯', class: "form-label font-weight-bold" %>（万円）
-          <%= f.collection_select :annual_income_range_id, AnnualIncomeRange.all, :id, :name, {include_blank: "---"}, { class: "form-control" } %>
+          <%= f.label :annual_income_range, '年収帯', class: "form-label font-weight-bold" %>
+          <%= f.text_field :company, placeholder: "年収帯", class: "form-control" %>
         </td>
       </tr>
 

@@ -89,12 +89,7 @@
       <%= f.label :occupation_id_eq, '職業' %>
       <%= f.collection_select :occupation_id_eq, Occupation.all, :id, :name, { include_blank: "---" }, { class: "form-control" } %>
     </div>
-
-    <div class="border rounded p-2">
-      <%= f.label :annual_income_range_id_eq, '年収帯' %>
-      <%= f.collection_select :annual_income_range_id_eq, AnnualIncomeRange.all, :id, :name, { include_blank: "---" }, { class: "form-control" } %>
-    </div>
-
+    
     <div class="border rounded p-2">
       <%= f.label :annual_income_gteq, '年収' %>
       <div class="pb-1 d-flex align-items-end gap-1">

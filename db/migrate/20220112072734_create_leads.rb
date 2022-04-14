@@ -15,7 +15,7 @@ class CreateLeads < ActiveRecord::Migration[6.0]
       t.integer :household_id,                                    comment: "世帯ID"
       t.integer :occupation_id,                                   comment: "職業ID"
       t.string  :company,                                         comment: "勤務先"
-      t.integer :annual_income_range_id,                          comment: "年収帯ID"
+      t.string  :annual_income_range,                             comment: "年収帯"
       t.integer :annual_income,                                   comment: "年収"
       t.timestamps
     end

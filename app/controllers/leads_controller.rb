@@ -169,7 +169,7 @@ class LeadsController < ApplicationController
       :household_id,
       :occupation_id,
       :company,
-      :annual_income_range_id,
+      :annual_income_range,
       :annual_income,
       :remark,
       :source_id,

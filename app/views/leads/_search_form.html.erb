@@ -104,11 +104,6 @@
       </div>
 
       <div class="border rounded p-3">
-        <%= f.label :annual_income_range_id_eq, '年収帯', class: "form-label" %>
-        <%= f.collection_select :annual_income_range_id_eq, AnnualIncomeRange.all, :id, :name, { include_blank: "---" }, { class: "form-control" } %>
-      </div>
-
-      <div class="border rounded p-3">
         <%= f.label :annual_income_gteq, '年収', class: "form-label" %>
         <div class="pb-1 d-flex align-items-end gap-1">
           <%= f.number_field :annual_income_gteq, placeholder: '0', class: "form-control w-auto" %>

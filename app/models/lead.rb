@@ -40,7 +40,6 @@ class Lead < ApplicationRecord
     validates :prefecture_id, inclusion: { in: Prefecture.pluck(:id) }
     validates :household_id, inclusion: { in: Household.pluck(:id) }
     validates :occupation_id, inclusion: { in: Occupation.pluck(:id) }
-    validates :annual_income_range_id, inclusion: { in: AnnualIncomeRange.pluck(:id) }
   end
 
   # バリデーションメソッド

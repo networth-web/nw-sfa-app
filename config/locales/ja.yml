@@ -31,7 +31,7 @@ ja:
         household: 世帯
         occupation_id: 職業
         company: 勤務先
-        annual_income_range_id: 年収帯
+        annual_income_range: 年収帯
         annual_income: 年収
         source: ソース
         sales_process: 営業プロセス
