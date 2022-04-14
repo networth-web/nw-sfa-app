@@ -9,7 +9,7 @@
 
         <div>
           <%= f.label :lead_id, "リード", class: "form-label font-weight-bold" %><span class="text-danger">【必須】</span>
-          <%= f.collection_select :lead_id, Lead.all, :id, :name, {}, {class: "form-control"} %>
+          <%= f.collection_select :lead_id, Lead.all, :id, :name, {}, {class: "pref form-control"} %>
         </div>
 
         <div>

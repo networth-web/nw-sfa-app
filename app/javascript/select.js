@@ -56,6 +56,13 @@ $(function() {
 });
 
 // select2
-$(document).ready(function() {
-  $('#hide_lead_id').select2();
-});
+// $(document).ready(function() {
+//   $('#hide_lead_id').select2();
+// });
+
+jQuery(function ($) {
+  $('.pref').select2({
+    dropdownAutoWidth: true,
+    width: 'auto'
+  })
+})
