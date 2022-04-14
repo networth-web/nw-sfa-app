@@ -26,7 +26,6 @@ class Lead < ApplicationRecord
   belongs_to :prefecture
   belongs_to :household
   belongs_to :occupation
-  belongs_to :annual_income_range
 
   # バリデーション
   with_options presence: true do

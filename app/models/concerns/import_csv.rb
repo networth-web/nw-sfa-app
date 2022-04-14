@@ -97,12 +97,14 @@ module ImportCsv
           errors.push({:row_num => row_number, :messages => lead_seminar.errors.full_messages})
           raise ActiveRecord::Rollback
         end
-        
-        # バリデーションが正しくない場合に例外を発生される
+
         lead.save
       end
     end
-
+    return errors
+  rescue => e
+    e = [e]
+    errors.push({ :row_num => 0, :messages => e })
     return errors
   end
 end
