@@ -1,7 +1,7 @@
 class OrderChart
 
   def self.chart
-    if Activity.where(order_type: "契約").exists?
+    if Activity.exists?
 
       # 今月の1日を定義
       end_date = Date.today.change(day: 1)
@@ -19,7 +19,7 @@ class OrderChart
         # 月ごとのユーザーの商談数をmonth_countに配列で格納
         month_count = months.map {|month|
           # 月ごとのユーザーの商談数
-          Activity.where(order_type: "契約", start_date_time: month.all_month, creator_id: user.id).or(Activity.where(order_type: "契約", start_date_time: month.all_month, attender_id: user.id)).count
+          Activity.where(activity_type: "取引", start_date_time: month.all_month, creator_id: user.id).or(Activity.where(activity_type: "取引", start_date_time: month.all_month, attender_id: user.id)).count
         }
         # それぞれのユーザーのハッシュに月ごとのカウントの配列を格納
         users_data["#{user.id}"] = month_count

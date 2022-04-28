@@ -1,7 +1,7 @@
 class MeetingChart
 
   def self.chart
-    if Activity.where(meeting_type: "商談").exists?
+    if Activity.exists?
 
       # 今月の1日を定義
       end_date = Date.today.change(day: 1)
@@ -19,7 +19,7 @@ class MeetingChart
         # 月ごとのユーザーの商談数をmonth_countに配列で格納
         month_count = months.map {|month|
           # 月ごとのユーザーの商談数
-          Activity.where(meeting_type: "商談", start_date_time: month.all_month, creator_id: user.id).or(Activity.where(meeting_type: "商談", start_date_time: month.all_month, attender_id: user.id)).count
+          Activity.where(meeting_type: [2, 3, 4, 5], start_date_time: month.all_month, creator_id: user.id).or(Activity.where(meeting_type: [2, 3, 4, 5], start_date_time: month.all_month, attender_id: user.id)).count
         }
         # それぞれのユーザーのハッシュに月ごとのカウントの配列を格納
         users_data["#{user.id}"] = month_count
