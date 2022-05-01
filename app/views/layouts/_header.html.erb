@@ -37,15 +37,17 @@
         <a class="dropdown-toggle flex-row h-auto" href="#" id="dropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
           <i class="fa-solid fa-circle-user"></i>
         </a>
-        <div class="dropdown-menu p-3 border" aria-labelledby="dropdownMenuLink">
+        <div class="bg-gradient-origin dropdown-menu p-3 border" aria-labelledby="dropdownMenuLink">
           <div class="d-flex">
             <div>
-              <i class="fa-solid fa-circle-user fa-3x"></i>
+              <i class="fa-solid fa-circle-user fa-3x text-black-50"></i>
             </div>
             <div class="ps-3 pe-4">
-              <span class="font-weight-bold"><%= current_user.name %></span>
-              <span><%= current_user.email %></span>
-              <%= link_to "編集", edit_user_registration_path, class: "h-auto p-0 flex-row" %>
+              <span class="font-weight-bold text-dark"><%= current_user.name %></span>
+              <span class="text-body"><%= current_user.email %></span>
+              <div class="pt-3 d-flex justify-content-end">
+                <%= link_to "編集", edit_user_registration_path, class: "p-0 h-auto d-inline-block text-light font-weight-bold" %>
+              </div>
             </div>
           </div>
         </div>

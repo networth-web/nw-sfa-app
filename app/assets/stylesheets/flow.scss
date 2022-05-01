@@ -48,18 +48,18 @@
   // is-done
   &.is-done {
     color: white;
-    background-color: #44C65A;
+    background-color: #4caf50;
     &::before {
-      border-top: solid 15px #44C65A;
-      border-bottom: solid 15px #44C65A;
+      border-top: solid 15px #4caf50;
+      border-bottom: solid 15px #4caf50;
     }
     &::after {
-      border-left: solid 8px #44C65A;
+      border-left: solid 8px #4caf50;
     }
     &:last-child {
       &::after {
-        border-top: solid 15px #44C65A;
-        border-bottom: solid 15px #44C65A;
+        border-top: solid 15px #4caf50;
+        border-bottom: solid 15px #4caf50;
       }
     }
   }
@@ -67,18 +67,18 @@
   // is-current
   &.is-current {
     color: white;
-    background-color: #175ca1;
+    background-color: #6573c3;
     &::before {
-      border-top: solid 15px #175ca1;
-      border-bottom: solid 15px #175ca1;
+      border-top: solid 15px #6573c3;
+      border-bottom: solid 15px #6573c3;
     }
     &::after {
-      border-left: solid 8px #175ca1;
+      border-left: solid 8px #6573c3;
     }
     &:last-child {
       &::after {
-        border-top: solid 15px #175ca1;
-        border-bottom: solid 15px #175ca1;
+        border-top: solid 15px #6573c3;
+        border-bottom: solid 15px #6573c3;
       }
     }
   }
@@ -86,18 +86,18 @@
   // is-active
   &.is-active {
     color: white;
-    background-color: #014486;
+    background-color: #3f51b5;
     &::before {
-      border-top: solid 15px #014486;
-      border-bottom: solid 15px #014486;
+      border-top: solid 15px #3f51b5;
+      border-bottom: solid 15px #3f51b5;
     }
     &::after {
-      border-left: solid 8px #014486;
+      border-left: solid 8px #3f51b5;
     }
     &:last-child {
       &::after {
-        border-top: solid 15px #014486;
-        border-bottom: solid 15px #014486;
+        border-top: solid 15px #3f51b5;
+        border-bottom: solid 15px #3f51b5;
       }
     }
   }

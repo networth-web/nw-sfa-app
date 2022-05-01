@@ -69,6 +69,9 @@
     background-color: rgb(244, 244, 244);
   }
 }
+.bg-gradient-origin {
+  background: linear-gradient(35deg, rgba(7,28,50,1) 0%, rgba(169,207,255,1) 40%, rgba(33,123,229,1) 100%);
+}
 
 /*---------- メイン ----------*/
 main {
