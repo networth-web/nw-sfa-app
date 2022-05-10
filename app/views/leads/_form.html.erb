@@ -142,21 +142,27 @@
           <%= f.label :postal_code, '郵便番号', class: "form-label font-weight-bold" %>（数字のみ、ハイフン(-)無し）
           <%= f.number_field :postal_code, placeholder: "1010001", class: "form-control" %>
         </td>
-        <td>
-          <%= f.label :owner_id, '担当者', class: "form-label font-weight-bold" %>
-          <%= f.collection_select :owner_id, User.all, :id, :name, {include_blank: "---"}, { class: "form-control" } %>
-        </td>
-      </tr>
 
+        <% if lead.new_record? %>
+          <td>
+            <%= f.label :owner_id, '担当者', class: "form-label font-weight-bold" %>
+            <%= f.collection_select :owner_id, User.all, :id, :name, {include_blank: "---"}, { class: "form-control" } %>
+          </td>
+        <% end %>
+      </tr>
+      
       <tr>
         <td>
           <%= f.label :prefecture_id, '都道府県', class: "form-label font-weight-bold" %>
           <%= f.collection_select :prefecture_id, Prefecture.all, :id, :name, {include_blank: "---"}, { class: "form-control" } %>
         </td>
-        <td>
-          <%= f.label :closer_id, 'クローザー', class: "form-label font-weight-bold" %>
-          <%= f.collection_select :closer_id, User.all, :id, :name, {include_blank: "---"}, { class: "form-control" } %>
-        </td>
+
+        <% if lead.new_record? %>
+          <td>
+            <%= f.label :closer_id, 'クローザー', class: "form-label font-weight-bold" %>
+            <%= f.collection_select :closer_id, User.all, :id, :name, {include_blank: "---"}, { class: "form-control" } %>
+          </td>
+        <% end %>
       </tr>
     </table>
   </div>

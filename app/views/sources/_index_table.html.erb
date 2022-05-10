@@ -1,6 +1,7 @@
 <table class="index-table-2">
   <!-- ヘッダー -->
   <tr>
+    <th>ID</th>
     <th>名前</th>
     <th>承認</th>
     <th>担当者</th>
@@ -9,6 +10,9 @@
   <!-- ボディー -->
   <% sources.each do |source| %>
     <tr>
+      <td>
+        <%= source.id %>
+      </td>
       <td>
         <%= link_to source.name, source_path(source) %>
       </td>

@@ -32,5 +32,9 @@
         <%= render partial: 'index_table', locals: { seminars: @seminars } %>
       </div>
     </div>
+    <!-- ページネーション -->
+    <div class="py-5">
+      <%= paginate @seminars %>
+    </div>
   </div>
 </main>

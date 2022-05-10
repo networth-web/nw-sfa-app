@@ -3,13 +3,15 @@ class ActivitiesController < ApplicationController
   before_action :set_lead, only: [:new, :create, :edit, :update, :destroy]
 
   def all_meetings
+    @q = Activity.ransack(params[:q])
     # 失注と非表示以外
-    @meetings = Activity.not_lost.not_hide.only_meeting.page(params[:page]).per(50).order(id: "DESC")
+    @meetings = @q.result.not_lost.not_hide.only_meeting.page(params[:page]).per(50).order(id: "DESC")
     render :meetings
   end
 
   def my_meetings
-    @meetings = Activity.not_lost.not_hide.only_meeting.only_creator(current_user).or(Activity.not_lost.not_hide.only_order.only_attender(current_user)).page(params[:page]).per(50).order(id: "DESC")
+    @q = Activity.ransack(params[:q])
+    @meetings = @q.result.not_lost.not_hide.only_meeting.only_creator(current_user).or(Activity.not_lost.not_hide.only_order.only_attender(current_user)).page(params[:page]).per(50).order(id: "DESC")
     render :meetings
   end
 

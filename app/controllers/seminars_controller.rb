@@ -3,7 +3,7 @@ class SeminarsController < ApplicationController
   authorize_resource
 
   def index
-    @seminars = Seminar.all.order(start_date_time: "DESC")
+    @seminars = Seminar.all.page(params[:page]).per(50).order(start_date_time: "DESC")
   end
 
   def show

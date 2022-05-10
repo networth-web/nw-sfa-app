@@ -1,34 +1,16 @@
 <table class="index-table-2">
   <tr>
-    <th>
-      リード名
-    </th>
-    <th>
-      取引タイプ
-    </th>
-    <th>
-      開始日時
-    </th>
-    <th>
-      物件
-    </th>
-    <th>
-      作成者
-    </th>
-    <th>
-      同席者
-    </th>
-    <th>
-      概要
-    </th>
+    <th>リード名</th>
+    <th>開始日時</th>
+    <th>物件</th>
+    <th>作成者</th>
+    <th>同席者</th>
+    <th>概要</th>
   </tr>
   <% @orders.each do |order| %>
     <tr>
       <td>
         <%= link_to order.lead.name, lead_path(order.lead) %>
-      </td>
-      <td>
-        <%= order.order_type %>
       </td>
       <td>
         <%= l order.start_date_time %>

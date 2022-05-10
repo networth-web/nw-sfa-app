@@ -1,6 +1,7 @@
 <table class="index-table-2">
   <!-- ヘッダー -->
   <tr>
+    <th>ID</th>
     <th>タイトル</th>
     <th>開催日時</th>
     <th>終了日時</th>
@@ -13,6 +14,9 @@
   <!-- ボディー -->
   <% seminars.each do |seminar| %>
     <tr>
+      <td>
+        <%= seminar.id %>
+      </td>
       <td>
         <%= link_to seminar.title, seminar_path(seminar) %>
       </td>

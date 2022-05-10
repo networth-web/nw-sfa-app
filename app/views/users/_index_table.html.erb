@@ -1,6 +1,7 @@
 <table class="index-table-2">
   <!-- ヘッダー -->
   <tr>
+    <th>ID</th>
     <th>名前</th>
     <th>メールアドレス</th>
     <th>権限</th>
@@ -8,6 +9,9 @@
   <!-- ボディー -->
   <% users.each do |user| %>
     <tr>
+      <td>
+        <%= user.id %>
+      </td>
       <td>
         <%= link_to user.name, admin_user_path(user) %>
       </td>

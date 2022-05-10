@@ -1,12 +1,16 @@
 <table class="index-table-2">
   <!-- ヘッダー -->
   <tr>
+    <th>ID</th>
     <th>名前</th>
     <th>説明</th>
   </tr>
   <!-- ボディー -->
   <% sales_processes.each do |sales_process| %>
     <tr>
+      <td>
+        <%= sales_process.id %>
+      </td>
       <td>
         <%= link_to sales_process.name, sales_process_path(sales_process) %>
       </td>

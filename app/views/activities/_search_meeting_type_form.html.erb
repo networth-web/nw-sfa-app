@@ -1,0 +1,5 @@
+<% path = request.path == all_meetings_activities_path ? all_meetings_activities_path : my_meetings_activities_path %>
+<%= search_form_for q, url: path, html: {class: "d-flex"} do |f| %>
+  <%= f.select :meeting_type_eq, Activity.meeting_types, { include_blank: "商談タイプで絞る" }, { id: "searchMeetingType", class: "form-control fs-9 pe-1" } %>
+  <%= f.submit '検索', type: "submit", class: "d-none", id: "searchMeetingTypeSubmit" %>
+<% end %>
