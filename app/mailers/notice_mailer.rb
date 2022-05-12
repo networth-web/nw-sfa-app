@@ -8,7 +8,6 @@ class NoticeMailer < ApplicationMailer
   def greeting(user, notification_type)
     @user = user
     @notification_type = notification_type
-    binding.pry
 
     mail(to: @user.email, subject: '顧客管理システムからの通知です')
   end
