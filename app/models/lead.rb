@@ -89,7 +89,7 @@ class Lead < ApplicationRecord
   # 変更があれば、担当者とクローザーの変更の通知を作成する
   def user_notification(type, current_user, before_user, after_user)
     # before_userかafter_userが値がなければreturn
-    return false if before_user.blank? || after_user.blank?
+    return false if after_user.blank?
     # before_userとafter_userの値が同じならreturn
     return false if before_user == after_user
     # 通知作成
@@ -99,6 +99,9 @@ class Lead < ApplicationRecord
       visitor_id: current_user.id,
       visited_id: after_user
     )
+    # メール送信
+    user = User.find(after_user)
+    NoticeMailer.greeting(user, type).deliver_now
   end
 
   # 追加されたリードがあれば通知を作成
@@ -107,11 +110,17 @@ class Lead < ApplicationRecord
     return false if before_count == 0
     # before_countとafter_countの人数が同じならreturn
     return false if before_count == after_count
+
     lead_count = after_count - before_count
     # 管理者、マネージャーに通知
     User.all.each do |user|
-      unless user.role == "一般"
+      type = 1
+
+      unless user.role == "マネージャー"
         Notification.create(notification_type: 1, lead_count: lead_count, visitor_id: current_user.id, visited_id: user.id)
+
+        # メール送信
+        NoticeMailer.greeting(user, type).deliver_now
       end
     end
   end

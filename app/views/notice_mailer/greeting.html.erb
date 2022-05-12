@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p><%= @user.name %>さん</p>
+    <p>
+      <% if @notification_type == 1 %>
+        新規にリードが追加されました。
+      <% else %>
+        あなたにリードが割り当てられました。
+      <% end %>
+    </p>
+    <p>
+      <a href="https://nw-sale.com/users/sign_in">nw-sale.com</a>
+      をクリックしてシステムにログインしてください。
+    </p>
+  </body>
+</html>
