@@ -1,14 +1,24 @@
 class LeadsController < ApplicationController
-  before_action :set_lead, only: [:show, :edit, :update, :update_sales_process, :destroy ]
+  before_action :set_lead, only: [:show, :edit, :update, :update_sales_process, :destroy]
+
   include ImportCsv
   include OutputCsv
+
   load_and_authorize_resource :only => [:show]
 
+  # 全てのリードを表示
   def all_leads
-    Lead.or_search(params) # OR検索
+    # OR検索ができるようにするためのメソッド
+    Lead.or_search(params)
+
+    # 検索でransackを使用
     @q = Lead.ransack(params[:q])
     @leads = @q.result.not_lost.not_hide.include_association.page(params[:page]).per(50).order(id: "DESC")
+
+    # CSV出力用のデータを定義（CSVなのでページ制限は不要）
     csv_leads = @q.result.not_lost.not_hide.include_association.order(id: "DESC")
+
+    # 
     @salesprocess_count = SalesProcess.count
     @lead = Lead.new
     @lead_seminar = LeadSeminar.new
@@ -20,6 +30,7 @@ class LeadsController < ApplicationController
     end
   end
 
+  # 担当者かクローザーになっているリードを表示
   def my_leads
     Lead.or_search(params) # OR検索
     @q = Lead.ransack(params[:q])
@@ -36,6 +47,7 @@ class LeadsController < ApplicationController
     end
   end
 
+  # 失注になっているリードを表示
   def lost_leads
     Lead.or_search(params) # OR検索
     @q = Lead.ransack(params[:q])
@@ -99,14 +111,14 @@ class LeadsController < ApplicationController
 
   def update
     @form_type = params[:lead][:form_type]
-    before_owner = @lead.owner_id
-    before_closer = @lead.closer_id
+    before_owner = @lead.owner
+    before_closer = @lead.closer
     if @lead.update(lead_params)
       flash.now[:notice] = 'リードが更新されました'
       # 担当者通知作成処理
-      @lead.user_notification(2, current_user, before_owner, @lead.owner_id)
+      @lead.change_user_notify(2, current_user, before_owner, @lead.owner)
       # クローザー通知作成処理
-      @lead.user_notification(3, current_user, before_closer, @lead.closer_id)
+      @lead.change_user_notify(3, current_user, before_closer, @lead.closer)
     else
       flash.now[:alert] = 'リードの更新に失敗しました'
     end
@@ -138,7 +150,7 @@ class LeadsController < ApplicationController
     # エラーがない場合
     if @errors.empty?
       # 通知作成処理
-      Lead.lead_notification(current_user, before_count, Lead.all.count)
+      Lead.csv_import_notify(current_user, before_count, Lead.all.count)
       redirect_to all_leads_leads_path, notice: "CSVがインポートされました"
     # エラーがあった場合
     else

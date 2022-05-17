@@ -1,39 +1,41 @@
 class Lead < ApplicationRecord
+  include SendLine
 
-  # アソシエーション
+  # （ソース、営業プロセス、担当者、クローザー）
   belongs_to :source
   belongs_to :sales_process
   belongs_to :owner, class_name: 'User', optional: true
   belongs_to :closer, class_name: 'User', optional: true
-
+  # （リードセミナー、失注、非表示、既読）
   has_one :lead_seminar, dependent: :destroy
   has_one :lost, dependent: :destroy
   has_one :hide, dependent: :destroy
   has_one :read, dependent: :destroy
-
+  # （活動、画像、予定、通知）
   has_many :activities, dependent: :destroy
   has_many :images, dependent: :destroy
   has_many :schedules, dependent: :destroy
   has_many :notifications, dependent: :destroy
 
-  # リッチテキスト
+  # メモ
   has_rich_text :remark
 
-  # ActiveHash
   extend ActiveHash::Associations::ActiveRecordExtensions
+  # （連絡方法、性別、都道府県、世帯、職業）
   belongs_to :contact
   belongs_to :gender
   belongs_to :prefecture
   belongs_to :household
   belongs_to :occupation
 
-  # バリデーション
   with_options presence: true do
+    # （名前、連絡方法）
     validates :name
     validates :contact_id
   end
 
   with_options allow_blank: true do
+    # ActiveHashのバリデーション
     validates :contact_id, inclusion: { in: Contact.pluck(:id) }
     validates :gender_id, inclusion: { in: Gender.pluck(:id) }
     validates :prefecture_id, inclusion: { in: Prefecture.pluck(:id) }
@@ -41,11 +43,10 @@ class Lead < ApplicationRecord
     validates :occupation_id, inclusion: { in: Occupation.pluck(:id) }
   end
 
-  # バリデーションメソッド
+  # 自作バリデーション
   validate :owner?
   validate :closer?
 
-  # スコープ
   scope :not_lost,  -> { left_joins(:lost).where(losts: { lead_id: nil }) }
   scope :not_hide,  -> { left_joins(:hide).where(hides: { lead_id: nil }) }
   scope :include_association,  -> { includes(:owner, :closer, :source, :sales_process, :lost, :read) }
@@ -53,6 +54,7 @@ class Lead < ApplicationRecord
   scope :only_closer,  -> (current_user){ where(closer_id: current_user.id) }
   scope :only_lost_not_hide,  -> { joins(:lost).left_joins(:hide).where(hides: { lead_id: nil }) }
 
+  # -------------------- 独自メソッド --------------------
   # OR検索
   def self.or_search(params)
     # params[:q][:name_or_kana_or_phone_or_email_or_address_or_company_cont_any]が無ければ終了
@@ -86,44 +88,54 @@ class Lead < ApplicationRecord
     self.create_read(user_id: current_user.id)
   end
 
-  # 変更があれば、担当者とクローザーの変更の通知を作成する
-  def user_notification(type, current_user, before_user, after_user)
-    # before_userかafter_userが値がなければreturn
-    return false if after_user.blank?
-    # before_userとafter_userの値が同じならreturn
-    return false if before_user == after_user
-    # 通知作成
+  # CSVインポートの通知を作成（お知らせ、メール、LINE）
+  def self.csv_import_notify(current_user, before_count, after_count)
+    # 追加されたリードがいなければ処理を終了
+    return false if before_count == after_count
+
+    lead_count = after_count - before_count
+    notify_type = 1
+    
+    # マネージャーのみに通知
+    User.all.each do |user|
+      if user.role == "マネージャー"
+        Notification.create(
+          notification_type: notify_type,
+          lead_count: lead_count,
+          visitor_id: current_user.id,
+          visited_id: user.id
+        )
+
+        # メール（未使用）
+        # NoticeMailer.greeting(user, notify_type).deliver_now
+      end
+    end
+
+    # LINE通知
+    Lead.send_line_for_csv_import(lead_count)
+  end
+
+  # ユーザー変更に関する通知を作成（お知らせ、メール、LINE）
+  def change_user_notify(notify_type, current_user, before_user, after_user)
+    # 変更後のユーザーがいない、または変更がない場合処理を終了
+    return false if after_user.blank? || before_user == after_user
+
+    # お知らせ
     Notification.create(
-      notification_type: type,
+      notification_type: notify_type,
       lead_id: self.id,
       visitor_id: current_user.id,
       visited_id: after_user
     )
-    # メール送信
-    user = User.find(after_user)
-    NoticeMailer.greeting(user, type).deliver_now
+
+    # メール（未使用）
+    # NoticeMailer.greeting(after_user, notify_type).deliver_now
+
+    # LINE
+    Lead.send_line_for_change_user(notify_type, self, after_user)
   end
+  # -------------------- ここまで --------------------
 
-  # 追加されたリードがあれば通知を作成
-  def self.lead_notification(current_user, before_count, after_count)
-    # 追加されたリードがなければreturn
-    return false if before_count == 0
-    # before_countとafter_countの人数が同じならreturn
-    return false if before_count == after_count
-
-    lead_count = after_count - before_count
-    # 管理者、マネージャーに通知
-    User.all.each do |user|
-      type = 1
-
-      unless user.role == "マネージャー"
-        Notification.create(notification_type: 1, lead_count: lead_count, visitor_id: current_user.id, visited_id: user.id)
-
-        # メール送信
-        NoticeMailer.greeting(user, type).deliver_now
-      end
-    end
-  end
 
   private
 
