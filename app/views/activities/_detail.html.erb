@@ -2,8 +2,8 @@
 <% if activity.activity_type == "行動" %>
   <div class="d-flex">
     <!-- トグルアイコン -->
-    <div class="ps-2 pe-3">
-      <i class="fa-solid fa-chevron-right toggle-icon cursor-pointer text-dark" data-toggle-icon="<%= activity.id %>"></i>
+    <div class="pe-2">
+      <i class="toggle-icon fa-solid fa-chevron-right rounded-circle text-hover cursor-pointer text-dark d-flex align-items-center justify-content-center" data-toggle-icon="<%= activity.id %>" style="width: 30px; height: 30px;"></i>
     </div>
     <div class="w-100">
       <!-- ヘッダー -->

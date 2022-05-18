@@ -65,7 +65,7 @@
             <h6>ファイル</h6>
             <div>
               <%= form_with model: [@lead, @image], html: { name: "imageForm" }, local: true, class: "d-flex justify-content-end" do |f| %>
-                <label class="text-dark fs-8 cursor-pointer" for="image_image">
+                <label class="text-dark text-dark-hover hover-underline fs-8 cursor-pointer" for="image_image">
                   <i class="fa-solid fa-plus"></i><span class="font-weight-bold">&ensp;追加</span>
                 </label>
                 <%= f.file_field :image, class: "d-none" %>
