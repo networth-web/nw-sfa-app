@@ -11,9 +11,12 @@
         <%= link_to property.name, property_path(property) %>
       </td>
       <td>
-        <% property.rooms.each do |room| %>
-        <%= room.number %>号室
-        <br>
+        <% property.rooms.each_with_index do |room, index| %>
+          <%= room.number %>号室、
+          <% index += 1 %>
+          <% if index % 10 == 0 && index != 0 %>
+            <br>
+          <% end %>
         <% end %>
       </td>
     </tr>

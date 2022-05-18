@@ -12,7 +12,6 @@ class HomeController < ApplicationController
     @today_leads = Lead.where(created_at: today)
     # 今日割り当てられたリードの数
     @my_leads = Lead.joins(:notifications).where(notifications: { created_at: today, visited_id: current_user.id, notification_type: [2, 3] })
-    # 今日のセミナーを取得
-    @today_seminars = Seminar.where(start_date_time: today)
+    @today_seminars = Seminar.where(start_date_time: today) # 今日のセミナー
   end
 end

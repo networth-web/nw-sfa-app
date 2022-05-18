@@ -1,9 +1,10 @@
 <main>
   <div class="d-flex flex-column gap-3">
-    <!-- 進捗 -->
+    <%# 進捗 %>
     <div class="bg-white p-3 rounded-5 d-flex flex-column gap-2">
       <%= render partial: 'sales_process', locals: { lead: @lead, sales_processes: @sales_processes } %>
     </div>
+    
     <div class="d-flex gap-3">
       <!-- リード詳細 -->
       <div id="leadDetail" class="bg-white rounded-5" style="width: calc(25% - 8px)">

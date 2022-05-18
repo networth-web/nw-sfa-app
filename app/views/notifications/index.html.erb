@@ -14,7 +14,7 @@
                 <span class="fs-8"><%= l notification.created_at %></span>
               </div>
               <div class="pt-1">
-                <span class="font-weight-bold"><%= notification.visitor.name %></span>さんが
+                <span class="font-weight-bold"><%= notification.visitor.name %></span>が
                 CSVで<span class="font-weight-bold"><%= notification.lead_count %></span>名のリードを追加しました。
               </div>
             <% end %>
@@ -24,8 +24,8 @@
                 <span class="fs-8"><%= l notification.created_at %></span>
               </div>
               <div>
-                <span class="font-weight-bold"><%= notification.visitor.name %></span>さんが
-                あなたを<%= link_to notification.lead.name, lead_path(notification.lead), class: "text-link font-weight-bold" %>さんの担当者にしました。
+                <%= link_to notification.lead.name, lead_path(notification.lead), class: "text-link font-weight-bold" %>さんの担当者になりました。<br>
+                変更者：<span class="font-weight-bold"><%= notification.visitor.name %></span>
               </div>
             <% end %>
             <!-- クローザー -->
@@ -34,8 +34,8 @@
                 <span class="fs-8"><%= l notification.created_at %></span>
               </div>
               <div>
-                <span class="font-weight-bold"><%= notification.visitor.name %></span>さんが
-                あなたを<%= link_to notification.lead.name, lead_path(notification.lead), class: "text-link font-weight-bold" %>さんのクローザーにしました。
+                <%= link_to notification.lead.name, lead_path(notification.lead), class: "text-link font-weight-bold" %>さんのクローザーになりました。<br>
+                変更者：<span class="font-weight-bold"><%= notification.visitor.name %></span>
               </div>
             <% end %>
           </div>

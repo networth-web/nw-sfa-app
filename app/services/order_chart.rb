@@ -1,52 +1,35 @@
 class OrderChart
-
   def self.chart
-    if Activity.exists?
+    # 過去半年の1日の配列を作成
+    last_day = Date.today.change(day: 1) # 今月1日
+    first_day = Date.today - 6.months # 半年前
+    months = (first_day..last_day).select{|d|d.day == 1}
 
-      # 今月の1日を定義
-      end_date = Date.today.change(day: 1)
-      # 5ヶ月前を定義
-      start_date = end_date - 5.months
-      # 過去5ヶ月の1日の配列を作成
-      months = (start_date..end_date).select{|d| d.day == 1}
+    # 月表示データ
+    months_data = months.map {|month|
+      month.strftime("%Y-%m")
+    }
 
-      # ユーザーごとのハッシュを作成
-      # ユーザー配列を定義
-      users = User.all
-      # users_dataには各ユーザーのデータを格納
-      users_data = {}
-      users.each do |user|
-        # 月ごとのユーザーの商談数をmonth_countに配列で格納
-        month_count = months.map {|month|
-          # 月ごとのユーザーの商談数
-          Activity.where(activity_type: "取引", start_date_time: month.all_month, creator_id: user.id).or(Activity.where(activity_type: "取引", start_date_time: month.all_month, attender_id: user.id)).count
-        }
-        # それぞれのユーザーのハッシュに月ごとのカウントの配列を格納
-        users_data["#{user.id}"] = month_count
-      end
-
-      # 目標値ハッシュを作成
-      users_data["目標"] = months.map {|month| month = 3 }
-
-      # 表示用に変換
-      months_data = months.map {|month|
-        month.strftime("%Y-%m")
+    # ユーザーごとの商談数(月)のデータ
+    users = User.all
+    users_data = []
+    users.each do |user|
+      # 月ごとの商談数の配列を作成
+      month_count = months.map {|month|
+        Activity.where(activity_type: "取引", start_date_time: month.all_month, creator_id: user.id).or(Activity.where(activity_type: "取引", start_date_time: month.all_month, attender_id: user.id)).count
       }
+      users_data << month_count
+    end
+    users_data << [3, 3, 3, 3, 3, 3] # 目標値
 
-      chart = LazyHighCharts::HighChart.new('graph', :style=>"height:350px") do |c|
-        # c.title(text: "引継ぎ")
-        c.xAxis(categories: months_data, title: {text: '月'})
-        c.yAxis(title: {text: '回数'})
-        users.each do |user|
-          c.series(name: user.name, data: users_data["#{user.id}"], type: "")
-        end
-        c.series(name: '目標', data: users_data["目標"])
-        # c.legend(align: 'left', verticalAlign: 'top')
-        c.legend(alignColumns: false, borderWidth: 1)
+    chart = LazyHighCharts::HighChart.new('graph', :style=>"height:350px") do |c|
+      c.xAxis(categories: months_data, title: {text: '月'})
+      c.yAxis(title: {text: '回数'})
+      users.each do |user|
+        c.series(name: user.name, data: users_data[user.id - 1], type: "")
       end
-
-    else
-      return nil
+      c.series(name: '目標', data: users_data[users.count])
+      c.legend(alignColumns: false, borderWidth: 1)
     end
   end
 

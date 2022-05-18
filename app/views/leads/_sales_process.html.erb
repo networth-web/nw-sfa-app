@@ -1,4 +1,4 @@
-<!-- ヘッダー -->
+<%# ヘッダー %>
 <div class="d-flex justify-content-between">
   <div>
     <h6>営業プロセス</h6>
@@ -8,7 +8,8 @@
     <%= f.submit "プロセスを更新", id: "salesProcessButton", class: "btn btn-outline-primary btn-rounded", data: { mdb_ripple_color: "dark" } %>
   <% end %>
 </div>
-<!-- ボディー -->
+
+<%# ボディー %>
 <div class="ps-2 d-flex align-items-center flex-wrap" style="gap: 10px 12px;">
   <% sales_processes.each do |sales_process| %>
     <!-- active -->

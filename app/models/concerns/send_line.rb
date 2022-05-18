@@ -8,7 +8,8 @@ module SendLine
   class_methods do
     # ユーザー変更時のメッセージ
     def create_change_user_msg(lead, after_user, type_name, scheduled_seminar_date)
-"#{type_name}：#{after_user.name}
+"
+#{type_name}：#{after_user.name}
 リード：#{lead.name}様
 セミナー：#{scheduled_seminar_date}"
     end
@@ -54,8 +55,12 @@ module SendLine
     # LINE送信メソッド（CSVインポート時）
     def send_line_for_csv_import(lead_count)
       leads = Lead.order(id: :desc).limit(lead_count)
-      msg = create_csv_import_msg(leads) # メッセージ作成
-      request = make_request(msg, TOKEN_FOR_CSV_IMPORT) # リクエスト作成
+
+      # メッセージ作成
+      msg = create_csv_import_msg(leads)
+
+      # リクエスト作成
+      request = make_request(msg, TOKEN_FOR_CSV_IMPORT)
       response = Net::HTTP.start(URI.hostname, URI.port, use_ssl: URI.scheme == "https") do |https|
         https.request(request)
       end

@@ -4,35 +4,29 @@ class LeadsController < ApplicationController
   include ImportCsv
   include OutputCsv
 
+  # showアクションのみ閲覧制限
   load_and_authorize_resource :only => [:show]
 
-  # 全てのリードを表示
+  # 全て表示
   def all_leads
-    # OR検索ができるようにするためのメソッド
-    Lead.or_search(params)
-
-    # 検索でransackを使用
-    @q = Lead.ransack(params[:q])
+    Lead.or_search(params) # OR検索対応
+    @q = Lead.ransack(params[:q]) # 検索でransackを使用
     @leads = @q.result.not_lost.not_hide.include_association.page(params[:page]).per(50).order(id: "DESC")
-
-    # CSV出力用のデータを定義（CSVなのでページ制限は不要）
-    csv_leads = @q.result.not_lost.not_hide.include_association.order(id: "DESC")
-
-    # 
+    csv_leads = @q.result.not_lost.not_hide.include_association.order(id: "DESC") # CSV出力用のデータ
     @salesprocess_count = SalesProcess.count
     @lead = Lead.new
     @lead_seminar = LeadSeminar.new
     respond_to do |format|
       format.html { render :index }
       format.csv do |csv|
-        self.output_csv(csv_leads) # CSVダウンロード
+        self.output_csv(csv_leads) # CSV出力
       end
     end
   end
 
-  # 担当者かクローザーになっているリードを表示
+  # 担当者かクローザーのみ表示
   def my_leads
-    Lead.or_search(params) # OR検索
+    Lead.or_search(params)
     @q = Lead.ransack(params[:q])
     @leads = @q.result.not_lost.not_hide.only_owner(current_user).or(@q.result.not_lost.not_hide.only_closer(current_user)).page(params[:page]).per(50).order(id: "DESC")
     csv_leads = @q.result.not_lost.not_hide.only_owner(current_user).or(@q.result.not_lost.not_hide.only_closer(current_user)).order(id: "DESC")
@@ -42,24 +36,7 @@ class LeadsController < ApplicationController
     respond_to do |format|
       format.html { render :index }
       format.csv do |csv|
-        self.output_csv(csv_leads) # CSVダウンロード
-      end
-    end
-  end
-
-  # 失注になっているリードを表示
-  def lost_leads
-    Lead.or_search(params) # OR検索
-    @q = Lead.ransack(params[:q])
-    @leads = @q.result.only_lost_not_hide.page(params[:page]).per(50).order(id: "DESC")
-    csv_leads = @q.result.order(id: "DESC")
-    @lead = Lead.new
-    @lead_seminar = LeadSeminar.new
-    @salesprocess_count = SalesProcess.count
-    respond_to do |format|
-      format.html { render :index }
-      format.csv do |csv|
-        self.output_csv(csv_leads) # CSVダウンロード
+        self.output_csv(csv_leads)
       end
     end
   end
@@ -115,16 +92,14 @@ class LeadsController < ApplicationController
     before_closer = @lead.closer
     if @lead.update(lead_params)
       flash.now[:notice] = 'リードが更新されました'
-      # 担当者通知作成処理
+      # 通知作成
       @lead.change_user_notify(2, current_user, before_owner, @lead.owner)
-      # クローザー通知作成処理
       @lead.change_user_notify(3, current_user, before_closer, @lead.closer)
     else
       flash.now[:alert] = 'リードの更新に失敗しました'
     end
   end
 
-  # sales_process
   def update_sales_process
     if @lead.update(lead_params)
       redirect_to lead_path(@lead), notice: "プロセスが更新されました"
@@ -147,12 +122,10 @@ class LeadsController < ApplicationController
   def csv_import
     before_count = Lead.all.count
     @errors = self.import_csv(params[:file])
-    # エラーがない場合
+    # エラーがない場合通知を作成
     if @errors.empty?
-      # 通知作成処理
       Lead.csv_import_notify(current_user, before_count, Lead.all.count)
       redirect_to all_leads_leads_path, notice: "CSVがインポートされました"
-    # エラーがあった場合
     else
       flash.now[:alert] = 'CSVのインポートに失敗しました'
       render :csv
@@ -211,11 +184,3 @@ class LeadsController < ApplicationController
   end
 
 end
-
-
-
-
-
-
-
-

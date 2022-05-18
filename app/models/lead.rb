@@ -141,13 +141,14 @@ class Lead < ApplicationRecord
 
   # ownerバリデーション
   def owner?
-    return if owner_id.blank? # 値がなれければ終了
-    # ユーザーのレコードがなければ終了
+    # 値がなければ処理を終了
+    return if owner_id.blank?
+    # ユーザーがいなければエラー
     unless User.exists?
       errors.add(:owner, 'は対象がありません')
       return false
     end
-    # リストに含まれなければエラーを追加
+    # ユーザーのリストになければエラー
     owner_range = User.first.id..User.last.id
     if owner_range.exclude?(owner_id)
       errors.add(:owner, 'はリストにありません')
