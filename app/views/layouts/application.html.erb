@@ -27,10 +27,11 @@
     </div>
     <%# ヘッダー %>
     <%= render partial: 'layouts/header' %>
-
     <div class="d-flex position-relative">
       <%# ローディング %>
-      <%= render 'layouts/loading' %>
+      <% if user_signed_in? %>
+        <%= render 'layouts/loading' %>
+      <% end %>
       <%# 管理画面 %>
       <% if request.url.include?('/admin') %>
         <%= render partial: 'layouts/admin' %>

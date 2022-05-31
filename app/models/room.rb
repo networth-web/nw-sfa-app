@@ -1,9 +1,7 @@
 class Room < ApplicationRecord
-  # アソシエーション
   has_many :activities
   belongs_to :property
   
-  # バリデーション
   with_options presence: true do
     validates :number
     validates :price

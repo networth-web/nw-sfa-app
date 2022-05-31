@@ -12,6 +12,7 @@
     <th>参加人数</th>
   </tr>
   <!-- ボディー -->
+  <% days = ["日", "月", "火", "水", "木", "金", "土"] %>
   <% seminars.each do |seminar| %>
     <tr>
       <td>
@@ -22,9 +23,11 @@
       </td>
       <td>
         <%= l seminar.start_date_time %>
+        （<%= days[seminar.start_date_time.wday] %>）
       </td>
       <td>
         <%= l seminar.end_date_time %>
+        （<%= days[seminar.end_date_time.wday] %>）
       </td>
       <td>
         <%= seminar.format %>

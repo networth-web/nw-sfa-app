@@ -1,6 +1,4 @@
 class LeadSeminar < ApplicationRecord
-  
-  # アソシエーション
   belongs_to :lead
   belongs_to :seminar, optional: true
 
@@ -10,7 +8,6 @@ class LeadSeminar < ApplicationRecord
   belongs_to :attend
   belongs_to :approval
 
-  # バリデーション
   with_options presence: true do
     validates :attend_id
     validates :approval_id
@@ -24,7 +21,6 @@ class LeadSeminar < ApplicationRecord
 
   validates :disapproval_reason, presence: true, if: Proc.new { |lead_seminar| lead_seminar.approval_id == 2 }
 
-  # バリデーションメソッド
   validate :seminar?
 
   private

@@ -55,14 +55,9 @@ $(function() {
   })();
 });
 
-// select2
-// $(document).ready(function() {
-//   $('#hide_lead_id').select2();
-// });
-
+// 非表示の選択検索
 jQuery(function ($) {
   $('.select-hide').select2({
-    dropdownAutoWidth: true,
-    // width: 'auto'
+    dropdownAutoWidth: true
   })
 })

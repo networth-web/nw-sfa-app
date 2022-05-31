@@ -1,6 +1,4 @@
 class Activity < ApplicationRecord
-
-  # アソシエーション
   belongs_to :lead
   belongs_to :creator, class_name: 'User'
   belongs_to :attender, class_name: 'User', optional: true
@@ -10,7 +8,6 @@ class Activity < ApplicationRecord
   enum activity_type: { 行動: 1, 商談: 2, 取引: 3 }, _prefix: true
   enum meeting_type: { 面談: 1, 初訪: 2, 再訪: 3, 買い増し: 4, 紹介依頼: 5 }, _prefix: true
 
-  # バリデーション
   with_options presence: true do
     validates :activity_type
     validates :overview
@@ -23,7 +20,6 @@ class Activity < ApplicationRecord
   validates :meeting_result, presence: true, if: Proc.new { |activity| activity.activity_type == "商談" }
   validates :room, presence: true, if: Proc.new { |activity| activity.activity_type == "取引" }
 
-  # スコープ
   scope :not_lost,  -> { left_joins(lead: :lost).where(losts: { lead_id: nil }) }
   scope :not_hide,  -> { left_joins(lead: :hide).where(hides: { lead_id: nil }) }
   scope :only_meeting,  -> { where(activity_type: "商談") }

@@ -1,8 +1,8 @@
 module SendLine
   extend ActiveSupport::Concern
 
-  TOKEN_FOR_CHANGE_USER = "uj3YLfXI4bBu3v9mNDoN4CaAaxzmWsbpa0hF4AfGEcw"
-  TOKEN_FOR_CSV_IMPORT = "95pM3lVLO9wC1Q6x1hCsXlauQq20i1yA8dnKNGt3Ooy"
+  TOKEN_FOR_CHANGE_USER = ENV['LINE_TOKEN_1']
+  TOKEN_FOR_CSV_IMPORT = ENV['LINE_TOKEN_2']
   URI = URI.parse("https://notify-api.line.me/api/notify")
 
   class_methods do

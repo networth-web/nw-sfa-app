@@ -1,3 +1,4 @@
+// 営業プロセス
 $(function() {
 	(function() {
     const flow = $(".flow")

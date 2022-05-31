@@ -1,4 +1,4 @@
-// アクティビティのトグル
+// 活動のトグル
 $(function() {
 	(function() {
     $(document).on("click", ".toggle-icon", function(){

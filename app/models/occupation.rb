@@ -19,7 +19,6 @@ class Occupation < ActiveHash::Base
     { id: 17, name: 'その他' }
   ]
 
-  # ActiveHash
   include ActiveHash::Associations
   has_many :leads
 end

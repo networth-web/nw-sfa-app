@@ -6,7 +6,6 @@ class Attend < ActiveHash::Base
     {id: 4, name: '出席不要'}
   ]
 
-  # ActiveHash
   include ActiveHash::Associations
   has_many :lead_seminars
 end

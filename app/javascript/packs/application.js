@@ -3,15 +3,16 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
+// turbolinksは削除済み
 require("@rails/ujs").start()
 require("@rails/activestorage").start()
 require("channels")
 require("trix")
 require("@rails/actiontext")
 
-// js.erbでjqueryを使う
+// jquery
 require('jquery')
-window.$ = jQuery;
+window.$ = jQuery; // js.erbでjqueryを使う
 
 // select2
 import 'select2'
@@ -32,10 +33,6 @@ require("../slide")
 require("../template")
 require("../toggle")
 require("../search_owner")
-
-// require("../action_name")
-// require("../mdn")
-// require("../memo")
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)

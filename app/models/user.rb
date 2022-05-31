@@ -4,7 +4,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  #  アソシエーション
   has_many :owner_leads, class_name: 'Lead', foreign_key: "owner_id"
   has_many :closer_leads, class_name: 'Lead', foreign_key: "closer_id"
   has_many :sources
@@ -26,7 +25,6 @@ class User < ApplicationRecord
   # enum
   enum role: {システム管理者: 1, 運用管理者: 2, マネージャー: 3, 一般: 4}
 
-  # バリデーション
   with_options presence: true do
     validates :name, length: { maximum: 6 }
     validates :role

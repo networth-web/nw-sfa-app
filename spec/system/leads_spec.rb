@@ -7,12 +7,12 @@ RSpec.describe 'リード登録', type: :system do
     FactoryBot.create(:sales_process)
   end
   context 'リード登録ができるとき'do
-    it 'ログイン（権限:システム管理者）したユーザーは新規投稿できる' do
+    it 'ログイン（権限:システム管理者）したユーザーは新規登録できる' do
       # ログインする
       sign_in(@user)
       # リード一覧ページへ移動
       visit all_leads_leads_path
-      # 新規投稿ページへのボタンがあることを確認する
+      # 新規登録ページへのボタンがあることを確認する
       expect(page).to have_content('新規登録')
       # 新規登録をクリックする
       click_link '新規登録'
@@ -40,8 +40,8 @@ RSpec.describe 'リード登録', type: :system do
       expect(page).to have_link(Lead.last.name)
     end
   end
-  context 'ツイート登録ができないとき'do
-    it 'ログインしていないと新規投稿ページに遷移できない' do
+  context 'リード登録ができないとき'do
+    it 'ログインしていないとリード一覧ページに遷移できない' do
       # リード一覧ページへ移動
       visit all_leads_leads_path
       # リード一覧ページへ遷移できないことを確認
@@ -58,7 +58,7 @@ RSpec.describe 'リード編集', type: :system do
     @lead2 = @lead_seminar2.lead
   end
   context 'リード編集ができるとき' do
-    it 'ログインしたユーザーは自分が投稿したツイートの編集ができる' do
+    it 'ログインしたユーザーは自分が登録したリードの編集ができる' do
       # リード1の担当者でログインする
       sign_in(@lead1.owner)
       # 詳細ページへ移動
@@ -74,7 +74,7 @@ RSpec.describe 'リード編集', type: :system do
       ).to eq(@lead1.name)
       expect(page).to have_select('lead_contact_id', selected: @lead1.contact.name)
       expect(page).to have_select('lead_source_id', selected: @lead1.source.name)
-      # 投稿内容を編集する
+      # 登録内容を編集する
       fill_in 'lead_name', with: "#{@lead1.name}+編集した名前"
       find_by_id('lead_contact_id').find("option[value='2']").select_option
       find_by_id('lead_source_id').find("option[value='#{@lead1.source_id + 1}']").select_option

@@ -2,6 +2,7 @@
   <tr>
     <th><span>名前</span></th>
     <th><span>担当者</span></th>
+    <th><span>ソース</span></th>
     <th><span>トラッキングID</span></th>
     <th><span>出席</span></th>
     <th><span>承認</span></th>
@@ -13,6 +14,9 @@
       </td>
       <td>
         <%= lead_seminar.lead.owner&.name %>
+      </td>
+      <td>
+        <%= lead_seminar.lead.source.name %>
       </td>
       <td>
         <%= lead_seminar&.tracking_id %>

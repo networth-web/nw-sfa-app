@@ -1,12 +1,9 @@
 class Seminar < ApplicationRecord
-
-  # アソシエーション
   has_many :lead_seminars
 
   # enum
   enum format: {来場: 1,オンライン: 2}
 
-  # バリデーション
   with_options presence: true do
     validates :start_date_time
     validates :end_date_time
@@ -18,11 +15,6 @@ class Seminar < ApplicationRecord
   
   # バリデーションメソッド
   validate :end_date_time_after?
-
-  # アクティビティのソート用メソッド
-  def activity_date_time
-    self.start_date_time
-  end
 
   private
 

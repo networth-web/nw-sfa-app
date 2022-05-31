@@ -42,7 +42,11 @@
               <% end %>
             <% end %>
             <!-- スケジュール -->
-            <% @schedules = Schedule.where(schedule_date_time: date.in_time_zone.all_day, creator_id: current_user.id).or(Schedule.where(schedule_date_time: date.in_time_zone.all_day, attender_id: current_user.id)) %>
+            <% if admin? %>
+              <% @schedules = Schedule.where(schedule_date_time: date.in_time_zone.all_day) %>
+            <% else %>
+              <% @schedules = Schedule.where(schedule_date_time: date.in_time_zone.all_day, creator_id: current_user.id).or(Schedule.where(schedule_date_time: date.in_time_zone.all_day, attender_id: current_user.id)) %>
+            <% end %>
             <% @schedules.each do |schedule| %>
               <%= link_to lead_path(schedule.lead), class: "text-hover ps-1 rounded-3" do %>
                 <i class="fa-solid fa-circle text-success fs-7 pe-1"></i>

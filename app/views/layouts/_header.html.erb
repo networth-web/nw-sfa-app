@@ -45,6 +45,7 @@
             <div class="ps-3 pe-4">
               <span class="font-weight-bold text-dark"><%= current_user.name %></span>
               <span class="text-body"><%= current_user.email %></span>
+              <span class="text-body">権限：<%= current_user.role %></span>
               <div class="pt-3 d-flex justify-content-end">
                 <%= link_to "編集", edit_user_registration_path, class: "p-0 h-auto d-inline-block font-weight-bold" %>
               </div>
@@ -67,7 +68,7 @@
     <li>
       <%= link_to root_path, id: "rootMenu" do %>
         <i class="fa-solid fa-house fs-12"></i>
-         <span>ホーム</span>
+        <span>ホーム</span>
       <% end %>
     </li>
     <li>

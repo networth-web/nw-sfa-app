@@ -65,7 +65,7 @@ Rails.application.configure do
     :domain => 'smtp.gmail.com',
     :authentication => 'plain',
     :user_name => 'networthtokyo.2020@gmail.com',
-    :password => 'oatdspnirckzpswz'
+    :password => ENV['GOOGLE_APP_PW']
   }
 
   # Print deprecation notices to the Rails logger.

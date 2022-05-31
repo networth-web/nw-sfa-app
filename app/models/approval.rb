@@ -6,7 +6,6 @@ class Approval < ActiveHash::Base
     {id: 4, name: '承認不要'}
   ]
 
-  # ActiveHash
   include ActiveHash::Associations
   has_many :lead_seminars
 end
